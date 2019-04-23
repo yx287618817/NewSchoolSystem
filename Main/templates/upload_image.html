@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/upload_image/" method="post" enctype="multipart/form-data">
+{#    <label for="img">请上传图片</label><input type="file" name="img" id="img">#}
+    <input style="display:block;margin-bottom: 300px;" type="submit" value="点击提交">
+  <a href="/"><img src="data:image/jpeg;base64,{{ img }}" alt=""></a>
+    {% csrf_token %}
+</form>
+</body>
+</html>z

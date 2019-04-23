@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-en">
+{% load staticfiles %}
+<head>
+  <meta charset='utf-8'> <!-- 声明文档使用的字符编码 -->
+<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> &lt;!&ndash; 优先使用 IE 最新版本和 Chrome &ndash;&gt;-->
+  <meta name="description" content="不超过150个字符"/> <!-- 页面描述 -->
+  <meta name="keywords" content=""/> <!-- 页面关键词 -->
+  <meta name="author" content="Paul, 287618817@qq.com"/> <!-- 网页作者 -->
+  <meta name="robots" content="index,follow"/> <!-- 搜索引擎抓取 -->
+<!--  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">-->
+  <title>Title</title>
+
+  <!--    核心文件-->
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
+  <!--  引入jquery文件-->
+  <script src="{% static 'jquery-3.3.1.js' %}"></script>
+  <!--    引入bootstrap js文件-->
+  <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'register_two/css/register_two_css.css' %}">
+  <title>Title</title>
+  <style>
+    *{
+      {#border: 1px solid blue;#}
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+{#  最上图片#}
+   <div class="row top">
+{#      <div class="col-md-1"><a class="return-one" href="/register_one/">&lt;返回</a></div>#}
+      <div class="col-md-offset-1 col-md-10">
+        <img class="img-responsive img-one" src="{% static 'register_two/image/img-03.png' %}" alt="加载中。。。">
+      </div>
+  </div>
+{#  主体内容#}
+  <div class="row">
+{#    选择界面#}
+    <div class="col-md-offset-1 col-md-8 main-all">
+      {% for k, v in major_dict.items %}
+        <div class="col-md-3">
+          <div class="major-all">
+
+            <div class="row">
+              <input type="image" src="{{ MEDIA_URL }}{{ k.1 }}"
+                   alt="专业" class="center-block img-responsive img-rounded major-img img-circle">
+            </div>
+
+            <div class="row major-caption">
+              <label for="major_select" class="center-block" style="text-align: center">{{ k.0 }}</label>
+            </div>
+
+            <div class="row">
+              <select class="center-block major-select" onchange="majorSelect(this)"  name="major_select" id="major_select">
+                {% for child in v %}
+                    <option value="{{ child.0 }}">{{ child.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+    </div>
+{#    显示选择界面#}
+    <div class="col-md-3">
+      <div class="row2 span-all">
+        <span class="center-block span-one">已经选择的专业</span>
+        <span class="center-block span-one">点击取消选择</span>
+      </div>
+      <div class="row major-new">
+        {% for foo in major_main_select %}
+          <div class="col-md-12">
+            <button class="btn center-block major-selected"
+                    value="{{ foo.0 }}" onclick="delete_select(this)">
+              {{ foo.1 }}
+            </button>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <a class="center-block result-one btn btn-info" href="/register_three/">确定提交</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript" src="{% static 'register_two/js/register_two.js' %}"></script>
+  <script>
+      $.ajaxSetup({
+         data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+     });
+  </script>
+</body>
+</html>

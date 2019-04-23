@@ -1,0 +1,19 @@
+#
+# Author: Lasse Collin
+#
+# This file has been put into the public domain.
+# You can do whatever you want with this file.
+#
+
+prefix=/Users/yuanxiong/PycharmProjects/学校管理项目/venv
+exec_prefix=/Users/yuanxiong/PycharmProjects/学校管理项目/venv
+libdir=/Users/yuanxiong/PycharmProjects/学校管理项目/venv/lib
+includedir=/Users/yuanxiong/PycharmProjects/学校管理项目/venv/include
+
+Name: liblzma
+Description: General purpose data compression library
+URL: https://tukaani.org/xz/
+Version: 5.2.4
+Cflags: -I${includedir}
+Libs: -L${libdir} -llzma
+Libs.private: -D_THREAD_SAFE -pthread 

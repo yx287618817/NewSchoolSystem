@@ -1,0 +1,14 @@
+{% extends 'main__templates.html' %}
+
+{% load staticfiles %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/menu_permission.css' %} ">
+{% endblock %}
+
+{% block main %}
+    <div class="permission_list">
+        {{ html|safe }}
+    </div>
+{% endblock %}
+

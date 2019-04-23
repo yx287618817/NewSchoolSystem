@@ -1,0 +1,15 @@
+# tk pkg-config source file
+
+prefix=/Users/yuanxiong/PycharmProjects/学校管理项目/venv
+exec_prefix=/Users/yuanxiong/PycharmProjects/学校管理项目/venv
+libdir=/Users/yuanxiong/PycharmProjects/学校管理项目/venv/lib
+includedir=${prefix}/include
+
+Name: The Tk Toolkit
+Description: Tk is a cross-platform graphical user interface toolkit, the standard GUI not only for Tcl, but for many other dynamic languages as well.
+URL: http://www.tcl.tk/
+Version: 8.6.8
+Requires: tcl >= 8.6
+Libs: -L${libdir} -ltk8.6 -ltkstub8.6
+Libs.private:  
+Cflags: -I${includedir}

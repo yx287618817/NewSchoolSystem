@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'login/css/login_css.css' %}">
+    <script src="{% static 'jquery-3.3.1.js' %}"></script>
+    <style>
+        body{
+            background: url({% static 'login/image/2的副本.jpg' %}) no-repeat left top;
+            background-size:100% 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="middle_main">
+    <div class="middle_image">
+        <img src="{% static 'login/image/1的副本.jpg' %}" alt="图片加载中。。。" style="width:650px;height: 650px;">
+    </div>
+    <div class="middle_input">
+        <p class="login_1"><img src="{% static 'login/image/logo的副本.png' %}" alt="图片加载中。。。"></p>
+        <p class="login_2"><span>WELCOME</span></p>
+        <p class="login_3"><span>欢迎来到AWESOME校务平台</span></p>
+        <p class="login_4"><span>在这里你可以 <a href="{% block register %}{% endblock %}">在线报名</a> 或则查看学习情况</span></p>
+        <p class="login_5"><span>如果您已是在校注册请直接登录</span></p>
+        <form action="{% block login_route %}{% endblock %}"  method="post">
+            <p class="login_6">
+                <input type="text" name="username" id="username"
+                                      placeholder="请输入您的用户名"></p>
+            <p class="login_7">
+                <input type="password" name="password" id="password"
+                                      placeholder="请输入您的密码"></p>
+            <p class="login_8">
+                <img class="login_radio_img" src="{% static 'login/image/select.jpg' %}"
+                     style="width:20px;height: 20px;" alt="">
+                <label for="login_radio">记住密码</label>
+                <input name="login_radio" id="login_radio" type="radio" class="login_radio" value="1" style="display:none;">
+                <a href="#">忘记密码？</a></p>
+
+            <p class="login_9">
+                <input class="result-btn" type="submit" value="登陆">
+                <a href="/register_one/">学生注册</a>
+            </p>
+            {% csrf_token %}
+        </form>
+    </div>
+</div>
+<script>
+    let wid = $(document).width();
+    let hei = $(document).height();
+    $('body').css({'width':wid, 'height':hei});
+
+    $('.login_radio').click(
+        function(){
+            let old = this.value;
+            if (old == '0'){
+                $('.login_radio_img').attr('src', "{% static 'login/image/未选择.jpg' %}");
+                this.value = '1';
+            }else{
+                $('.login_radio_img').attr('src', "{% static 'login/image/select.jpg' %}");
+                this.value = '0';
+            }
+        });
+</script>
+</body>
+</html>

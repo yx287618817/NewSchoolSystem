@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-en">
+{% load staticfiles %}
+<head>
+  <meta charset='utf-8'> <!-- 声明文档使用的字符编码 -->
+<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> &lt;!&ndash; 优先使用 IE 最新版本和 Chrome &ndash;&gt;-->
+  <meta name="description" content="不超过150个字符"/> <!-- 页面描述 -->
+  <meta name="keywords" content=""/> <!-- 页面关键词 -->
+  <meta name="author" content="Paul, 287618817@qq.com"/> <!-- 网页作者 -->
+  <meta name="robots" content="index,follow"/> <!-- 搜索引擎抓取 -->
+<!--  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">-->
+  <title>Title</title>
+
+  <!--    核心文件-->
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
+  <!--  引入jquery文件-->
+  <script src="{% static 'jquery-3.3.1.js' %}"></script>
+  <!--    引入bootstrap js文件-->
+  <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+  <title>Title</title>
+  <link rel="stylesheet" href="{% static 'register_three/css/register_three.css' %}">
+  <style>
+    *{
+      {#border: 1px solid #febeff;#}
+    }
+
+  </style>
+</head>
+<body>
+<form class="" action="/register_three/" method="post">
+<div class="container-fluid">
+
+  <div class="row top">
+{#      <div class="col-md-2"><a class="return-one" href="/register_two/">&lt;返回</a></div>#}
+      <div class="col-md-offset-2 col-md-8 ">
+        <img class="img-responsive img-one" src="{% static 'register_three/image/17.png' %}" alt="加载中。。。">
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-offset-2  col-md-8">
+    {#  图片#}
+      <div class="row">
+        <div class="col-md-offset-5 col-md-2 d1">
+          <img class="center-block img-two" src="{% static 'register_three/image/18.png' %}" alt="">
+        </div>
+      </div>
+    </div>
+
+    {#  填写详细信息描述#}
+      <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+          <span class="span-one center-block">请填写您的详细信息</span>
+        </div>
+        <div class="col-md-offset-3 col-md-6">
+          <span class="span-two center-block">(为了避免延误您的报名进度，请确保填写内通真实有效)</span>
+        </div>
+      </div>
+    {#  填写详细信息#}
+      <div class="row full-message">
+        <div class="col-md-offset-2 col-md-8">
+          {% for foo in register_three %}
+            <div class="row">
+              <div class="col-md-offset-1 col-md-3 label-name">{{ foo.label }}</div>
+              <div class="col-md-8">{{ foo }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-offset-4 col-md-8" style="color: red;">{{ foo.errors }}</div>
+            </div>
+          {% endfor %}
+            <div class="row">
+              <div class="col-md-offset-1 col-md-3 label-name">选择您的主专业</div>
+              <div class="col-md-8">
+                <select class="" name="major_main_select" id="major_main_select">
+                  {% for foo in major_main_select %}
+                    <option value="{{ foo.0 }}">{{ foo.1 }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+        </div>
+      </div>
+
+    {#提交上传后台#}
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+        <input class="btn btn-info result-btn center-block" type="submit" value="保存并提交">
+      </div>
+    </div>
+
+  </div>
+</div>
+{% csrf_token %}
+</form>
+</body>
+</html>

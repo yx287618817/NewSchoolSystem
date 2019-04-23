@@ -1,0 +1,26 @@
+{% extends 'main__templates.html' %}
+{% load staticfiles %}
+{% block style %}
+    <style>
+        td{
+            {#float: left;#}
+        }
+    </style>
+{% endblock %}
+
+{% block main%}
+    <form action="/student/add_one/" method="post" novalidate="novalidate">
+         <table>
+             {% for foo in student %}
+                 <tr>
+                    <td>{{ foo.label }}{{ foo }}{{ foo.errors }}</td>
+                </tr>
+             {% endfor %}
+            <tr>
+                <td><input type="submit" value="提交保存"></td>
+            </tr>
+        </table>
+    {% csrf_token %}
+    </form>
+{% endblock %}
+
