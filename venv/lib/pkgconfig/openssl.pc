@@ -1,9 +1,0 @@
-prefix=/Users/yuanxiong/PycharmProjects/学校管理项目/venv
-exec_prefix=${prefix}
-libdir=${exec_prefix}/lib
-includedir=${prefix}/include
-
-Name: OpenSSL
-Description: Secure Sockets Layer and cryptography libraries and tools
-Version: 1.0.2r
-Requires: libssl libcrypto
