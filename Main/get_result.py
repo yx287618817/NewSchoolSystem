@@ -1,11 +1,31 @@
 import base64
 import datetime
 import hashlib
+import json
 import random
 import re
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from . import models
 from functools import wraps
+from . import Smsverification as c
+
+
+# 短信验证
+def code_verification(req):
+    client = c.ZhenziSmsClient(
+        'https://sms_developer.zhenzikj.com',
+        '101373',
+        '841e3458-a590-4347-88e6-bc64e8cdb25b')
+    code = ''
+    tel = req.POST.get('tel')
+    for _ in range(6):
+        code += str(random.randint(0, 9))
+    result = client.send(tel, '感谢您使用Awesome教务管理系统。您的验证码是：%s' % code)
+    result = json.loads(result)
+    if result['data'] == '发送成功':
+        req.session['code_vfi'] = code
+        return True
+    return False
 
 
 #  注册密码加盐加密，并将盐存入数据库与用户建立关系

@@ -40,6 +40,18 @@ def upload_image(request):
         return render(request, 'upload_image.html', locals())
 
 
+@csrf_exempt
+def sms_verification(request):
+    # request.session['code_vfi'] = '123456'
+    if request.POST.get('code', None):
+        code = request.POST.get('code', None)
+        if code == request.session.get('code_vfi'):
+            return HttpResponse('ok')
+    if code_verification(request):
+        return HttpResponse('发送成功')
+    return HttpResponse('发送失败')
+
+
 def student_leave(request):
     if request.method == 'GET':
         return render(request, 'student_leave.html')

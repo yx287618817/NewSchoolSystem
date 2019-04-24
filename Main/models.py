@@ -42,7 +42,7 @@ class RegisterFirst(models.Model):
     """
     注册第一页
     """
-    file = os.path.join(os.getcwd(), 'statics', 'USER_DEFAULT_PHOTO.png')
+    file = os.path.join(os.getcwd(), 'statics', 'USER_DEFAULT_PHOTO.jpeg')
     with open(file, 'rb') as f1:
         DEFAULT_PHOTO = f1.read()
 

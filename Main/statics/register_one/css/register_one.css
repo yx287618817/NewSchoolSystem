@@ -49,4 +49,16 @@ span{
   list-style: none;
   width: 100%
 }
-
+.sms_code_verification{
+  width: 40%;
+  line-height: 25px;
+  text-align: center;
+}
+.sms_code{
+  display: block;
+  height: 40px;
+  width: 100%;
+}
+.sms_result{
+  margin-top: 10px;
+}
