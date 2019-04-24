@@ -6,6 +6,11 @@ from io import BytesIO
 from django.db import models
 
 
+# 密码加盐
+class HashlibSalt(models.Model):
+    salt = models.CharField(max_length=300, verbose_name='加盐')
+
+
 class ImageTest(models.Model):
     img = models.BinaryField()
 
@@ -44,13 +49,14 @@ class RegisterFirst(models.Model):
     student_account_number = models.CharField(verbose_name='用户名', max_length=13, unique=True)
     student_number = models.CharField(verbose_name='学号', max_length=13, unique=True)
     student_username = models.CharField(verbose_name='账号', max_length=32, unique=True, null=True)
-    student_password = models.CharField(verbose_name='密码', max_length=32, default='123456')
+    student_password = models.CharField(verbose_name='密码', max_length=300)
     student_email = models.EmailField(verbose_name='邮箱')
     student_tel = models.CharField(verbose_name='学生电话', max_length=15)
     student_register_date = models.DateField(verbose_name='注册时间')
     student_group = models.ForeignKey('Group', verbose_name='用户组', on_delete=models.CASCADE, default=1)
     register_one_status = models.BooleanField(verbose_name='第一步信息是否已经完成', default=0)
     user_photo = models.BinaryField(verbose_name='用户头像', default=DEFAULT_PHOTO)
+    user_salt = models.ForeignKey('HashlibSalt', verbose_name='盐', on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.student_username

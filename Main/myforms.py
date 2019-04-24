@@ -31,8 +31,8 @@ class RegisterOne(forms.Form):
         clean_d = False
 
         student_account_number = self.cleaned_data.get('student_account_number')
-        pattern = r'[\u4e00-\u9fa5]{6,8}'
-        if not student_account_number or re.fullmatch(pattern, student_account_number):
+        pattern = r'([\u4e00-\u9fa5]|[a-zA-Z]){4,12}'
+        if not student_account_number or not re.fullmatch(pattern, student_account_number):
             self.add_error('student_account_number', ValidationError('用户名不符合规范'))
             clean_d = True
 
@@ -126,7 +126,7 @@ class RegisterThree(forms.Form):
 
         student_real_name = self.cleaned_data.get('student_real_name')
         pattern = r'[\u4e00-\u9fa5]{2,4}'
-        if not student_real_name or re.fullmatch(pattern, student_real_name):
+        if not student_real_name or not re.fullmatch(pattern, student_real_name):
             self.add_error('student_real_name', ValidationError('姓名不符合规范'))
             clean_d = True
 

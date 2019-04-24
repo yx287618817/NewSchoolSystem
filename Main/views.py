@@ -1,3 +1,4 @@
+import hashlib
 import json
 from django.db import transaction
 from .get_result import *
@@ -103,11 +104,19 @@ class Register(object):
                 data.pop('repeat_password')
                 number = get_student_card_id()
                 register_date = datetime.datetime.now().date()
-                one = models.RegisterFirst.objects.create(student_number=number, student_register_date=register_date,
-                                                          register_one_status=1, **data)
-                # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
-                write_session(request, one.student_username)
-                return HttpResponseRedirect('/register_two/')
+                # 密码加密, 加固定盐， 也可以更改为加随机盐
+                data['student_password'], salt = get_hashlib_salt(data['student_password'])
+                try:
+                    with transaction.atomic():
+                        salt_obj = models.HashlibSalt.objects.create(salt=salt)
+                        one = models.RegisterFirst.objects.create(user_salt=salt_obj,
+                                                                  student_number=number, student_register_date=register_date,
+                                                                  register_one_status=1, **data)
+                        # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
+                        write_session(request, one.student_username)
+                        return HttpResponseRedirect('/register_two/')
+                except Exception:
+                    return HttpResponse("<script>alert('遇到错误，请重新尝试或联系管理员');location.href='/';</script>")
             register_one = myforms.RegisterOne(request.POST)
             return render(request, 'register_one.html', locals())
 

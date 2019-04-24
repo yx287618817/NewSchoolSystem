@@ -1,10 +1,43 @@
 import base64
 import datetime
+import hashlib
 import random
 import re
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 from . import models
 from functools import wraps
+
+
+#  注册密码加盐加密，并将盐存入数据库与用户建立关系
+def get_hashlib_salt(pwd):
+    salt = ''
+    for _ in range(random.randint(10, 100)):
+        a = random.randint(65, 90)
+        b = random.randint(97, 122)
+        salt += (chr(a) + chr(b))
+    s = hashlib.sha256()
+    s.update(bytes(salt, encoding='utf-8'))
+    salt = s.hexdigest()
+    p = hashlib.sha256()
+    p.update(bytes(pwd + salt, encoding='utf-8'))
+    pwd = p.hexdigest()
+    return pwd, salt
+
+
+# 登陆时取用户盐进行验证
+def verification_pwd(username, password):
+    # 出错说明没有此用户
+    try:
+        salt = models.RegisterFirst.objects.filter(student_username=username).values_list('user_salt__salt').first()[0]
+    except Exception:
+        return False
+    p = hashlib.sha256()
+    p.update(bytes(password + salt, encoding='utf-8'))
+    pwd = p.hexdigest()
+    if models.RegisterFirst.objects.filter(student_username=username, student_password=pwd).first():
+        return True
+    else:
+        return False
 
 
 # 转换二进制图片文件
@@ -35,7 +68,7 @@ def is_student_register(req):
         username = req.POST.get('username', None)
         password = req.POST.get('password', None)
         # 如果用户登陆验证通过
-        if models.RegisterFirst.objects.filter(student_username=username, student_password=password).first():
+        if verification_pwd(username, password):
             write_session(req, username)
         else:
             return HttpResponse("<script>alert('账号密码错误');location.href='/student_login/';</script>")
