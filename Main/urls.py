@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^register_four/$', views.Register.register_four),
     url(r'^upload_image/$', views.upload_image),
     url(r'^update_user_photo/$', views.update_user_photo),
+    url(r'^student_leave/$', views.student_leave),
 ]

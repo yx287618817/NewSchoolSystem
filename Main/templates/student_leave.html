@@ -1,0 +1,70 @@
+{% extends 'main_student__templates.html' %}
+{% load staticfiles %}
+
+{% block style %}
+  <style>
+    *{
+      border: 1px solid red;
+    }
+  .span-120{
+    line-height: 25px;
+    display: block;
+    width: 80%;
+
+  }
+  .img-120{
+    width: 20px;
+    height: 20px;
+  }
+  </style>
+{% endblock %}
+
+
+{% block middle_message %}
+
+<div class="container">
+
+{#  消息标题，头部#}
+  <div class="row">
+    <div class="col-md-2">
+      <span>请假记录</span>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-4">
+
+      <div class="row">
+        <div class="col-md-9 span-120">
+
+          <div class="row">
+            <div class="col-md-5"><span>已通过</span></div>
+            <div class="col-md-7">晚自习假</div>
+          </div>
+
+          <div class="row"> <span>理由：拯救世界</span> </div>
+
+          <div class="row"><span>时间： 2019-04-19 晚自习</span></div>
+
+           <div class="row"><span>审核：Maraya任建军</span></div>
+
+        </div>
+
+
+
+        <div class="col-md-3"><img class="img-120" src="{% static 'main_template/image/1.jpg' %}" alt=""></div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+{% endblock %}
+
+
+{% block right_message %}
+
+
+{% endblock %}

@@ -16,6 +16,9 @@
   <script src="{% static 'main_template/js/main_template.js' %}"></script>
   <title>Title</title>
   <link rel="stylesheet" href="{% static 'main_template/css/main_template.css' %}">
+  {% block style %}
+
+  {% endblock %}
   <style>
     *{
       {#border: 1px solid #febeff;#}
@@ -78,7 +81,7 @@
           <div class="col-md-offset-2 col-md-8 d4a2"><a href="/menu/">校园公告</a></div>
           <div class="col-md-offset-2 col-md-8 d4a3"><a href="/menu/">全部课程</a></div>
           <div class="col-md-offset-2 col-md-8 d4a4"><a href="/menu/">成绩查看</a></div>
-          <div class="col-md-offset-2 col-md-8 d4a5"><a href="/menu/">考勤记录</a></div>
+          <div class="col-md-offset-2 col-md-8 d4a5"><a href="/student_leave/">考勤记录</a></div>
           <div class="col-md-offset-2 col-md-8 d4a6"><a href="/menu/">请加记录</a></div>
           <div class="col-md-offset-2 col-md-8 d4a7"><a href="/menu/">社团活动</a></div>
           <div class="col-md-offset-2 col-md-8 d4a8"><a href="/menu/">个人中心</a></div>

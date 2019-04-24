@@ -39,6 +39,11 @@ def upload_image(request):
         return render(request, 'upload_image.html', locals())
 
 
+def student_leave(request):
+    if request.method == 'GET':
+        return render(request, 'student_leave.html')
+
+
 @csrf_exempt
 def update_user_photo(request):
     data = request.FILES.get('file')
