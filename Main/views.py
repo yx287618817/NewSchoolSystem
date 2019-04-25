@@ -9,6 +9,14 @@ import base64
 from django.views.decorators.csrf import csrf_exempt
 
 
+def back_manage(request):
+    if request.method == 'GET':
+        return render(request, 'back_manage.html')
+    else:
+        if request.POST.get(''):
+            pass
+
+
 def upload_image(request):
     if request.method == "GET":
         # file = os.path.join(os.getcwd(), 'statics', 'USER_DEFAULT_PHOTO.png')

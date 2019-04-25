@@ -10,6 +10,13 @@ from functools import wraps
 from . import Smsverification as c
 
 
+# 后台管理
+class BackManage(object):
+    @staticmethod
+    def add_user():
+        pass
+
+
 # 短信验证
 def code_verification(req):
     client = c.ZhenziSmsClient(
@@ -97,20 +104,33 @@ def is_student_register(req):
         if not username:
             return render(req, 'student_login.html')
 
-    try:
-        models.RegisterTwo.objects.filter(
-            first__student_username=username).values_list('register_two_status').first()[0]
-    except Exception:
-        return HttpResponse("<script>alert('请完善您的专业信息');location.href='/register_two/';</script>")
-    else:
-        # 判断详细信息是否完善
+    group = list(models.RegisterFirst.objects.filter(
+        student_username=username).values_list('student_group__groupName'))
+
+    group_name_list = [j for i in group for j in i]
+
+    print(group_name_list)
+    if '管理员' in group_name_list:
+        return HttpResponseRedirect('/back_manage/')
+
+    if '学生' in group_name_list:
         try:
-            models.RegisterThree.objects.filter(
-                first__student_username=username).values_list('register_three_status').first()[0]
+            models.RegisterTwo.objects.filter(
+                first__student_username=username).values_list('register_two_status').first()[0]
         except Exception:
-            return HttpResponse("<script>alert('请完善您的个人信息');location.href='/register_three/';</script>")
+            return HttpResponse("<script>alert('请完善您的专业信息');location.href='/register_two/';</script>")
         else:
-            return HttpResponseRedirect('/student_menu/')
+            # 判断详细信息是否完善
+            try:
+                models.RegisterThree.objects.filter(
+                    first__student_username=username).values_list('register_three_status').first()[0]
+            except Exception:
+                return HttpResponse("<script>alert('请完善您的个人信息');location.href='/register_three/';</script>")
+            else:
+                return HttpResponseRedirect('/student_menu/')
+
+    else:
+        return HttpResponseRedirect('/teacher_menu/')
 
 
 # 删除库时默认生成测试数据
@@ -294,8 +314,8 @@ def is_login(function):
             return HttpResponse('<script>alert("Sorry，您不是在校学生，将跳转首页");location.href="/";</script>')
         # 这里应该修改成用正则表达式匹配
         # 判断是否有权限,如果没有权限则不执行后面的操作,返回‘没有权限’
-        permission_list, permission_dict = get_permission(req.session.get('username', None),
-                                                          login_type=req.session.get('login_who'))
+        permission_list, permission_dict = get_permission(
+            req.session.get('username', None), login_type=req.session.get('login_who'))
         if is_get_permission(permission_list, req.path):
             result = function(req, *args)
             return result

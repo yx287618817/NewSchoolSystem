@@ -63,6 +63,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'Main/templates'),
+            os.path.join(BASE_DIR, 'Main/back_manage_html'),
         ]
         ,
         'APP_DIRS': True,

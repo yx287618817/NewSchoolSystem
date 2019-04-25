@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^update_user_photo/$', views.update_user_photo),
     url(r'^student_leave/$', views.student_leave),
     url(r'^sms_verification/$', views.sms_verification),
+    url(r'^back_manage/$', views.back_manage),
 ]
