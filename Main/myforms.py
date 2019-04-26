@@ -15,7 +15,7 @@ STUDENT_STATUS = models.StudentStatus.objects.all()
 
 class RegisterOne(forms.Form):
     student_account_number = forms.CharField(label='用户名', widget=widgets.Input(
-        attrs={'placeholder': '登陆后显示名称，大小写字母中文组合4-12位',}))
+        attrs={'placeholder': '登陆后显示名称，大小写字母中文组合4-12位'}))
     student_username = forms.CharField(label='账号', widget=widgets.Input(
         attrs={'placeholder': '登陆验证账号，大小写字母开头，8-16位，不能包含除_之外特殊字符'}))
     student_password = forms.CharField(label='密码', widget=widgets.Input(

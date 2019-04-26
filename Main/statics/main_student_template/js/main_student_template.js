@@ -24,3 +24,4 @@ $(document).ready(function () {
     let hei2 = window.innerHeight -273;
     $('.d4d2').height(hei2);
 });
+

@@ -1,0 +1,52 @@
+.nav{
+  background-color: #a9d2f9;
+}
+.logo-one{
+  width: 100%;
+  max-width: 300px;
+  height: 70px;
+  margin-top: 10px;
+}
+.title-one{
+  font-size: 24px;
+  text-align: center;
+    line-height: 66px;
+  font-weight: 600;
+    margin-top: 10px;
+}
+.title-two{
+    color: red;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+}
+.user-show{
+  margin-top: 45px;
+  font-size: 18px;
+  color: blue;
+    text-align: center;
+}
+.user-show a{
+    color: coral;
+}
+.user-show>div>span{
+  display: block;
+  width: 100%;
+  line-height: 20px;
+  min-width: 150px;
+}
+.main-all{
+    margin-top: 50px;
+    line-height: 50px;
+}
+.main-all span{
+    display: block;
+    font-size: 23px;
+    text-align: center;
+}
+.main-all a{
+    text-decoration: none;
+    font-size: 23px;
+    text-align: left;
+    padding: 20px;
+}

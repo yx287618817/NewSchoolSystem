@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-en">
+  {% load staticfiles %}
+<head>
+  <meta charset='utf-8'> <!-- 声明文档使用的字符编码 -->
+  <meta name="description" content="不超过150个字符"/> <!-- 页面描述 -->
+  <meta name="keywords" content=""/> <!-- 页面关键词 -->
+  <meta name="author" content="Paul, 287618817@qq.com"/> <!-- 网页作者 -->
+  <meta name="robots" content="index,follow"/> <!-- 搜索引擎抓取 -->
+  <title>Title</title>
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
+  <script src="{% static 'jquery-3.3.1.js' %}"></script>
+  <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/back_manage_index.css' %}">
+  <title>Title</title>
+  {% block style %}
+
+  {% endblock %}
+  <style>
+    *{
+      {#border: 1px solid red;#}
+    }
+
+  </style>
+</head>
+<body>
+{#<canvas>#}
+<div class="container-fluid">
+
+{#  导航栏#}
+  <div class="row nav">
+      <div class="col-md-offset-1 col-md-3"><a href="/back_manage/"><img class="logo-one" src="{% static 'image/logo.png' %}" alt=""></a></div>
+      <div class="col-md-4 ">
+        <div class="row">
+          <div class="col-md-12 "><span class="title-one center-block">欢迎登陆Awesome教务管理系统</span></div>
+          <div class="col-md-12 "><span class="title-two center-block">（权限越大责任越大，数据无价谨慎操作）</span></div>
+        </div>
+      </div>
+      <div class="col-md-offset-1 col-md-2 user-show">
+        <div class="col-md-offset-1 col-md-10"><span>用户:{{ request.session.account_number }}</span></div>
+        <div class="col-md-offset-1 col-md-10"><a href="/logout/">注销登陆</a></div>
+      </div>
+  </div>
+
+{% block do_something %}
+
+
+  <div class="row main-all">
+    <div class="col-md-offset-3 col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+          <span>请选择您要进行的操作</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/group_manage/">1.用户组管理</a></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/user_manage/">2.用户管理</a></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/user_group_manange/">3.用户分配用户组</a></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/table_manage/">4.操作表管理</a></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/table_permission_manage/">5.操作表权限管理</a></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/permission_manage/">6.权限管理</a></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/group_permission_manage/">7.用户组分配权限</a></div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
+</div>
+
+{#</canvas>#}
+
+
+{#  <script src="{% static 'js/back_js.js' %}"></script>#}
+</body>
+</html>

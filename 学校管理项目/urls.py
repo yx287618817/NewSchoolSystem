@@ -28,5 +28,7 @@ def index(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', index),
+    url('^back_manage/', include('Main.back_manage.back_manage_urls')),
     url('', include('Main.urls')),
+
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -63,7 +63,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'Main/templates'),
-            os.path.join(BASE_DIR, 'Main/back_manage_html'),
+            os.path.join(BASE_DIR, 'Main/back_manage/back_manage_html'),
         ]
         ,
         'APP_DIRS': True,
@@ -138,7 +138,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Main/statics')
+    os.path.join(BASE_DIR, 'Main/statics'),
+    os.path.join(BASE_DIR, 'Main/back_manage/static'),
 ]
 
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'

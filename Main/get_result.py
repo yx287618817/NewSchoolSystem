@@ -100,7 +100,7 @@ def is_student_register(req):
         else:
             return HttpResponse("<script>alert('账号密码错误');location.href='/student_login/';</script>")
     else:
-        username = username = req.session.get('username')
+        username = req.session.get('username')
         if not username:
             return render(req, 'student_login.html')
 

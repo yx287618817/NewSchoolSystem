@@ -121,16 +121,33 @@
             processData: false,
             contentType: false,
         }).done(function(arg) {
-            console.log(arg);
             $('.sms_code_verification').val(arg);
             if (arg=='发送成功'){
-                console.log(123);
                 $('.sms_code_verification').attr(
                     'disabled', true
                 )}
             });
       }}
+  var wait = 60;
 
+  function time(o) {
+      if (wait == 0) {
+          o.removeAttribute("disabled");
+          o.value = "免费获取验证码";
+      } else {
+          o.setAttribute("disabled", true);
+          o.value = "重新发送(" + wait + ")";
+          wait--;
+          setTimeout(function () {
+                  time(o)
+              },
+              1000)
+      }
+  }
+
+  document.getElementById("btn").onclick = function () {
+      time(this);
+  }
 </script>
 </body>
 </html>
