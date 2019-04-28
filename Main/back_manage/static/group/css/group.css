@@ -4,11 +4,14 @@
 .right-all{
     border-left: 2px solid #999999;
 }
+.title-top{
+    border-bottom: 2px solid black;
+}
 .title-group-one>span{
     display: block;
     font-size: 33px;
     font-weight: 600;
-    margin-top: 50px;
+    margin: 20px 0;
 }
 .group-input>input{
     display: block;

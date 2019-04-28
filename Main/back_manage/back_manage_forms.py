@@ -10,11 +10,6 @@ from django.forms import widgets
 from .. import models
 
 
-class UserGroup(forms.Form):
-    pass
-
-
-
 class Group(forms.Form):
     groupName = forms.CharField(label='用户组名字', widget=widgets.Input(attrs={
         'placeholder': '请输入新建用户组',

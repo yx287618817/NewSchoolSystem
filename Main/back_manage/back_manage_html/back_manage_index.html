@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
   <script src="{% static 'jquery-3.3.1.js' %}"></script>
   <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'css/back_manage_index.css' %}">
+  <link rel="stylesheet" href="{% static 'back_index/css/back_manage_index.css' %}">
   <title>Title</title>
   {% block style %}
 
@@ -30,7 +30,11 @@
 
 {#  导航栏#}
   <div class="row nav">
-      <div class="col-md-offset-1 col-md-3"><a href="/back_manage/"><img class="logo-one" src="{% static 'image/logo.png' %}" alt=""></a></div>
+
+      <div class="col-md-offset-1 col-md-3"><a href="/back_manage/">
+        <img class="logo-one" src="{% static 'back_index/image/logo.png' %}" alt=""></a>
+      </div>
+
       <div class="col-md-4 ">
         <div class="row">
           <div class="col-md-12 "><span class="title-one center-block">欢迎登陆Awesome教务管理系统</span></div>

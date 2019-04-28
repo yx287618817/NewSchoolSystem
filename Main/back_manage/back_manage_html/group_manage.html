@@ -2,19 +2,21 @@
 {% load staticfiles %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'back_manage_group/css/back_manage_group.css' %}">
+  <link rel="stylesheet" href="{% static 'group/css/group.css' %}">
 {% endblock %}
 
 
 {% block do_something %}
-  <div class="row">
+  <div class="row title-top">
     <div class="row">
       <div class="col-md-offset-1 col-md-11 title-group-one">
-        <span>用户组管理</span>
+        <span>{% block manage_name %}用户组管理{% endblock %}</span>
       </div>
     </div>
   </div>
-  <hr style="color: #999999;">
+
+    {% block group_main %}
+
 {#  操作界面#}
   <div class="row main-group-all">
 {#    增加用户组#}
@@ -61,7 +63,7 @@
       </form>
 
     </div>
-
   </div>
+      {% endblock %}
 
 {% endblock %}

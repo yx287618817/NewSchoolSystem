@@ -1,16 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset='utf-8'> <!-- 声明文档使用的字符编码 -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> <!-- 优先使用 IE 最新版本和 Chrome -->
-  <meta name="description" content="不超过150个字符"/> <!-- 页面描述 -->
-  <meta name="keywords" content=""/> <!-- 页面关键词 -->
-  <meta name="author" content="Paul, 287618817@qq.com"/> <!-- 网页作者 -->
-  <meta name="robots" content="index,follow"/> <!-- 搜索引擎抓取 -->
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'group_manage.html' %}
 
-</body>
-</html>
+{% load staticfiles %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'user_group/css/user_group.css' %}">
+{% endblock %}
+
+
+{% block manage_name %}
+  用户分配用户组
+{% endblock %}
+
+{% block group_main %}
+
+{% endblock %}
+
+{#  操作界面#}
+{#  <div class="row main-group-all">#}
+{#    增加用户组#}
+{#    <div class="col-md-4">#}
+{#      <form action="/back_manage/group_manage/" method="post">#}
+{#        {% if group %}#}
+{#          <div class="col-md-8">#}
+{#            <div class="col-md-12 group-input">{{ group.groupName }}</div>#}
+{#            <div class="col-md-12 group-input">{{ group.errors }}</div>#}
+{#          </div>#}
+{#        <div class="col-md-4">#}
+{#          <input class="group-submit" type="submit" value="增加用户组" name="add">#}
+{#        </div>#}
+{#        {% endif %}#}
+{#        {% csrf_token %}#}
+{#      </form>#}
+{#    </div>#}
+{#    显示区域#}
+{#    <div class="col-md-offset-1 col-md-6 right-all">#}
+{##}
+{#      如果是第一次进来显示所有的用户#}
+{#      {% if group_list %}#}
+{#        {% for foo in group_list %}#}
+{#          <div class="row">#}
+{#            <div class="col-md-offset-1 col-md-10 right-display-all">#}
+{#              <div class="row">#}
+{#                <div class="col-md-6"><input class="group-right-input-one" type="text" readonly name="groupName" value="{{ foo.groupName }}"></div>#}
+{#                <div class="col-md-3"><a href="/back_manage/group_manage/?gid={{ foo.id }}&name=delete">删除用户组</a></div>#}
+{#                <div class="col-md-3"><a href="/back_manage/group_manage/?gid={{ foo.id }}&name=update">修改用户组</a></div>#}
+{#              </div>#}
+{#            </div>#}
+{#          </div>#}
+{#          {% endfor %}#}
+{#      {% endif %}#}
+{##}
+{#      如果是更新进来，显示需要更新的用户组信息#}
+{#      <form action="/back_manage/group_manage/" method="post" b>#}
+{#        {% if group_update %}#}
+{#           <input type="text" name="groupName" placeholder="{{ group_update.groupName }}">#}
+{#            <input type="hidden" name="gid" value="{{ group_update.id }}">#}
+{#            <input type="submit" value="确定修改" name="update">#}
+{#        {% endif %}#}
+{#        {% csrf_token %}#}
+{#      </form>#}
+{##}
+{#    </div>#}
+{##}
+{#  </div>#}

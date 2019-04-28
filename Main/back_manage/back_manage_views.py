@@ -12,8 +12,9 @@ from .. import models
 
 # 用户分配用户组
 def user_group_manange(request):
-
-    pass
+    user = models.User.objects.all()
+    group = models.Group.objects.all()
+    return render(request, 'user_group_manange.html', locals())
 
 
 # 用户组管理
