@@ -12,8 +12,7 @@ from .. import models
 
 # 用户分配用户组
 def user_group_manange(request):
-    user = models.User.objects.all()
-    group = models.Group.objects.all()
+    user_group = myforms.UserGroup()
     return render(request, 'user_group_manange.html', locals())
 
 

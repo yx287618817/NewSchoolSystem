@@ -12,6 +12,13 @@
 {% endblock %}
 
 {% block group_main %}
+  <form action="">
+    {% for foo in user_group %}
+      {{ foo.label }}{{ foo }}
+
+    {% endfor %}
+
+  </form>
 
 {% endblock %}
 
