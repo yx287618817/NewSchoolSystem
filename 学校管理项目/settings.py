@@ -25,12 +25,12 @@ SECRET_KEY = 'i0kf%ls9254v(l1*9g4ex&7q-3r5zj5fo-+fhyc2$umy#*x-ne'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['daydayupyuan.cn']
-#     '127.0.0.1',
-#     '176.209.106.46',
-#     '192.168.2.100',
-#     '0.0.0.0',
-# ]
+ALLOWED_HOSTS = ['daydayupyuan.cn'
+    '127.0.0.1',
+    '176.209.106.46',
+    '192.168.2.100',
+    '0.0.0.0',
+]
 
 
 # Application definition
