@@ -14,9 +14,9 @@
   <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
   <link rel="stylesheet" href="{% static 'back_index/css/back_manage_index.css' %}">
   <title>Title</title>
-  {% block style %}
+{% block style %}
 
-  {% endblock %}
+{% endblock %}
   <style>
     *{
       {#border: 1px solid red;#}
@@ -94,7 +94,9 @@
 
 {#</canvas>#}
 
+{% block script_block %}
 
+{% endblock %}
 {#  <script src="{% static 'js/back_js.js' %}"></script>#}
 </body>
 </html>

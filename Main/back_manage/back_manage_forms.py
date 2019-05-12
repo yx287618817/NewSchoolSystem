@@ -22,3 +22,6 @@ class UserGroup(forms.Form):
     user = forms.ModelChoiceField(label='用户', queryset=USER)
     group = forms.ModelChoiceField(label='用户组', queryset=GROUP)
 
+class User(forms.Form):
+    pass
+

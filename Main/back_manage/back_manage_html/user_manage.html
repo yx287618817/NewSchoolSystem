@@ -1,0 +1,34 @@
+{% extends 'back_manage_index.html' %}
+{% load staticfiles %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'group/css/group.css' %}">
+{% endblock %}
+
+
+{% block do_something %}
+  <div class="row title-top">
+    <div class="row">
+      <div class="col-md-offset-1 col-md-11 title-group-one">
+        <span>{% block manage_name %}用户管理{% endblock %}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+{#    左边主界面#}
+    <div class="col-md-4 left-main">
+      <label for="user">查询用户</label><input value="{{ user }}" onchange="filter_user()" id="user" type="text" name="user">
+      <span>{{ user_mes_lst }}</span>
+    </div>
+
+{#    右边主界面#}
+    <div class="col-md-8 right-main"></div>
+  </div>
+
+
+{% endblock %}
+
+{% block script_block %}
+  <script src="{% static 'user/user_js.js' %}"></script>
+{% endblock %}

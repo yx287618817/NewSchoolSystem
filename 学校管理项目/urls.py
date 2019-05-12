@@ -16,19 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from django.shortcuts import render
 from django.conf import settings
 from django.conf.urls.static import static
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', index),
     url('^back_manage/', include('Main.back_manage.back_manage_urls')),
-    url('', include('Main.urls')),
+    url(r'', include('Main.urls')),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

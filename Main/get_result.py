@@ -55,13 +55,14 @@ def get_hashlib_salt(pwd):
 def verification_pwd(username, password):
     # 出错说明没有此用户
     try:
-        salt = models.RegisterFirst.objects.filter(student_username=username).values_list('user_salt__salt').first()[0]
+        salt = models.RegisterFirst.objects.filter(username=username).values_list('user_salt__salt').first()[0]
     except Exception:
         return False
     p = hashlib.sha256()
     p.update(bytes(password + salt, encoding='utf-8'))
     pwd = p.hexdigest()
-    if models.RegisterFirst.objects.filter(student_username=username, student_password=pwd).first():
+    print(pwd)
+    if models.RegisterFirst.objects.filter(username=username, password=pwd).first():
         return True
     else:
         return False
@@ -74,7 +75,7 @@ def get_user_photo(username):
     :return:
     """
     img = models.RegisterFirst.objects.filter(
-        student_username=username).first().user_photo
+        username=username).first().user_photo
     img = base64.b64encode(img).decode()
     return img
 
@@ -82,14 +83,14 @@ def get_user_photo(username):
 def write_session(req, username):
     req.session['username'] = username
     req.session['number'] = models.RegisterFirst.objects.filter(
-        student_username=username).values_list('student_number').first()[0]
+        username=username).values_list('number').first()[0]
     req.session['account_number'] = models.RegisterFirst.objects.filter(
-        student_username=username).values_list('student_account_number').first()[0]
+        username=username).values_list('account_number').first()[0]
     req.session['user_photo'] = get_user_photo(username=username)
 
 
 # 用户登陆，判断信息是否完整
-def is_student_register(req):
+def is_register(req):
     if req.POST.get('password', None) and req.POST.get('username', None):
         # POST方式提交登陆请求
         username = req.POST.get('username', None)
@@ -98,14 +99,14 @@ def is_student_register(req):
         if verification_pwd(username, password):
             write_session(req, username)
         else:
-            return HttpResponse("<script>alert('账号密码错误');location.href='/student_login/';</script>")
+            return HttpResponse("<script>alert('账号密码错误');location.href='/';</script>")
     else:
         username = req.session.get('username')
         if not username:
-            return render(req, 'student_login.html')
+            return render(req, 'login.html')
 
     group = list(models.RegisterFirst.objects.filter(
-        student_username=username).values_list('student_group__groupName'))
+        username=username).values_list('group__groupName'))
 
     group_name_list = [j for i in group for j in i]
 
@@ -116,14 +117,14 @@ def is_student_register(req):
     if '学生' in group_name_list:
         try:
             models.RegisterTwo.objects.filter(
-                first__student_username=username).values_list('register_two_status').first()[0]
+                first__username=username).values_list('register_two_status').first()[0]
         except Exception:
             return HttpResponse("<script>alert('请完善您的专业信息');location.href='/register_two/';</script>")
         else:
             # 判断详细信息是否完善
             try:
                 models.RegisterThree.objects.filter(
-                    first__student_username=username).values_list('register_three_status').first()[0]
+                    first__username=username).values_list('register_three_status').first()[0]
             except Exception:
                 return HttpResponse("<script>alert('请完善您的个人信息');location.href='/register_three/';</script>")
             else:
@@ -248,33 +249,33 @@ class GetManage(object):
         models.Sex.objects.create(sex='保密')
 
     @staticmethod
-    def make_student_type():
-        models.StudentType.objects.create(student_type='统招')
-        models.StudentType.objects.create(student_type='艺考')
-        models.StudentType.objects.create(student_type='特长生')
-        models.StudentType.objects.create(student_type='成考')
+    def make_type():
+        models.StudentType.objects.create(type='统招')
+        models.StudentType.objects.create(type='艺考')
+        models.StudentType.objects.create(type='特长生')
+        models.StudentType.objects.create(type='成考')
 
     @staticmethod
-    def make_student_status():
-        models.StudentStatus.objects.create(student_status='注册')
-        models.StudentStatus.objects.create(student_status='在校')
-        models.StudentStatus.objects.create(student_status='毕业')
-        models.StudentStatus.objects.create(student_status='退学')
+    def make_status():
+        models.StudentStatus.objects.create(status='注册')
+        models.StudentStatus.objects.create(status='在校')
+        models.StudentStatus.objects.create(status='毕业')
+        models.StudentStatus.objects.create(status='退学')
 
     @staticmethod
     def make_no_permission():
-        models.NoPermission.objects.create(caption='/student_menu/')
+        models.NoPermission.objects.create(caption='/menu/')
         models.NoPermission.objects.create(caption='/register_one/')
         models.NoPermission.objects.create(caption='/register_two/')
         models.NoPermission.objects.create(caption='/register_three/')
 
 
 # 生成学生学号
-def get_student_card_id():
+def get_card_id():
     sr = 'ST' + '-' + str(datetime.datetime.now()).split(' ')[0].replace('-', '')[2:] \
          + str(random.randint(1000, 9999))
-    if models.RegisterFirst.objects.filter(student_number=sr).first():
-        return get_student_card_id()
+    if models.RegisterFirst.objects.filter(number=sr).first():
+        return get_card_id()
     return sr
 
 
@@ -305,17 +306,18 @@ def is_login(function):
     def inner(req, *args, **kwargs):
         username = req.session.get('username', None)
         if not username:
-            return HttpResponse("<script>alert('登陆身份验证失败,请重新登陆');location.href='/student_login/';</script>")
+            return HttpResponse("<script>alert('登陆身份验证失败,请重新登陆');location.href='/';</script>")
         # 判断登陆身份，如果不是在校生则不让用户进入
         one = models.RegisterFirst.objects.filter(
-            student_username=username).values(
-            'registerthree__register_three_status').first()['registerthree__student_status__student_status']
+            username=username).values(
+            'registerthree__register_three_status').first()['registerthree__status__status']
         if one != '在校':
             return HttpResponse('<script>alert("Sorry，您不是在校学生，将跳转首页");location.href="/";</script>')
         # 这里应该修改成用正则表达式匹配
         # 判断是否有权限,如果没有权限则不执行后面的操作,返回‘没有权限’
         permission_list, permission_dict = get_permission(
-            req.session.get('username', None), login_type=req.session.get('login_who'))
+            req.session.get('username', None),
+            login_type=req.session.get('login_who'))
         if is_get_permission(permission_list, req.path):
             result = function(req, *args)
             return result
@@ -333,7 +335,7 @@ def get_permission(username, req):
     permission_list = []
     permission_dict = {}
     group_list = list(models.RegisterFirst.objects.filter(
-        student_username=username).values_list('student_group__groupName'))
+        username=username).values_list('group__groupName'))
     for group in group_list:
         permission_lst = list(models.Permission.objects.filter(
             grouppermission__group__groupName=group[0]).values_list(
@@ -368,7 +370,7 @@ def get_permission_html(permission_dict):
         if count == 3:
             count = 0
         if count == 0:
-            html += '<div class="student_menu">'
+            html += '<div class="menu">'
         sr = '''
         <ul class ="permission_ul" >
             <li class ="parent" > %s </li>

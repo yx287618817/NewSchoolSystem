@@ -9,53 +9,55 @@ import base64
 from django.views.decorators.csrf import csrf_exempt
 
 
-
-def upload_image(request):
-    if request.method == "GET":
-        # file = os.path.join(os.getcwd(), 'statics', 'USER_DEFAULT_PHOTO.png')
-        # with open(file, 'rb') as f1:
-        #     DEFAULT_PHOTO = f1.read()
-        # print(DEFAULT_PHOTO)
-        # f = BytesIO()
-        # f.write(DEFAULT_PHOTO)
-        # InMemoryUploadedFile 需要的参数：
-        # file, field_name, name, content_type, size, charset, content_type_extra = None
-        # image = InMemoryUploadedFile(f, None, '用户头像', None, len(DEFAULT_PHOTO), None, None)
-        # img = models.RegisterFirst.objects.filter(student_username='huyu123456').values('user_photo')
-        # print(img)
-        # img = models.RegisterFirst.objects.filter(
-        #     student_username='yuanxiong123').first().user_photo
-        # # print(img)
-        # # f = BytesIO(img)
-        # # image = InMemoryUploadedFile(f, None, '用户头像', None, len(img), None, None)
-        # img = base64.b64encode(img).decode()
-        img = get_user_photo('yuanxiong123')
-        return render(request, 'upload_image.html', locals())
-    else:
-        # img = request.FILES.get('img')
-        # models.ImageTest.objects.create(img=img.file.read())
-        # with open('/Users/yuanxiong/PycharmProjects/学校管理项目/Main/金三胖.jpg', mode='wb') as f:
-        #     f.write(img.file.read())
-        # img = models.ImageTest.objects.filter().first().img
-        # img = base64.b64encode(img).decode()
-        return render(request, 'upload_image.html', locals())
-
+def forget_passwd(request):
+    if request.method == 'GET':
+        request.session.clear()
+        # 假如get方式登录
+        verifi_sr = request.GET.get('verification_str')
+        username = request.GET.get('username')
+        if verifi_sr == 'verification_username':
+            obj = models.RegisterFirst.objects.filter(username=username)
+            if obj:
+                # 有用户存在的情况下, ajax请求返回true否则返回false
+                data = json.dumps({'verification_username_result': 'true'})
+                return HttpResponse(data)
+            data = json.dumps({'verification_username_result': 'false'})
+            return HttpResponse(data)
+        return render(request, 'forget_passwd.html')
+    if request.method == "POST":
+        # 假如POST请求
+        username = request.POST.get('username')
+        old_pwd = request.POST.get('password')
+        # 判断特殊情况下用户名和密码没有填写, 否则返回提示信息
+        if username and old_pwd:
+            # 新密码加盐
+            new_pwd, salt = get_hashlib_salt(old_pwd)
+            tel = request.POST.get('tel')
+            if models.RegisterFirst.objects.filter(username=username, tel=tel):
+                try:
+                    with transaction.atomic():
+                        models.HashlibSalt.objects.filter(registerfirst__username=username).update(salt=salt)
+                        models.RegisterFirst.objects.filter(username=username).update(password=new_pwd)
+                    return HttpResponse("<script>alert('更换密码成功, 请使用新密码登录');location.href='/';</script>")
+                except Exception:
+                    return HttpResponse("<script>alert('更改密码失败');</script>")
+            else:
+                return HttpResponse("<script>alert('账号与手机号不符合');</script>")
+        return HttpResponse("<script>alert('信息填写不完整');</script>")
 
 @csrf_exempt
 def sms_verification(request):
-    # request.session['code_vfi'] = '123456'
     if request.POST.get('code', None):
         code = request.POST.get('code', None)
-        if code == request.session.get('code_vfi'):
-            return HttpResponse('ok')
-    if code_verification(request):
-        return HttpResponse('发送成功')
-    return HttpResponse('发送失败')
+        if code != request.session.get('code_vfi'):
+            return HttpResponse('false')
+    request.session['code_vfi'] = '123456'
+    return HttpResponse('发送成功')
 
-
-def student_leave(request):
-    if request.method == 'GET':
-        return render(request, 'student_leave.html')
+#
+# def leave(request):
+#     if request.method == 'GET':
+#         return render(request, 'leave.html')
 
 
 @csrf_exempt
@@ -63,7 +65,7 @@ def update_user_photo(request):
     data = request.FILES.get('file')
     username = request.session.get('username')
     try:
-        models.RegisterFirst.objects.filter(student_username=username).update(user_photo=data.file.read())
+        models.RegisterFirst.objects.filter(username=username).update(user_photo=data.file.read())
     except Exception:
         pass
     else:
@@ -85,15 +87,15 @@ def teacher_login(request):
 
 
 # 注册登录界面
-def student_login(request):
+def login(request):
     if request.method == 'GET':
-        return is_student_register(request)
+        return is_register(request)
     elif request.method == 'POST':
         if request.POST.get('login_radio') == '1':
             # 如果用户选择不保存密码,推出浏览器则session失效
             request.session.set_expiry(0)
         # 如果需要在页面展示的信息,在此处添加到session
-        return is_student_register(request)
+        return is_register(request)
 
 
 class Register(object):
@@ -115,19 +117,20 @@ class Register(object):
             if register_one.is_valid():
                 data = register_one.cleaned_data
                 data.pop('repeat_password')
-                number = get_student_card_id()
+                number = get_card_id()
                 register_date = datetime.datetime.now().date()
                 # 密码加密, 加固定盐， 也可以更改为加随机盐
-                data['student_password'], salt = get_hashlib_salt(data['student_password'])
+                data['password'], salt = get_hashlib_salt(data['password'])
                 try:
                     with transaction.atomic():
                         salt_obj = models.HashlibSalt.objects.create(salt=salt)
                         one = models.RegisterFirst.objects.create(user_salt=salt_obj,
-                                                                  student_number=number, student_register_date=register_date,
+                                                                  number=number, register_date=register_date,
                                                                   register_one_status=1, **data)
                         # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
-                        write_session(request, one.student_username)
-                        return HttpResponseRedirect('/register_two/')
+                        write_session(request, one.username)
+                        # return HttpResponseRedirect('/register_two/')
+                        return HttpResponse("<script>alert('如果您是老师,请将您的用户名记下,交教务处开通权限!如果您是学生,请继续下面的注册步骤');location.href='/register_two/';</script>")
                 except Exception:
                     return HttpResponse("<script>alert('遇到错误，请重新尝试或联系管理员');location.href='/';</script>")
             register_one = myforms.RegisterOne(request.POST)
@@ -143,16 +146,15 @@ class Register(object):
                                     "location.href='/';</script>")
             try:
                 models.RegisterTwo.objects.filter(
-                    first__student_username=username).values_list('register_two_status').first()[0]
+                    first__username=username).values_list('register_two_status').first()[0]
             except Exception:
-                print(456)
                 major = models.Major.objects.all()
                 major_dict = {}
                 for i in major:
                     major_dict[(i.caption, i.image)] = list(models.MajorChild.objects.filter(
                         major_id=i.id).values_list('id', 'caption'))
                 major_main_select = list(models.RegisterTwo.objects.filter(
-                    first__student_username=username).values_list('major_child_id', 'major_child__caption'))
+                    first__username=username).values_list('major_child_id', 'major_child__caption'))
                 return render(request, 'register_two.html', locals())
             else:
                 return HttpResponse(
@@ -166,16 +168,15 @@ class Register(object):
 
             if request.POST.get('p', None):
                 obj = list(models.RegisterTwo.objects.filter(
-                    first__student_username=username).values_list('major_child'))
+                    first__username=username).values_list('major_child'))
                 if len(obj) >= 10:
                     return HttpResponse('error')
                 a = request.POST.get('p').split(',')
                 try:
-                    print(models.RegisterFirst.objects.filter(student_username=username).values_list('id').first()[0])
                     two = models.RegisterTwo.objects.create(
                         major_child_id=a[0],
                         first_id=models.RegisterFirst.objects.filter(
-                            student_username=username).values_list('id').first()[0],
+                            username=username).values_list('id').first()[0],
                         register_two_status=1
                     )
                 except Exception as e:
@@ -203,10 +204,10 @@ class Register(object):
                                     "location.href='/';</script>")
             try:
                 models.RegisterThree.objects.filter(
-                    first__student_username=username).values_list('register_three_status').first()[0]
+                    first__username=username).values_list('register_three_status').first()[0]
             except Exception:
                 major_main_select = list(models.RegisterTwo.objects.filter(
-                    first__student_username=username).values_list('id', 'major_child__caption'))
+                    first__username=username).values_list('id', 'major_child__caption'))
                 register_three = myforms.RegisterThree()
                 return render(request, 'register_three.html', locals())
             else:
@@ -219,7 +220,7 @@ class Register(object):
                 return HttpResponse("<script>alert('Sorry，身份验证失败，请重新登陆！');"
                                     "location.href='/';</script>")
             register_two_id = request.POST.get('major_main_select', None)
-            models.RegisterTwo.objects.filter(first__student_username=username).update(status=False)
+            models.RegisterTwo.objects.filter(first__username=username).update(status=False)
             models.RegisterTwo.objects.filter(id=register_two_id).update(status=True)
             register_three = myforms.RegisterThree(request.POST)
 
@@ -227,12 +228,12 @@ class Register(object):
                 data = register_three.cleaned_data
                 models.RegisterThree.objects.create(**data,
                                                     first_id=models.RegisterFirst.objects.filter(
-                                                        student_username=username).values_list('id').first()[0],
+                                                        username=username).values_list('id').first()[0],
                                                     register_three_status=1)
                 return HttpResponseRedirect('/register_four/')
             else:
                 major_main_select = list(models.RegisterTwo.objects.filter(
-                    first__student_username=username).values_list('id', 'major_child__caption'))
+                    first__username=username).values_list('id', 'major_child__caption'))
                 register_three = myforms.RegisterThree(request.POST)
                 return render(request, 'register_three.html', locals())
 
@@ -244,10 +245,10 @@ class Register(object):
 
 
 # 查询自己的信息
-# def student_select_me(request):
+# def select_me(request):
 #     if request.method == 'GET':
-#         models.Student.objects.filter(student_name=request.session.get('username'))
-#         return render(request, 'student_select_me.html')
+#         models.Student.objects.filter(name=request.session.get('username'))
+#         return render(request, 'select_me.html')
 
 
 # 管理页面首页
@@ -270,26 +271,26 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
-@is_login
-def student_add_one(request):
-    if request.method == 'GET':
-        student = myforms.StudentAddOne()
-        return render(request, 'student_add_one.html', locals())
-    else:
-        student = myforms.StudentAddOne(request.POST)
-        if student.is_valid():
-            try:
-                data = student.clean()
-                with transaction.atomic():
-                    user = models.UserMessage.objects.create(card_id=get_student_card_id(), photo=None)
-                    models.Student.objects.create(**data, message_id=user.id)
-            except Exception as e:
-                print(e)
-                return render(request, 'student_add_one.html', locals())
-            else:
-                return HttpResponse('增加成功')
-        else:
-            return render(request, 'student_add_one.html', locals())
+# @is_login
+# def add_one(request):
+#     if request.method == 'GET':
+#         student = myforms.StudentAddOne()
+#         return render(request, 'add_one.html', locals())
+#     else:
+#         student = myforms.StudentAddOne(request.POST)
+#         if student.is_valid():
+#             try:
+#                 data = student.clean()
+#                 with transaction.atomic():
+#                     user = models.UserMessage.objects.create(card_id=get_card_id(), photo=None)
+#                     models.Student.objects.create(**data, message_id=user.id)
+#             except Exception as e:
+#                 print(e)
+#                 return render(request, 'add_one.html', locals())
+#             else:
+#                 return HttpResponse('增加成功')
+#         else:
+#             return render(request, 'add_one.html', locals())
 
 
 def manage_add(request):
@@ -319,18 +320,49 @@ def manage_add(request):
         print(9)
         cls.make_sex()
         print(10)
-        cls.make_student_type()
+        cls.make_type()
         print(11)
-        cls.make_student_status()
+        cls.make_status()
         print(12)
         cls.make_no_permission()
     return HttpResponse('success full')
 
 
+def upload_image(request):
+    if request.method == "GET":
+        # file = os.path.join(os.getcwd(), 'statics', 'USER_DEFAULT_PHOTO.png')
+        # with open(file, 'rb') as f1:
+        #     DEFAULT_PHOTO = f1.read()
+        # print(DEFAULT_PHOTO)
+        # f = BytesIO()
+        # f.write(DEFAULT_PHOTO)
+        # InMemoryUploadedFile 需要的参数：
+        # file, field_name, name, content_type, size, charset, content_type_extra = None
+        # image = InMemoryUploadedFile(f, None, '用户头像', None, len(DEFAULT_PHOTO), None, None)
+        # img = models.RegisterFirst.objects.filter(username='huyu123456').values('user_photo')
+        # print(img)
+        # img = models.RegisterFirst.objects.filter(
+        #     username='yuanxiong123').first().user_photo
+        # # print(img)
+        # # f = BytesIO(img)
+        # # image = InMemoryUploadedFile(f, None, '用户头像', None, len(img), None, None)
+        # img = base64.b64encode(img).decode()
+        img = get_user_photo('yuanxiong123')
+        return render(request, 'upload_image.html', locals())
+    else:
+        # img = request.FILES.get('img')
+        # models.ImageTest.objects.create(img=img.file.read())
+        # with open('/Users/yuanxiong/PycharmProjects/学校管理项目/Main/金三胖.jpg', mode='wb') as f:
+        #     f.write(img.file.read())
+        # img = models.ImageTest.objects.filter().first().img
+        # img = base64.b64encode(img).decode()
+        return render(request, 'upload_image.html', locals())
+
+
 # # ---------------------------------    学生个人信息展示   --------------------------------------
 #
 # def school_manage_test(request):
-#     obj = list(User.objects.filter(student_card_id='ST-1904105920').values_list(
+#     obj = list(User.objects.filter(card_id='ST-1904105920').values_list(
 #         'username__class_info__class_name',
 #         'username__class_info__grade_name__grade_name'
 #     ))
@@ -344,7 +376,7 @@ def manage_add(request):
 # # @is_login
 # # def add_student(request):
 # #     if request.method == 'GET':
-# #         obj = student_forms.Student()
+# #         obj = forms.Student()
 # #         return render(request, 'add_student.html', locals())
 #
 #
@@ -362,24 +394,24 @@ def manage_add(request):
 #         for i in range(1, sheet.nrows):
 #             lst = sheet.row_values(i, 0)
 #             stu = Student.objects.create(
-#                 student_real_name=lst[0],
-#                 student_age=lst[1],
-#                 student_tel=lst[2],
-#                 student_register_date=lst[3],
-#                 student_id_card=lst[4],
-#                 student_location_of_household_registration=lst[5],
-#                 student_tel_two=lst[6],
-#                 student_address=lst[7],
-#                 student_market=lst[8],
+#                 real_name=lst[0],
+#                 age=lst[1],
+#                 tel=lst[2],
+#                 register_date=lst[3],
+#                 id_card=lst[4],
+#                 location_of_household_registration=lst[5],
+#                 tel_two=lst[6],
+#                 address=lst[7],
+#                 market=lst[8],
 #                 class_info_id=int(lst[9]),
-#                 student_sex_id=int(lst[10]),
-#                 student_type_id=int(lst[11]),
-#                 student_major_id=int(lst[12]),
-#                 student_status_id=int(lst[13])
+#                 sex_id=int(lst[10]),
+#                 type_id=int(lst[11]),
+#                 major_id=int(lst[12]),
+#                 status_id=int(lst[13])
 #             )
 #             User.objects.create(
 #                 username=stu,
-#                 student_card_id=student_card_id(),
+#                 card_id=card_id(),
 #                 password='123'
 #             )
 #         os.remove(os.getcwd() + '/SchoolManage/recv_files/' + file.name)
@@ -391,21 +423,21 @@ def manage_add(request):
 #     print(request.session.get('username'))
 #     if request.method == 'GET':
 #         class_names = Classes.objects.all()
-#         student_sex = Sex.objects.all()
-#         student_type = StudentType.objects.all()
-#         student_major = StudentMajor.objects.all()
-#         student_status = StudentStatus.objects.all()
+#         sex = Sex.objects.all()
+#         type = StudentType.objects.all()
+#         major = StudentMajor.objects.all()
+#         status = StudentStatus.objects.all()
 #         return render(request, 'school_manage_add_student.html', locals())
 #     elif request.method == 'POST':
 #         sbm = request.POST.get('sbm')
 #         d = do_request(request.POST,
-#                        ('class_info', 'student_type', 'student_major', 'student_status', 'student_sex'),
+#                        ('class_info', 'type', 'major', 'status', 'sex'),
 #                        ('sbm', 'csrfmiddlewaretoken'))
 #         print(d)
 #         stu = Student.objects.create(**d)
 #         User.objects.create(
 #             username=stu,
-#             student_card_id=student_card_id(),
+#             card_id=card_id(),
 #             password='123'
 #         )
 #         if sbm == '下一个':
@@ -432,10 +464,10 @@ def manage_add(request):
 # def school_manage_update_student(request):
 #     if request.method == 'GET':
 #         class_names = Classes.objects.all()
-#         student_sex = Sex.objects.all()
-#         student_type = StudentType.objects.all()
-#         student_major = StudentMajor.objects.all()
-#         student_status = StudentStatus.objects.all()
+#         sex = Sex.objects.all()
+#         type = StudentType.objects.all()
+#         major = StudentMajor.objects.all()
+#         status = StudentStatus.objects.all()
 #         cid = request.GET.get('cid')
 #         obj = Student.objects.filter(id__exact=cid)[0]
 #         return render(request, 'school_manage_update_student.html', locals())
@@ -443,7 +475,7 @@ def manage_add(request):
 #         if request.POST.get('sbm') == '保存提交':
 #             cid = request.GET.get('cid')
 #             d = do_request(request.POST,
-#                            ('class_info', 'student_type', 'student_major', 'student_status', 'student_sex'),
+#                            ('class_info', 'type', 'major', 'status', 'sex'),
 #                            ('sbm', 'csrfmiddlewaretoken'))
 #             Student.objects.filter(id=cid).update(**d)
 #         return HttpResponseRedirect('/display_student/', locals())

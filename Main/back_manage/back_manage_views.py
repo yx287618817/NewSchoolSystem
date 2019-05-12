@@ -4,6 +4,7 @@
 # @Email   : 287618817@qq.com
 # @File    : views.py
 # @Software: PyCharm
+import json
 
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from . import back_manage_forms as myforms
@@ -11,9 +12,9 @@ from .. import models
 
 
 # 用户分配用户组
-def user_group_manange(request):
+def user_group_manage(request):
     user_group = myforms.UserGroup()
-    return render(request, 'user_group_manange.html', locals())
+    return render(request, 'user_group_manage.html', locals())
 
 
 # 用户组管理
@@ -56,9 +57,19 @@ def group_manage(request):
 
 def user_manage(request):
     if request.method == 'GET':
-        group = myforms.Group()
-        return render(request, 'group_manage.html', locals())
-    return HttpResponse('ok')
+        user = request.GET.get('user', None)
+        if user:
+            try:
+                user_mes_lst = list(models.RegisterFirst.objects.filter(
+                    username=user).values_list('username', 'tel').first())
+                print(user_mes_lst)
+                return HttpResponseRedirect('/back_manage/user_manage/', locals())
+            except Exception:
+                return HttpResponse('false')
+        user_list = list(models.RegisterFirst.objects.all().exclude(
+            group__groupName='学生').values_list('username').first())
+        return render(request, 'user_manage.html', locals())
+    return HttpResponse(json.dumps({'res': 'ok'}))
 
 
 def back_manage_index(request):

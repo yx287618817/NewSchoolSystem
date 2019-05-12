@@ -30,14 +30,6 @@ class UserMessage(models.Model):
 
 # ------------------------------------------- 用户表 ---------------------------------------------------
 
-
-# class Teachers(models.Model):
-#     """
-#     老师表
-#     """
-#     teacher_name = models.CharField('姓名', max_length=32)
-
-
 class RegisterFirst(models.Model):
     """
     注册第一页
@@ -46,20 +38,20 @@ class RegisterFirst(models.Model):
     with open(file, 'rb') as f1:
         DEFAULT_PHOTO = f1.read()
 
-    student_account_number = models.CharField(verbose_name='用户名', max_length=13, unique=True)
-    student_number = models.CharField(verbose_name='学号', max_length=13, unique=True)
-    student_username = models.CharField(verbose_name='账号', max_length=32, unique=True, null=True)
-    student_password = models.CharField(verbose_name='密码', max_length=300)
-    student_email = models.EmailField(verbose_name='邮箱')
-    student_tel = models.CharField(verbose_name='学生电话', max_length=15)
-    student_register_date = models.DateField(verbose_name='注册时间')
-    student_group = models.ForeignKey('Group', verbose_name='用户组', on_delete=models.CASCADE, default=1)
+    account_number = models.CharField(verbose_name='用户名', max_length=13, unique=True)
+    number = models.CharField(verbose_name='学号', max_length=13, unique=True)
+    username = models.CharField(verbose_name='账号', max_length=32, unique=True, null=True)
+    password = models.CharField(verbose_name='密码', max_length=300)
+    email = models.EmailField(verbose_name='邮箱')
+    tel = models.CharField(verbose_name='学生电话', max_length=15)
+    register_date = models.DateField(verbose_name='注册时间')
+    group = models.ForeignKey('Group', verbose_name='用户组', on_delete=models.CASCADE, default=1)
     register_one_status = models.BooleanField(verbose_name='第一步信息是否已经完成', default=0)
     user_photo = models.BinaryField(verbose_name='用户头像', default=DEFAULT_PHOTO)
     user_salt = models.ForeignKey('HashlibSalt', verbose_name='盐', on_delete=models.CASCADE, default=1)
 
     def __str__(self):
-        return self.student_username
+        return self.username
 
     class Meta:
         ordering = ['id']
@@ -103,7 +95,7 @@ class RegisterThree (models.Model):
     register_three_status = models.BooleanField('第三步信息是否已经完成', default=0)
 
     def __str__(self):
-        return self.two.first.student_username
+        return self.first.username
 
     class Meta:
         ordering = ['id']
