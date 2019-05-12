@@ -1,15 +1,10 @@
-function filter_user() {
-    let user = $('#user').val();
-    console.log(user);
-    $.ajax({
-        url: '/back_manage/user_manage/',
-        type: 'GET',
-        data: {'user': user},
-        success: function (arg) {
-            let res = JSON.parse(arg);
-            if (!res){
-                alert('没有这个用户');
-            }
-        }
-    })
+
+
+function add_url_query_user(){
+    let a = $('.query-user');
+    let query_value = $('#user').val();
+    console.log(query_value);
+    a.attr(
+        'href', '?query=user&user=' + query_value
+    )
 }

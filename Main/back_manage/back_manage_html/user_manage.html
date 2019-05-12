@@ -3,6 +3,7 @@
 
 {% block style %}
   <link rel="stylesheet" href="{% static 'group/css/group.css' %}">
+
 {% endblock %}
 
 
@@ -18,8 +19,30 @@
   <div class="row">
 {#    左边主界面#}
     <div class="col-md-4 left-main">
-      <label for="user">查询用户</label><input value="{{ user }}" onchange="filter_user()" id="user" type="text" name="user">
-      <span>{{ user_mes_lst }}</span>
+      <table>
+        <tr>
+          <td><label for="user"><a class="query-user" href="#">查询用户</a></label></td>
+          <td><input onchange="add_url_query_user()" id="user" type="text" name="user"></td>
+        </tr>
+        <tr>
+          <td>查询结果</td>
+        </tr>
+        <tr>
+          <td>用户名</td>
+          <td><span>{{ user_mes.0 }}</span></td>
+        </tr>
+        <tr>
+          <td>电话</td>
+          <td><span>{{ user_mes.1 }}</span></td>
+        </tr>
+        <tr>
+          <td>编号</td>
+          <td><span>{{ user_mes.2 }}</span></td>
+        </tr>
+        <tr>
+          <td><a href="?query=update_user&user={{ user_mes.0 }}">确定将用户转为教师</a></td>
+        </tr>
+      </table>
     </div>
 
 {#    右边主界面#}
@@ -30,5 +53,15 @@
 {% endblock %}
 
 {% block script_block %}
-  <script src="{% static 'user/user_js.js' %}"></script>
+{#    <script src="{% static 'user/user_js.js' %}"></script>#}
+  <script>
+    function add_url_query_user() {
+        let a = $('.query-user');
+        let query_value = $('#user').val();
+        console.log(query_value);
+        a.attr(
+            'href', '?query=user&user=' + query_value
+        )
+    }
+  </script>
 {% endblock %}

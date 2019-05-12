@@ -130,7 +130,7 @@ class Register(object):
                         # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
                         write_session(request, one.username)
                         # return HttpResponseRedirect('/register_two/')
-                        return HttpResponse("<script>alert('如果您是老师,请将您的用户名记下,交教务处开通权限!如果您是学生,请继续下面的注册步骤');location.href='/register_two/';</script>")
+                        return HttpResponse("<script>alert('如果您是老师,请将您的用户名交教务处开通权限!如果您是学生,请继续下面的注册步骤');location.href='/register_two/';</script>")
                 except Exception:
                     return HttpResponse("<script>alert('遇到错误，请重新尝试或联系管理员');location.href='/';</script>")
             register_one = myforms.RegisterOne(request.POST)

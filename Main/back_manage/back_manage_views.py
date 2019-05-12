@@ -57,18 +57,16 @@ def group_manage(request):
 
 def user_manage(request):
     if request.method == 'GET':
-        user = request.GET.get('user', None)
-        if user:
-            try:
-                user_mes_lst = list(models.RegisterFirst.objects.filter(
-                    username=user).values_list('username', 'tel').first())
-                print(user_mes_lst)
-                return HttpResponseRedirect('/back_manage/user_manage/', locals())
-            except Exception:
-                return HttpResponse('false')
-        user_list = list(models.RegisterFirst.objects.all().exclude(
-            group__groupName='学生').values_list('username').first())
-        return render(request, 'user_manage.html', locals())
+        if request.GET.get('query') == 'user':
+            username = request.GET.get('user')
+            user_mes = list(models.RegisterFirst.objects.filter(username=username).values_list('username', 'tel', 'number').first())
+            if user_mes:
+                return render(request, 'user_manage.html', locals())
+            return HttpResponse('<script>alert("没有这个用户");'
+                                'location.href="/back_manage/user_manage/"</script>')
+        else:
+            return render(request, 'user_manage.html')
+
     return HttpResponse(json.dumps({'res': 'ok'}))
 
 

@@ -138,8 +138,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'Main/statics'),
-    os.path.join(BASE_DIR, 'Main/back_manage/static'),
+    os.path.join(BASE_DIR, 'Main', 'statics'),
+    os.path.join(BASE_DIR, 'Main', 'back_manage', 'static'),
 ]
 
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
