@@ -8,7 +8,7 @@ from django import forms
 from django.forms import widgets
 from .. import models
 
-USER = models.User.objects.all()
+USER = models.RegisterFirst.objects.all()
 GROUP = models.Group.objects.all()
 
 
@@ -22,6 +22,6 @@ class UserGroup(forms.Form):
     user = forms.ModelChoiceField(label='用户', queryset=USER)
     group = forms.ModelChoiceField(label='用户组', queryset=GROUP)
 
+
 class User(forms.Form):
     pass
-

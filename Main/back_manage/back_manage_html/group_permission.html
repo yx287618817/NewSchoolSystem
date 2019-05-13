@@ -1,0 +1,67 @@
+{% extends 'back_manage_index.html' %}
+{% load staticfiles %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'group_permission/group_permission.css' %}">
+{% endblock %}
+
+{% block do_something %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-offset-2 col-md-4 group_permission_title_one">
+        <select class="center-block" name="group-select" id="group_select" onchange="query_permission()">
+          <option style="display: none"></option>
+          {% for foo in groups %}
+            {% if foo.groupName == g_obj.groupName %}
+              <option value="{{ foo.id }}" selected>{{ foo.groupName }}</option>
+            {% else %}
+              <option value="{{ foo.id }}">{{ foo.groupName }}</option>
+            {% endif %}
+
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <a class="get_permission_a group_permission_title_one_a" href="#">管理用户组</a>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="col-md-offset-1 col-md-10 group_permission_title_two"><span>"{{ g_obj.groupName }}"已有权限</span></div>
+        <div class="row">
+          <div class="display_one col-md-offset-1 col-md-10">
+            {% for foo in groups__have_permission %}
+              <div class="col-md-12 have_permission">
+                <div class="col-md-offset-2 have_a col-md-6"><span>{{ foo }}</span></div>
+                <div class="col-md-3 have_permission_a"><a class="operation_a" href="?query=group_delete_permission&pid={{ foo.id }}">删除</a></div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="col-md-11 group_permission_title_two"><span>"{{ g_obj.groupName }}"没有的权限</span></div>
+        <div class="row">
+          <div class="display_one col-md-offset-1 col-md-10">
+            {% for foo in groups__no_permission %}
+              <div class="col-md-12 have_permission">
+                <div class="col-md-offset-2 col-md-6 have_b"><span>{{ foo }}</span></div>
+                <div class="col-md-3 have_permission_b"><a class="operation_a" href="?query=group_add_permission&pid={{ foo.id }}">+ 增加</a></div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block script_block %}
+  <script src="{% static 'group_permission/group_permission.js' %}"></script>
+{% endblock %}

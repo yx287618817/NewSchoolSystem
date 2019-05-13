@@ -1,15 +1,14 @@
 from django.contrib import admin
 from Main import models
 
+
 # 权限管理
 admin.site.register(models.Permission)
-admin.site.register(models.User)
-admin.site.register(models.UserGroup)
-admin.site.register(models.Group)
 admin.site.register(models.TablePermission)
 admin.site.register(models.TableName)
 admin.site.register(models.GroupPermission)
 admin.site.register(models.NoPermission)
+
 # 多选管理
 admin.site.register(models.Grades)
 admin.site.register(models.Classes)

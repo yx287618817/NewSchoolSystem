@@ -92,7 +92,7 @@ def login(request):
         return is_register(request)
     elif request.method == 'POST':
         if request.POST.get('login_radio') == '1':
-            # 如果用户选择不保存密码,推出浏览器则session失效
+            # 如果用户选择不保存密码,退出浏览器则session失效
             request.session.set_expiry(0)
         # 如果需要在页面展示的信息,在此处添加到session
         return is_register(request)
@@ -114,10 +114,14 @@ class Register(object):
             return HttpResponse("<script>alert('如需注册新用户，请先退出当前登陆状态');location.href='/';</script>")
         else:
             register_one = myforms.RegisterOne(request.POST)
+            reg_p= request.POST.get('result_result', None)
             if register_one.is_valid():
                 data = register_one.cleaned_data
                 data.pop('repeat_password')
-                number = get_card_id()
+                if reg_p == '老师注册':
+                    number = get_tc_card_id()
+                else:
+                    number = get_card_id()
                 register_date = datetime.datetime.now().date()
                 # 密码加密, 加固定盐， 也可以更改为加随机盐
                 data['password'], salt = get_hashlib_salt(data['password'])
@@ -129,8 +133,13 @@ class Register(object):
                                                                   register_one_status=1, **data)
                         # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
                         write_session(request, one.username)
-                        # return HttpResponseRedirect('/register_two/')
-                        return HttpResponse("<script>alert('如果您是老师,请将您的用户名交教务处开通权限!如果您是学生,请继续下面的注册步骤');location.href='/register_two/';</script>")
+                        if reg_p == '老师注册':
+                            gid = models.Group.objects.filter(groupName='潜在教师').first()
+                            models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
+                            return HttpResponse("<script>alert('请牢记您的账号信息,等待管理员开通权限');</script>")
+                        gid = models.Group.objects.filter(groupName='潜在学生').first()
+                        models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
+                        return HttpResponseRedirect('/register_two/')
                 except Exception:
                     return HttpResponse("<script>alert('遇到错误，请重新尝试或联系管理员');location.href='/';</script>")
             register_one = myforms.RegisterOne(request.POST)

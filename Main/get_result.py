@@ -129,7 +129,6 @@ def is_register(req):
                 return HttpResponse("<script>alert('请完善您的个人信息');location.href='/register_three/';</script>")
             else:
                 return HttpResponseRedirect('/student_menu/')
-
     else:
         return HttpResponseRedirect('/teacher_menu/')
 
@@ -276,6 +275,15 @@ def get_card_id():
          + str(random.randint(1000, 9999))
     if models.RegisterFirst.objects.filter(number=sr).first():
         return get_card_id()
+    return sr
+
+
+# 生成教师编号
+def get_tc_card_id():
+    sr = 'TC' + '-' + str(datetime.datetime.now()).split(' ')[0].replace('-', '')[2:] \
+         + str(random.randint(1000, 9999))
+    if models.RegisterFirst.objects.filter(number=sr).first():
+        return get_tc_card_id()
     return sr
 
 

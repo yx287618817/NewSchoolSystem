@@ -1,0 +1,84 @@
+*{
+    /*border:1px solid red;*/
+  }
+.user-title-one{
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.left-main-a-one a{
+    color: blue;
+}
+.left-main-div-one{
+    border: 1px solid black;
+    line-height: 30px;
+}
+.left-main-a-one{
+    min-width: 120px;
+    max-width: 120px;
+}
+.left-main-a-two{
+    min-width: 60px;
+    max-width: 110px;
+}
+.left-main-a-two a{
+    color: red;
+    width: 100%;
+    display: block;
+    text-align: right;
+}
+.left-main-all{
+    margin-bottom: 100px;
+}
+.right-main-all>div{
+    border-top: 1px solid #999999;
+    line-height: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.user-input-one{
+    border: 2px solid #999999;
+    display: block;
+    width: 100%;
+}
+.user-query-user{
+    display: block;
+    width:100%;
+    min-width: 60px;
+    font-size: 18px;
+}
+.right-main-all span,select,label,option{
+    display: block;
+    width: 100%;
+    font-size: 16px;
+}
+.right-main-last a{
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    line-height: 25px;
+}
+#select_group{
+    border: 1px solid #999999;
+    width: 80%;
+}
+#select_group{
+    border: 1px solid #999999;
+    height: 28px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

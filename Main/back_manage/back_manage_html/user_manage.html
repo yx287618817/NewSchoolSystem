@@ -3,6 +3,8 @@
 
 {% block style %}
   <link rel="stylesheet" href="{% static 'group/css/group.css' %}">
+  <link rel="stylesheet" href="{% static 'user/user_css.css' %}">
+
 
 {% endblock %}
 
@@ -11,57 +13,80 @@
   <div class="row title-top">
     <div class="row">
       <div class="col-md-offset-1 col-md-11 title-group-one">
-        <span>{% block manage_name %}用户管理{% endblock %}</span>
+        <span>{% block manage_name %}用户分配用户组{% endblock %}</span>
       </div>
     </div>
   </div>
 
-  <div class="row">
-{#    左边主界面#}
-    <div class="col-md-4 left-main">
-      <table>
-        <tr>
-          <td><label for="user"><a class="query-user" href="#">查询用户</a></label></td>
-          <td><input onchange="add_url_query_user()" id="user" type="text" name="user"></td>
-        </tr>
-        <tr>
-          <td>查询结果</td>
-        </tr>
-        <tr>
-          <td>用户名</td>
-          <td><span>{{ user_mes.0 }}</span></td>
-        </tr>
-        <tr>
-          <td>电话</td>
-          <td><span>{{ user_mes.1 }}</span></td>
-        </tr>
-        <tr>
-          <td>编号</td>
-          <td><span>{{ user_mes.2 }}</span></td>
-        </tr>
-        <tr>
-          <td><a href="?query=update_user&user={{ user_mes.0 }}">确定将用户转为教师</a></td>
-        </tr>
-      </table>
-    </div>
+<div class="row">
 
 {#    右边主界面#}
-    <div class="col-md-8 right-main"></div>
-  </div>
+  <div class="col-md-4 right-main">
+    <div class="col-md-offset-2 col-md-8"><span class="center-block user-title-one">修改用户所在组</span></div>
+      <div class="col-md-offset-2 col-md-8 right-main-all">
+        <div class="row">
+          <div class="col-md-8"><input class="user-input-one" value="{{ user_mes.0 }}" onchange="add_url_query_user()" id="user" type="text" name="user"></div>
+          <div class="col-md-4"><label for="user"><a class="user-query-user query-user" href="#">查询用户</a></label></div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"><span style="color: blue;">查询结果</span></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"><span>电话</span></div>
+          <div class="col-md-8"><span>{{ user_mes.1 }}</span></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"><span>编号</span></div>
+          <div class="col-md-8"><span>{{ user_mes.2 }}</span></div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <select class="center-block" name="select_group" id="select_group" onchange="select_group()">
+                <option style="display: none"></option>
+                {% for foo in groups %}
+                  <option value="{{ foo.id }}">{{ foo.groupName }}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div class="col-md-6 right-main-last"><a class="select_id_add center-block" href="#">增加用户组</a></div>
+        </div>
+        <div class="row">
+          <div class="col-md-12"><span style="color: blue;">已有用户组</span></div>
+          <div class="col-md-12">
+            <div class="row">
+              {% for foo in g_lst %}
+                <div class="col-md-7"><span>{{ foo.group.groupName }}</span></div>
+                <div class="col-md-5"><a href="?query=usergroup_delete&ug_id={{ foo.id }}">删除用户组</a></div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+{#    左边主界面#}
+    <div class="col-md-7 left-main">
+      <div class="col-md-12">
+        <span class="center-block user-title-one">用户列表:点击用户可修改用户所在组,点击删除将删除用户(谨慎操作)</span>
+      </div>
+      <div class="col-md-12 left-main-all">
+        {% for foo in users_lst %}
+          <div class="col-md-3 left-main-div-one">
+            <div class="col-md-8 left-main-a-one">
+              <a href="?query=user&user={{ foo }}">{{ foo }}</a>
+            </div>
+            <div class="col-md-4 left-main-a-two">
+              <a class="delete_user" href="?query=delete&user={{ foo }}">删除</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+</div>
 
 {% endblock %}
 
 {% block script_block %}
-{#    <script src="{% static 'user/user_js.js' %}"></script>#}
-  <script>
-    function add_url_query_user() {
-        let a = $('.query-user');
-        let query_value = $('#user').val();
-        console.log(query_value);
-        a.attr(
-            'href', '?query=user&user=' + query_value
-        )
-    }
-  </script>
+    <script src="{% static 'user/user_js.js' %}"></script>
 {% endblock %}

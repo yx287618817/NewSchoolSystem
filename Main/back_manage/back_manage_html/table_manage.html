@@ -1,0 +1,75 @@
+{% extends 'back_manage_index.html' %}
+
+{% block style %}
+  <style>
+  *{
+    border:1px solid blue;
+  }
+  </style>
+
+{% endblock %}
+
+{% block do_something %}
+  <div class="row">
+
+{#  左边界面#}
+  <div class="col-md-4">
+
+      <div class="row">
+  {#      添加操作表#}
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-offset-1 col-md-3"><label for="input-one">操作表名</label></div>
+            <div class="col-md-8"><input id="input-one" type="text"></div>
+          </div>
+          <div class="row">
+            <div class="col-md-offset-1 col-md-3"><label for="input-two">操作表路径</label></div>
+            <div class="col-md-8"><input id="input-two" type="text" onchange="operation_input_one()"></div>
+          </div>
+        </div>
+        <div class="col-md-2"><a class="input-one-add" href="#">增加</a></div>
+      </div>
+
+    <div class="row">
+
+  {#    展示已存在表,并增加操作链接#}
+      <div class="col-md-offset-1 col-md-10">
+        {% for foo in obj %}
+          <div class="col-md-4"><span class="span_one">{{ foo.caption }}</span></div>
+          <div class="col-md-4"><a href="?query=delete&tid={{ foo.id }}">删除</a></div>
+          <div class="col-md-4"><a href="?query=update&tid={{ foo.id }}">修改</a></div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+{#    右边界面#}
+  <div class="col-md-8"></div>
+
+
+  </div>
+
+
+{% endblock %}
+
+{% block script_block %}
+  <script>
+  function operation_input_one() {
+    let v1 = $('#input-one').val();
+    let v2 = $('#input-two').val();
+    let re = new RegExp('/[a-z]*?_[a-z]*?');
+    if (re.test(v2)){
+      if (v1){
+          $('.input-one-add').attr(
+            'href', '?query=add&caption=' + v1 + '&tableName=' + v2
+        )
+      } else{
+          alert('操作表名和操作路径不能为空')
+      }
+    }else{
+        alert('操作表路径不符合规范')
+    }
+  }
+  </script>
+{% endblock %}

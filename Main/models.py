@@ -248,22 +248,22 @@ class NoPermission(models.Model):
 
 
 # 用户表
-class User(models.Model):
-    """
-        用户信息表
-    """
-    userName = models.CharField(max_length=32, verbose_name='学生姓名', unique=True)
-    password = models.CharField(max_length=128, verbose_name='密码')
-    # email = models.EmailField(verbose_name='邮箱')
-    # telephone = models.CharField(max_length=18, verbose_name='手机号')
-
-    class Meta:
-        ordering = ['userName']
-        verbose_name = '1-创建用户'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return self.userName
+# class User(models.Model):
+#     """
+#         用户信息表
+#     """
+#     userName = models.CharField(max_length=32, verbose_name='学生姓名', unique=True)
+#     password = models.CharField(max_length=128, verbose_name='密码')
+#     # email = models.EmailField(verbose_name='邮箱')
+#     # telephone = models.CharField(max_length=18, verbose_name='手机号')
+#
+#     class Meta:
+#         ordering = ['userName']
+#         verbose_name = '1-创建用户'
+#         verbose_name_plural = verbose_name
+#
+#     def __str__(self):
+#         return self.userName
 
 
 # 用户组表
@@ -280,23 +280,6 @@ class Group(models.Model):
 
     def __str__(self):
         return self.groupName
-
-
-# 用户分配用户组
-class UserGroup(models.Model):
-    """
-        用户分配用户组：用户和用户组间关系
-    """
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
-    group = models.ForeignKey('Group', on_delete=models.CASCADE)
-
-    class Meta:
-        ordering = ['group']
-        verbose_name = '3-用户分配用户组'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return "%s ---> %s" % (self.user.userName, self.group.groupName)
 
 
 # 权限表
@@ -323,7 +306,7 @@ class TablePermission(models.Model):
         所有表路径
     """
     caption = models.CharField(max_length=32, verbose_name='操作名称', unique=True)
-    tableUrl = models.CharField(max_length=128, verbose_name='操作路径', unique=True)
+    tableUrl = models.CharField(max_length=128, verbose_name='操作路径', unique=True, null=True, blank=True)
 
     class Meta:
         ordering = ['caption']
@@ -369,7 +352,24 @@ class GroupPermission(models.Model):
         """
             管理员 ==> 学生表：更新: student/update/
         """
-        return '%s ---> %s表: %s: %s/%s/' % (
-            self.group.groupName, self.permission.tableName.tableName,
-            self.permission.tablePermission.caption, self.permission.tableName.tableName,
-            self.permission.tablePermission.tableUrl)
+        return '%s ---> %s: %s' % (
+            self.group.groupName, self.permission.tableName.caption,
+            self.permission.tablePermission.caption)
+
+
+# 用户分配用户组
+class UserGroup(models.Model):
+    """
+        用户分配用户组：用户和用户组间关系
+    """
+    user = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE)
+    group = models.ForeignKey('Group', on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['group']
+        unique_together = ['user', 'group']
+        verbose_name = '3-用户分配用户组'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return "%s ---> %s" % (self.user.username, self.group.groupName)
