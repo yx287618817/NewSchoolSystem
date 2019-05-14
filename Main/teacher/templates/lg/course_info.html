@@ -1,0 +1,188 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 transitional//en">
+<html>
+
+	<head>
+        {% load staticfiles %}
+		<link href="/static/lg/assets/css/icons.css" rel="stylesheet">
+		<link href="/static/lg/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/static/lg/assets/css/style.css" rel="stylesheet">
+		<link href="/static/lg/assets/css/responsive.css" rel="stylesheet">
+		<title>课程表</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="author" content="">
+		<meta name="keywords" content="">
+		<link href="/static/lg/assets/css/base.css" type="text/css" rel="stylesheet" />
+		<link href="/static/lg/assets/css/editTable.css" type="text/css" rel="stylesheet" />
+		<script language="javascript" type="text/javascript" src="/static/lg/assets/js/jquery-1.7.2.min.js"></script>
+		<script language="javascript" type="text/javascript" src="/static/lg/assets/js/editTable.js"></script>
+		 <script src="/static/lg/assets/js/jquery.min.js"></script>
+		<script src="/static/lg/assets/js/bootstrap.min.js"></script>
+		<script src="/static/lg/assets/plugins/moment/moment.js"></script>
+		<script  src="/static/lg/assets/js/jquery.slimscroll.js "></script>
+		<script src="/static/lg/assets/js/jquery.nicescroll.js"></script>
+		<script src="/static/lg/assets/js/functions.js"></script>
+		<style>
+			th,td{
+				 text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table class="edtitable">
+			<thead>
+				<tr>
+					<th colspan="7"><h2 style="text-align: center">今&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;课&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表</h2></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>课程</th>
+					<th>星期一</th>
+					<th>星期二</th>
+					<th>星期三</th>
+					<th>星期四</th>
+					<th>星期五</th>
+					<th class="del-col">备注</th>
+				</tr>
+				<tr>
+					<td>早自习</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+
+					<td colspan="7" align="right">
+						<h2 style="text-align: center">早&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>第一节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+				<tr>
+					<td>第二节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+				<tr>
+					<td>第三节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+				<tr>
+					<td>第四节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+				<tr class="append-row">
+					<td colspan="7" align="right">
+						<h2 style="text-align: center">午&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;休&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>第五节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+				<tr>
+					<td>第六节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+
+				<tr>
+					<td>第七节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+
+					<td colspan="7" align="right">
+						<h2 style="text-align: center">晚&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;餐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;间</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>晚自习第一节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+				<tr>
+					<td>晚自习第二节</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td>三年一班-->语文</td>
+					<td class="del-col">
+						<input type="text" name="remark" style="height: 30px">
+					</td>
+				</tr>
+				<tr class="append-row">
+					<td colspan="7" align="right" style="text-align: right">
+						<button type="button" class="btn btn-success">
+                             <span class="btn-label"><i class="fa fa-check"></i></span>保 存
+						</button>
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+
+	</body>
+
+</html>

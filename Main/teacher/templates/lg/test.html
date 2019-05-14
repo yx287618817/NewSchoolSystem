@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/static/js/jquery-1.11.3.js"></script>
+    <script>
+
+        $(function () {
+            $("#test").click(function () {
+                $.ajax({
+                    url: '/lg/test/ajax',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                    console.log(data);
+                    console.log(data.length);
+                    html = '';
+                    for(var i=0; i<data.length; i++){
+                        var name = data[i];
+                        html += '<p>';
+                        html += name['name'];
+                        html += '</p>'
+                    }
+                    $("#content").html(html)}
+                })
+
+            })
+        })
+    </script>
+</head>
+<body>
+    <button id="test">点击显示</button>
+    <div id="content"></div>
+</body>
+</html>

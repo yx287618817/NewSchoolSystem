@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/layui.css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/MySearch.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style>
+		.layui-btn{
+			background-color: #5fb878;
+		}
+		.label{
+		    padding: 2px 5px;
+		    background: #5FB878;
+		    border-radius: 2px;
+		    color: #fff;
+		    display: block;
+		    line-height: 20px;
+		    height: 20px;
+		    margin: 2px 5px 2px 0;
+		    float: left;
+		}
+		i{
+			display: inline-block;
+		    width: 18px;
+		    height: 18px;
+		    line-height: 18px;
+		    text-align: center
+		}
+		.label:hover{color: white;}
+		.label i:hover {
+			 background-color: #009E94;
+			 border-radius: 2px;
+		}
+		.layui-form-select dl dd:hover {
+			background-color: #5FB878;
+			color: white;
+		}
+		.AD{
+			width: 210px;
+		    margin-left: 40px;
+		    overflow-y: auto;
+		    max-height: 200px;
+		    border: 2px solid #5fb878;
+    		border-radius: 6px;
+    		padding: 1px 2px;
+		}
+	</style>
+	<body>
+		<form>
+            {% block search %}
+			<div id="demo">
+				
+			</div>
+            {% endblock %}
+
+			<a class="layui-btn sumbit" type="sumbit">提交</a>
+		</form>
+
+
+	</body>
+	<script type="text/javascript">
+		var tagData = [{"name":"存包柜视频1","id":64},
+					{"name":"存包柜视频2","id":65},
+					{"name":"测试图片1","id":5},
+					{"name":"泳池图片","id":6},
+					{"name":"测试","id":7},
+					{"name":"测试视频","id":8},
+					{"name":"视频2","id":10},
+					{"name":"竖直长图","id":11},
+					{"name":"垃圾箱","id":16}];
+	    //input name 为 fileIds
+	    $.myMethod("#demo",tagData,"fileIds");
+	    $(".sumbit").on("click",function(){
+	    	console.log($("form").serialize())
+	    })
+</script>
+</html>
