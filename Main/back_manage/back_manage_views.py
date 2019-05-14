@@ -4,14 +4,44 @@
 # @Email   : 287618817@qq.com
 # @File    : views.py
 # @Software: PyCharm
+
+
 import json
-
 from django.db import transaction
-
-from .back_manage_get_result import *
+from .back_manage_get_result import one_select
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from . import back_manage_forms as myforms
 from .. import models
+
+
+# 生源类型管理
+def student_type(request):
+    return one_select(request, models.StudentType, myforms.StudentType)
+
+
+# 学生状态管理
+def student_status(request):
+    return one_select(request, models.StudentStatus, myforms.StudentStatus)
+
+
+# 性别管理
+def sex_manage(request):
+    return one_select(request, models.Sex, myforms.Sex)
+
+
+# 总专业管理.增加图片
+def major_manage(request):
+    return one_select(request, models.Major, myforms.Major)
+
+
+# 操作表权限管理
+def table_permission(request,):
+    return one_select(request, models.TablePermission, myforms.TablePermission)
+
+
+# 操作表管理
+def table_manage(request):
+    return one_select(request, models.TableName, myforms.Table)
 
 
 # 用户组分配权限
@@ -42,11 +72,6 @@ def group_permission(request):
             return render(request, 'group_permission.html', locals())
         else:
             return render(request, 'group_permission.html', locals())
-
-# 权限表管理
-def table_manage(request):
-    obj = models.TableName.objects.all()
-    return render(request, 'table_manage.html', locals())
 
 
 # 用户管理用户分配用户组

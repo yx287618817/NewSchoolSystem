@@ -1,0 +1,88 @@
+{% extends 'back_manage_index.html' %}
+
+{% load staticfiles %}
+
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'one_select/one_select.css' %}">
+{% endblock %}
+
+{% block do_something %}
+
+  <div class="row">
+    <div class="col-md-offset-1 col-md-3">
+      <span class="title-group-one center-block">{% block operation_name %}
+        用户组管理
+      {% endblock %}</span>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <form action="" method="post" enctype="multipart/form-data">
+          <div class="col-md-offset-3 col-md-6">
+            {% for foo in table %}
+              <div class="row input_input">
+                <div class="col-md-4 input_label">{{ foo.label }}</div>
+                <div class="col-md-8 input_one">{{ foo }}</div>
+              </div>
+            {% endfor %}
+           </div>
+            <div class="row">
+              <div class="col-md-offset-4 col-md-4">
+                <input class="add_one center-block" name="res" type="submit" value="确定增加">
+              </div>
+            </div>
+        {% csrf_token %}
+        </form>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="row">
+          <div class="dis_title">
+            <span>{% block have_operation %}
+              已有操作表
+            {% endblock %}</span>
+          </div>
+      </div>
+      <div class="dis_all">
+        {% for o in obj %}
+          <div class="row dis_a">
+            <div class="col-md-8 disp_a">
+              <a class="dis center-block" href="?query=query&tid={{ o.id }}">{{ o }}</a>
+            </div>
+            <div class="col-md-4 disp_a">
+              <a class="dis dis_b center-block" href="?query=delete&tid={{ o.id }}">- 删除</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="col-md-offset-2 col-md-8 res_input">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% if obj_lst %}
+              {% for foo in obj_lst %}
+                {% if foo.0 == 'id' %}
+                  <input class="center-block" style="display: none" name="{{ foo.0 }}" type="text" value="{{ foo.1 }}">
+                  {% else %}
+                  <input class="center-block" name="{{ foo.0 }}" type="text" value="{{ foo.1 }}">
+                {% endif %}
+              {% endfor %}
+              <input class="center-block" name="res" type="submit" value="确定更新">
+          {% endif %}
+          {% csrf_token %}
+        </form>
+      </div>
+    </div>
+
+
+</div>
+{% endblock %}
+
+{% block script_block %}
+  <script src="{% static 'one_select/one_select.js' %}"></script>
+{% endblock %}

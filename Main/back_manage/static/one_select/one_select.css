@@ -1,0 +1,61 @@
+*{
+    /*border: 1px solid blue;*/
+}
+.title-group-one{
+    font-size: 32px;
+    display: block;
+    padding: 20px;
+}
+hr{
+    border: 2px solid #999999;
+}
+.input_input{
+    line-height: 35px;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.add_one{
+    font-size: 18px;
+}
+.input_label>input{
+    width: 100%;
+    text-align: center;
+}
+.input_one>input{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.dis{
+    font-size: 16px;
+    display: inline-block;
+}
+.dis_a{
+    line-height: 34px;
+}
+.dis_all{
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 1px solid #999999;
+}
+.dis_title{
+    line-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.res_input input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.disp_a{
+    border-bottom: 1px solid #999999;
+    text-align: center;
+}
+.dis_b{
+    color: red;
+}

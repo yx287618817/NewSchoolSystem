@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^back_manage/', include('Main.back_manage.back_manage_urls')),
+    url('^teacher_manage/', include('Main.teacher.urls')),
     url(r'', include('Main.urls')),
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

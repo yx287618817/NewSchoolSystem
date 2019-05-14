@@ -109,12 +109,17 @@ def is_register(req):
         username=username).values_list('group__groupName'))
 
     group_name_list = [j for i in group for j in i]
+    # print(group_name_list)
 
-    print(group_name_list)
+    number = models.RegisterFirst.objects.filter(username=username).first().number
+
+    if 'TC' in number:
+        return HttpResponseRedirect('/teacher_manage/')
+
     if '管理员' in group_name_list:
         return HttpResponseRedirect('/back_manage/')
 
-    if '学生' in group_name_list:
+    if 'ST' in number:
         try:
             models.RegisterTwo.objects.filter(
                 first__username=username).values_list('register_two_status').first()[0]
@@ -185,7 +190,7 @@ class GetManage(object):
 
     @staticmethod
     def make_group():
-        group = ['学生', '老师', '管理员']
+        group = ['意向学生', '意向教师', '管理员']
         for i in group:
             models.Group.objects.create(
                 groupName=i
@@ -315,52 +320,30 @@ def is_login(function):
         username = req.session.get('username', None)
         if not username:
             return HttpResponse("<script>alert('登陆身份验证失败,请重新登陆');location.href='/';</script>")
-        # 判断登陆身份，如果不是在校生则不让用户进入
-        one = models.RegisterFirst.objects.filter(
-            username=username).values(
-            'registerthree__register_three_status').first()['registerthree__status__status']
-        if one != '在校':
-            return HttpResponse('<script>alert("Sorry，您不是在校学生，将跳转首页");location.href="/";</script>')
-        # 这里应该修改成用正则表达式匹配
         # 判断是否有权限,如果没有权限则不执行后面的操作,返回‘没有权限’
-        permission_list, permission_dict = get_permission(
-            req.session.get('username', None),
-            login_type=req.session.get('login_who'))
+        permission_list = get_permission(username)
         if is_get_permission(permission_list, req.path):
             result = function(req, *args)
             return result
+        req.session.clear()
         return HttpResponse("<script>alert('您没有权限');location.href='/';</script>")
     return inner
 
 
-# 获取权限并生成权限字典
-def get_permission(username, req):
-    """
-        接受用户姓名,返回权限列表作判断是否有权限,返回权限列表字典作显示
-        :param username:
-        :return: permission_list, permission_dict
-    """
+# 获取权限列表
+def get_permission(username):
     permission_list = []
-    permission_dict = {}
-    group_list = list(models.RegisterFirst.objects.filter(
-        username=username).values_list('group__groupName'))
-    for group in group_list:
-        permission_lst = list(models.Permission.objects.filter(
-            grouppermission__group__groupName=group[0]).values_list(
-            'tableName__tableName', 'tablePermission__tableUrl',
-            'tableName__caption', 'tablePermission__caption'
-        ))
-        for i in permission_lst:
-            permission = '/' + i[0] + '/' + i[1] + '/'
-            permission_name = i[2] + ': ' + i[3]
-            if i[2] not in permission_dict:
-                permission_dict[i[2]] = [{'permission_name': permission_name, 'permission': permission}]
-            else:
-                if {'permission_name': permission_name, 'permission': permission} not in permission_dict[i[2]]:
-                    permission_dict[i[2]].append({'permission_name': permission_name, 'permission': permission})
-            if permission not in permission_list:
-                permission_list.append(permission)
-    return permission_list, permission_dict
+    groups =[i for j in list(models.UserGroup.objects.filter(
+        user__username=username).values_list('group__groupName')) for i in j]
+
+    for group in groups:
+        p = list(models.GroupPermission.objects.filter(group__groupName=group).values_list(
+            'permission__tableName__tableName', 'permission__tablePermission__tableUrl'))
+        lst = [(i[0] + i [1]) if i[1] else i[0] for i in p]
+        permission_list.extend(lst)
+    # 生成权限列表
+    permission_list = list(set(permission_list))
+    return permission_list
 
 
 # 生成权限显示html

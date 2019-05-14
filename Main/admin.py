@@ -18,3 +18,208 @@ admin.site.register(models.StudentStatus)
 admin.site.register(models.Major)
 admin.site.register(models.RegisterTwo)
 admin.site.register(models.ClassSelect)
+
+@admin.register(models.Student)
+class Student_user(admin.ModelAdmin):
+    list_display = [
+        'user_id',
+        'study_num',
+        'user_name',
+        'gender',
+        'birth',
+        'contact',
+        'parent_tel',
+        'grade',
+        'department',
+        'state',
+        'isactive',
+    ]
+
+    list_filter = ['user_name']
+
+@admin.register(models.Teacher)
+class Teacher_user(admin.ModelAdmin):
+    list_display = [
+        'user_id',
+        'user_name',
+        'gender',
+        'birth',
+        'email',
+        'contact',
+        'education',
+        'call',
+        'department',
+        'address',
+
+    ]
+
+    list_filter = ['user_name']
+
+@admin.register(models.Admin_user)
+class AdminUser(admin.ModelAdmin):
+    list_display = [
+        'user_id',
+        'user_name',
+        'department',
+        'acc_type',
+    ]
+
+    list_filter = ['user_name']
+
+
+@admin.register(models.Department)
+class Dep(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'dep_name',
+    ]
+    list_filter = ['dep_name']
+
+
+@admin.register(models.Account_type)
+class Acco(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'type_name',
+    ]
+    list_filter = ['type_name']
+
+
+@admin.register(models.Work_state)
+class Wstate(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'state_name',
+    ]
+    list_filter = ['state_name']
+
+
+@admin.register(models.Work_arrange)
+class Warrange(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'department',
+        'tea_id',
+        'title',
+        'content',
+        'work_type',
+        'work_state',
+        'date',
+        'finish'
+    ]
+
+    list_filter = ['work_type']
+    # 设置某个字段点击可以进入编辑页面
+    list_display_links = ['id','department']
+
+@admin.register(models.Work_type)
+class WorkT(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'type_name',
+    ]
+    list_filter = ['type_name']
+#
+@admin.register(models.Course)
+class Course_Admin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'course_name',
+    ]
+
+    list_filter = [
+        'course_name'
+    ]
+    list_display_links = [
+        'id',
+        'course_name'
+    ]
+
+@admin.register(models.Grade)
+class Grade_Admin(admin.ModelAdmin):
+    def show_mtm(self,grade):
+        return [a.name for a in grade.course.all()]
+
+    list_display = [
+        'id',
+        'grade_name',
+        'department',
+
+    ]
+
+    filter_horizontal = ['course']
+
+    list_filter = [
+        'grade_name'
+    ]
+
+    list_display_links = [
+        'id',
+        'grade_name',
+        'department',
+    ]
+
+
+@admin.register(models.Inform)
+class Inform(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'send_from_tea',
+        'send_from_dpt',
+        'send_to_dpt',
+        'send_to_tea',
+        'title',
+        'filed_name',
+        'local_file',
+        'times',
+        'isActive',
+    ]
+    list_filter = [
+        'send_from_tea',
+        'send_from_dpt',
+        'title',
+    ]
+
+    list_display_links = [
+        'id',
+        'send_from_tea',
+        'send_from_dpt',
+        'send_to_dpt',
+        'send_to_tea',
+        'title',
+        'filed_name',
+        'times'
+    ]
+
+
+@admin.register(models.ZhiCheng)
+class ZC_Admin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'call',
+    ]
+
+    list_filter = ['call']
+
+    list_display_links = ['id', 'call']
+
+@admin.register(models.Education)
+class Edu_Admin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'education',
+    ]
+
+    list_filter = ['education']
+    list_display_links = ['education']
+
+
+@admin.register(models.Stu_ate)
+class Stu_ate_Admin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'state'
+    ]
+
+    list_filter = ['state']
+    list_display_links = ['state']

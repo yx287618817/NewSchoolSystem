@@ -86,7 +86,7 @@ def teacher_login(request):
     return HttpResponse("<script>alert('未开发');location.href='/';</script>")
 
 
-# 注册登录界面
+# 登录界面
 def login(request):
     if request.method == 'GET':
         return is_register(request)
@@ -134,10 +134,10 @@ class Register(object):
                         # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
                         write_session(request, one.username)
                         if reg_p == '老师注册':
-                            gid = models.Group.objects.filter(groupName='潜在教师').first()
+                            gid = models.Group.objects.filter(groupName='意向教师').first()
                             models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
                             return HttpResponse("<script>alert('请牢记您的账号信息,等待管理员开通权限');</script>")
-                        gid = models.Group.objects.filter(groupName='潜在学生').first()
+                        gid = models.Group.objects.filter(groupName='意向学生').first()
                         models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
                         return HttpResponseRedirect('/register_two/')
                 except Exception:
@@ -261,12 +261,12 @@ class Register(object):
 
 
 # 管理页面首页
-# @is_login
+@is_login
 def student_menu(request):
     username = request.session.get('username', None)
     if username:
-        permission_list, permission_dict = get_permission(username, request)
-        html = get_permission_html(permission_dict)
+        # permission_list, permission_dict = get_permission(username, request)
+        # html = get_permission_html(permission_dict)
         return render(request, "student_menu.html", locals())
     else:
         return HttpResponseRedirect('/')
@@ -274,32 +274,8 @@ def student_menu(request):
 
 # 注销登陆
 def logout(request):
-    print(request.session)
     request.session.clear()
-    print(request.session)
     return HttpResponseRedirect('/')
-
-
-# @is_login
-# def add_one(request):
-#     if request.method == 'GET':
-#         student = myforms.StudentAddOne()
-#         return render(request, 'add_one.html', locals())
-#     else:
-#         student = myforms.StudentAddOne(request.POST)
-#         if student.is_valid():
-#             try:
-#                 data = student.clean()
-#                 with transaction.atomic():
-#                     user = models.UserMessage.objects.create(card_id=get_card_id(), photo=None)
-#                     models.Student.objects.create(**data, message_id=user.id)
-#             except Exception as e:
-#                 print(e)
-#                 return render(request, 'add_one.html', locals())
-#             else:
-#                 return HttpResponse('增加成功')
-#         else:
-#             return render(request, 'add_one.html', locals())
 
 
 def manage_add(request):

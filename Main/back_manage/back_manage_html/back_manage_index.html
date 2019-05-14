@@ -31,7 +31,7 @@
 {#  导航栏#}
   <div class="row nav">
 
-      <div class="col-md-offset-1 col-md-3"><a href="/back_manage/">
+      <div class="col-md-offset-2 col-md-2"><a href="/back_manage/">
         <img class="logo-one" src="{% static 'back_index/image/logo.png' %}" alt=""></a>
       </div>
 
@@ -41,9 +41,9 @@
           <div class="col-md-12 "><span class="title-two center-block">（权限越大责任越大，数据无价谨慎操作）</span></div>
         </div>
       </div>
-      <div class="col-md-offset-1 col-md-2 user-show">
-        <div class="col-md-offset-1 col-md-10"><span>用户:{{ request.session.account_number }}</span></div>
-        <div class="col-md-offset-1 col-md-10"><a href="/logout/">注销登陆</a></div>
+      <div class="col-md-2 user-show">
+        <div class="col-md-12"><span>用户:{{ request.session.account_number }}</span></div>
+        <div class="col-md-12"><a href="/logout/">注销登陆</a></div>
       </div>
   </div>
 
@@ -51,39 +51,27 @@
 
 
   <div class="row main-all">
-    <div class="col-md-offset-3 col-md-6">
+    <div class="col-md-offset-1 col-md-10">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-offset-3 col-md-6">
           <span>请选择您要进行的操作</span>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/group_manage/">1.用户组管理</a></div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/user_manage/">2.用户分配用户组</a></div>
-      </div>
-
-{#      <div class="row">#}
-{#        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/user_group_manange/">3.用户分配用户组</a></div>#}
-{#      </div>#}
-
-      <div class="row">
-{#        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/table_manage/">3.操作表管理</a></div>#}
-{#      </div>#}
-{##}
-{#      <div class="row">#}
-{#        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/table_permission_manage/">4.操作表权限管理</a></div>#}
-{#      </div>#}
-{##}
-{#      <div class="row">#}
-{#        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/permission_manage/">5.权限管理</a></div>#}
-      </div>
-
-      <div class="row">
-        <div class="col-md-offset-1 col-md-10"><a href="/back_manage/group_permission/">3.用户组分配权限</a></div>
+        <div class="col-md-5 all_background">
+          <div class="col-md-6"><a href="/back_manage/group_manage/">1.用户组管理</a></div>
+          <div class="col-md-6"><a href="/back_manage/user_manage/">2.用户分配用户组</a></div>
+          <div class="col-md-6"><a href="/back_manage/group_permission/">3.用户组分配权限</a></div>
+          <div class="col-md-6"><a href="/back_manage/table_manage/">4.操作表管理</a></div>
+          <div class="col-md-6"><a href="/back_manage/table_permission/">5.操作表权限管理</a></div>
+        </div>
+        <div class="col-md-offset-2 col-md-5 all_background">
+          <div class="col-md-6"><a href="/back_manage/major_manage/">1.专业管理</a></div>
+          <div class="col-md-6"><a href="/back_manage/sex_manage/">2.性别管理</a></div>
+          <div class="col-md-6"><a href="/back_manage/student_status/">3.学生状态管理</a></div>
+          <div class="col-md-6"><a href="/back_manage/student_type/">4.生源类型管理</a></div>
+        </div>
       </div>
 
     </div>

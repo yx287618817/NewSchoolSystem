@@ -41,12 +41,22 @@
 }
 .main-all span{
     display: block;
-    font-size: 23px;
+    font-size: 25px;
     text-align: center;
 }
 .main-all a{
     text-decoration: none;
-    font-size: 23px;
+    font-size: 18px;
     text-align: left;
     padding: 20px;
+    color: fuchsia;
+    /*background: white;*/
+}
+.all_background{
+    margin-top: 20px;
+    border: 1px solid #999999;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: rgba(255,203,212,0.11);
 }

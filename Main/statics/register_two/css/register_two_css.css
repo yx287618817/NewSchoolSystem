@@ -16,11 +16,8 @@
   width: 80%;
   font-size: 16px;
   background-color: #dfeffe;
-  /*background-color: red;*/
+  height: 25px;
 }
-/*.major-many{*/
-/*    background-color: #dfeffe;*/
-/*}*/
 .return-one{
   display: block;
   width: 100%;
@@ -38,8 +35,8 @@
   height: 35px;
 }
 .major-img{
-  /*max-width:70px;*/
-  /*max-height:70px;*/
+  width:70px;
+  height:68.25px;
   margin-top:10px;
   margin-bottom:10px;
 }
