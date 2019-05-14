@@ -173,15 +173,15 @@ class GetManage(object):
                     major_id=i)
             i += 1
 
-    @staticmethod
-    def make_user():
-        user = [('胡宇', '123'), ('魏婷', '123'), ('贺奕', '123'), ('杜凌风', '123'),
-                ('杨真', '123'), ('袁雄', '123'), ('刘刚', '123')]
-        for i in user:
-            models.User.objects.create(
-                userName=i[0],
-                password=i[1]
-            )
+    # @staticmethod
+    # def make_user():
+    #     user = [('胡宇', '123'), ('魏婷', '123'), ('贺奕', '123'), ('杜凌风', '123'),
+    #             ('杨真', '123'), ('袁雄', '123'), ('刘刚', '123')]
+    #     for i in user:
+    #         models.User.objects.create(
+    #             userName=i[0],
+    #             password=i[1]
+    #         )
 
     @staticmethod
     def make_group():
