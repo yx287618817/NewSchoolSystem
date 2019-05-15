@@ -43,16 +43,16 @@
         <div class="left-side-inner">
             <!--Sidebar nav-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="menu-list"><a href="index.html"><i class="icon-home"></i> <span>首页</span></a>
+                <li class="menu-list"><a href="/teacher_manage/"><i class="icon-home"></i> <span>首页</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="index.html"> 获取到的权限</a></li>
+                        <li><a href="/teacher_manage/"> 获取到的权限</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-layers"></i> <span>本学期剩余课程</span></a>
                     <ul class="sub-menu-list">
                         {% for grade in grade_list %}
-                        <li><a href="my_course.html"> {{ grade }}</a></li>
+                        <li><a href="/teacher_manage/my_course.html"> {{ grade }}</a></li>
                         {% endfor %}
 
                     </ul>
@@ -60,23 +60,22 @@
 
                 <li class="menu-list nav-active"><a href="#"><i class="icon-grid"></i> <span>工作任务</span></a>
                     <ul class="sub-menu-list">
-                        <li  class="active"><a href="table-static.html"> 日工作任务</a></li>
-                        <li><a href="table-responsive.html">周工作任务</a></li>
-                        <li><a href="table-datatable.html">月工作任务</a></li>
+                        <li  class="active"><a href="/teacher_manage/table-static.html"> 日工作任务</a></li>
+                        <li><a href="/teacher_manage/table-responsive.html">周工作任务</a></li>
+                        <li><a href="/teacher_manage/table-datatable.html">月工作任务</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-envelope-open"></i> <span>通知公告</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="inbox.html"> 所有通知</a></li>
-                        <li><a href="compose.html"> 发送通知</a></li>
+                        <li><a href="/teacher_manage/inbox.html"> 所有通知</a></li>
+                        <li><a href="/teacher_manage/compose.html"> 发送通知</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-loop"></i> <span>部门人员</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="form-validation.html"> 添加人员</a></li>
-                        <li><a href="form-xeditable.html">所有人员</a></li>
+                        <li><a href="/teacher_manage/form-xeditable.html">所有人员</a></li>
                     </ul>
                 </li>
 
@@ -89,31 +88,31 @@
                 <li class="menu-list"><a href="#"><i class="icon-pie-chart"></i> <span>成绩录入</span></a>
                     <ul class="sub-menu-list">
                     {% for grade in grade_list %}
-                            <li><a href="flot-chart.html"> {{ grade }}</a></li>
+                            <li><a href="/teacher_manage/flot-chart.html"> {{ grade }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
                 <li class="menu-list"><a href="#"><i class="icon-location-pin"></i> <span>考勤</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="check-day.html"> 今日考勤</a></li>
-                        <li><a href="check-week.html"> 本周考勤</a></li>
+                        <li><a href="/teacher_manage/check-day.html"> 今日考勤</a></li>
+                        <li><a href="/teacher_manage/check-week.html"> 本周考勤</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-folder"></i> <span>信息管理</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="user_info.html"> 个人信息管理</a></li>
-                        <li><a href="dashboard2.html"> 班级信息管理</a></li>
+                        <li><a href="/teacher_manage/user_info.html"> 个人信息管理</a></li>
+                        <li><a href="/teacher_manage/dashboard2.html"> 班级信息管理</a></li>
 
                     </ul>
                 </li>
                 <li class="menu-list"><a href="#"><i class="icon-lock"></i> <span>登录</span></a>
                     <ul class="sub-menu-list">
-                       <li><a href="login.html"> 切换用户 </a></li>
-                        <li><a href="unlocked.html"> 锁定界面 </a></li>
+                       <li><a href="/"> 切换用户 </a></li>
+                        <li><a href="/teacher_manage/unlocked.html"> 锁定界面 </a></li>
                     </ul>
                 </li>
-                <li><a href="widget.html"><i class="icon-wrench"></i> <span>设置</span></a></li>
+                <li><a href="/teacher_manage/widget.html"><i class="icon-wrench"></i> <span>设置</span></a></li>
 
             </ul>
             <!--End sidebar nav-->
@@ -151,7 +150,7 @@
 						 <li class="message-list message-scroll-list">
                           <a href="#">
                               <span class="photo"> <img src="{% static '/lg/assets/images/users/avatar-8.jpg' %}" class="img-circle" alt="img"></span>
-                              <span class="subject">{{tea.user_name}}</span>
+                              <span class="subject">{{tea.username}}</span>
                               <span class="message"> 新消息待处理</span>
                                <span class="time">15分钟之前</span>
                           </a>
@@ -165,14 +164,14 @@
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             <img src="/static/lg/assets/images/users/avatar-6.jpg" alt="" />
-                            {{tea.user_name}}
+                            {{tea.username}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                           <li> <a href="#"> <i class="fa fa-wrench"></i> 设置 </a> </li>
                           <li> <a href="#"> <i class="fa fa-user"></i> 我的 </a> </li>
                           <li> <a href="#"> <i class="fa fa-info"></i> 帮助 </a> </li>
-                          <li> <a href="logout"> <i class="fa fa-lock"></i> 注销登陆 </a> </li>
+                          <li> <a href="/logout"> <i class="fa fa-lock"></i> 注销登陆 </a> </li>
                         </ul>
                     </li>
 
@@ -226,7 +225,7 @@
                             {% for work in finsh_work_day %}
                                 <tr>
 
-                                    <th><a href="message-view.html" target="_blank">{{ work.title }}</a></th>
+                                    <th><a href="/teacher_manage/message-view.html" target="_blank">{{ work.title }}</a></th>
                                     <td><a href="#">{{ work.date }}</a></td>
                                     <td><a href="#">{{ work.finish }}</a></td>
                                 </tr>
@@ -257,7 +256,7 @@
 
                             {% for work in unfinsh_work_day %}
                                 <tr>
-                                    <th><a href="message-view.html" target="_blank">{{ work.title }}</a></th>
+                                    <th><a href="/teacher_manage/message-view.html" target="_blank">{{ work.title }}</a></th>
                                     <td><a href="#">{{ work.date }}</a></td>
                                     <td><a href="#">{{ work.finish }}</a></td>
                                 </tr>
@@ -290,7 +289,7 @@
 
                                     {% for work in working_day %}
                                         <tr>
-                                            <th><a href="message-view.html" target="_blank">{{ work.title }}</a></th>
+                                            <th><a href="/teacher_manage/message-view.html" target="_blank">{{ work.title }}</a></th>
                                             <td><a href="#">{{ work.date }}</a></td>
                                             <td><a href="#">{{ work.finish }}</a></td>
                                         </tr>
@@ -321,7 +320,7 @@
 
                                     {% for work in help_work_day %}
                                         <tr>
-                                            <th><a href="message-view.html" target="_blank">{{ work.title }}</a></th>
+                                            <th><a href="/teacher_manage/message-view.html" target="_blank">{{ work.title }}</a></th>
                                             <td><a href="#">{{ work.date }}</a></td>
                                             <td><a href="#">{{ work.finish }}</a></td>
                                         </tr>

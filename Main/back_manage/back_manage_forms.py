@@ -10,6 +10,7 @@ from .. import models
 
 USER = models.RegisterFirst.objects.all()
 GROUP = models.Group.objects.all()
+MAJOR = models.Major.objects.all()
 
 
 class Group(forms.Form):
@@ -31,7 +32,9 @@ class Table(forms.Form):
 
 class TablePermission(forms.Form):
     caption = forms.CharField(label='权限名称')
-    tableUrl = forms.CharField(label='权限路径')
+    tableUrl = forms.CharField(label='权限路径', widget=widgets.Input(attrs={
+        'onchange': 'check_file_one()'
+    }))
 
 
 class Major(forms.Form):
@@ -49,3 +52,33 @@ class StudentStatus(forms.Form):
 
 class StudentType(forms.Form):
     student_type = forms.CharField(label='生源类型')
+
+
+class MajorChild(forms.Form):
+    major = forms.ModelChoiceField(label='总专业', queryset=MAJOR)
+    caption = forms.CharField(label='子专业名称')
+
+
+TABLE = models.TableName.objects.all()
+TABLEPERMISSION = models.TablePermission.objects.all()
+
+
+class Permission(forms.Form):
+    tableName = forms.ModelChoiceField(label='权限', queryset=TABLE)
+    tablePermission = forms.ModelChoiceField(label='子权限', queryset=TABLEPERMISSION)
+
+
+class Work_state(forms.Form):
+    state_name = forms.CharField(label='工作状态')
+
+
+class Work_type(forms.Form):
+    type_name = forms.CharField(label='工作类型')
+
+
+DEP = models.Major.objects.all()
+TEA = models.Teacher.objects.all()
+
+class DepToTea(forms.Form):
+    department = forms.ModelChoiceField(label='所在系', queryset=DEP)
+    teacher = forms.ModelChoiceField(label='教师', queryset=TEA)

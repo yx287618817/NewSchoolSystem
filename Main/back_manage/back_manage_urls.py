@@ -17,5 +17,10 @@ urlpatterns = [
     url(r'^student_status/$', views.student_status, name='one_select.html'),
     url(r'^student_type/$', views.student_type, name='one_select.html'),
     url(r'^major_manage/$', views.major_manage, name='one_select.html'),
+    url(r'^major_child/$', views.major_child, name='one_many_select.html'),
+    url(r'^permission/$', views.permission, name='many_many_select.html'),
+    url(r'^work_state/$', views.work_state, name='one_select.html'),
+    url(r'^work_work_type/$', views.work_state, name='one_select.html'),
+    url(r'^dep_to_tea/$', views.dep_to_tea, name='many_many_select.html'),
     url(r'^$', views.back_manage_index, name='back_manage_index.html'),
 ]

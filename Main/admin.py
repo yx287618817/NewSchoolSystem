@@ -1,70 +1,36 @@
 from django.contrib import admin
-from Main import models
+from . import models
 
 
 # 权限管理
-admin.site.register(models.Permission)
-admin.site.register(models.TablePermission)
-admin.site.register(models.TableName)
-admin.site.register(models.GroupPermission)
-admin.site.register(models.NoPermission)
+# admin.site.register(models.Permission)
+# admin.site.register(models.TablePermission)
+# admin.site.register(models.TableName)
+# admin.site.register(models.GroupPermission)
+# admin.site.register(models.NoPermission)
 
 # 多选管理
-admin.site.register(models.Grades)
-admin.site.register(models.Classes)
-admin.site.register(models.Sex)
-admin.site.register(models.StudentType)
-admin.site.register(models.StudentStatus)
-admin.site.register(models.Major)
-admin.site.register(models.RegisterTwo)
-admin.site.register(models.ClassSelect)
+# admin.site.register(models.Grades)
+# admin.site.register(models.Classes)
+# admin.site.register(models.Sex)
+# admin.site.register(models.StudentType)
+# admin.site.register(models.StudentStatus)
+# admin.site.register(models.Major)
+# admin.site.register(models.RegisterTwo)
+# admin.site.register(models.ClassSelect)
+#
+# admin.site.register(models.RegisterFirst)
 
-@admin.register(models.Student)
-class Student_user(admin.ModelAdmin):
+
+@admin.register(models.DepToTea)
+class Dep(admin.ModelAdmin):
     list_display = [
-        'user_id',
-        'study_num',
-        'user_name',
-        'gender',
-        'birth',
-        'contact',
-        'parent_tel',
-        'grade',
         'department',
-        'state',
-        'isactive',
+        'teacher'
     ]
 
-    list_filter = ['user_name']
+    # filter_horizontal = ['teacher']
 
-@admin.register(models.Teacher)
-class Teacher_user(admin.ModelAdmin):
-    list_display = [
-        'user_id',
-        'user_name',
-        'gender',
-        'birth',
-        'email',
-        'contact',
-        'education',
-        'call',
-        'department',
-        'address',
-
-    ]
-
-    list_filter = ['user_name']
-
-@admin.register(models.Admin_user)
-class AdminUser(admin.ModelAdmin):
-    list_display = [
-        'user_id',
-        'user_name',
-        'department',
-        'acc_type',
-    ]
-
-    list_filter = ['user_name']
 
 
 @admin.register(models.Department)
@@ -74,15 +40,6 @@ class Dep(admin.ModelAdmin):
         'dep_name',
     ]
     list_filter = ['dep_name']
-
-
-@admin.register(models.Account_type)
-class Acco(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'type_name',
-    ]
-    list_filter = ['type_name']
 
 
 @admin.register(models.Work_state)
@@ -111,6 +68,7 @@ class Warrange(admin.ModelAdmin):
     list_filter = ['work_type']
     # 设置某个字段点击可以进入编辑页面
     list_display_links = ['id','department']
+
 
 @admin.register(models.Work_type)
 class WorkT(admin.ModelAdmin):
@@ -147,7 +105,7 @@ class Grade_Admin(admin.ModelAdmin):
 
     ]
 
-    filter_horizontal = ['course']
+    filter_horizontal = ['course', 'teacher']
 
     list_filter = [
         'grade_name'
@@ -192,17 +150,6 @@ class Inform(admin.ModelAdmin):
     ]
 
 
-@admin.register(models.ZhiCheng)
-class ZC_Admin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'call',
-    ]
-
-    list_filter = ['call']
-
-    list_display_links = ['id', 'call']
-
 @admin.register(models.Education)
 class Edu_Admin(admin.ModelAdmin):
     list_display = [
@@ -213,13 +160,3 @@ class Edu_Admin(admin.ModelAdmin):
     list_filter = ['education']
     list_display_links = ['education']
 
-
-@admin.register(models.Stu_ate)
-class Stu_ate_Admin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'state'
-    ]
-
-    list_filter = ['state']
-    list_display_links = ['state']

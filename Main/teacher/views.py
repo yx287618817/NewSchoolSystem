@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,redirect,reverse, render_to_response
+from django.shortcuts import render, HttpResponse, redirect, reverse, render_to_response
 from functools import wraps
 from ..models import *
 import time
@@ -28,7 +28,6 @@ class Work(object):
         self.finish = ''
 
 
-
 # def check_login(func):
 #     @wraps(func)
 #     def inner(request, *args, **kwargs):
@@ -53,18 +52,23 @@ def locked(func):
                 return redirect('/lg/index/locked.html')
         else:
             return func(request, *args, **kwargs)
+
     return inner
+
 
 # @check_login
 @locked
 def index(request):
+    print("主页路由")
     user_id = request.session.get('user_id')
-    user = Teacher.objects.filter(user_id=user_id)
+    print(user_id)
+    user = RegisterFirst.objects.filter(id=user_id)
     if user:
+        print('主页')
         tea = user[0]
         return render(request, 'lg/index.html', locals())
-    return render(request, 'lg/login.html')
-
+    return render(request, 'lg/index.html', locals())
+    # return render(request, 'lg/login.html')
 
 
 # @check_login
@@ -72,33 +76,33 @@ def index(request):
 def table_static(request):
     try:
         id = request.session.get('user_id')
-        tea = Teacher.objects.filter(user_id=id)[0]
+        tea = RegisterFirst.objects.filter(id=id)[0]
     except IndexError:
         return render(request, 'lg/login.html')
     except:
         return render(request, 'lg/error-404.html')
-    work = Work_arrange.objects.filter(tea_id=id)
+    work = Work_arrange.objects.filter(id=id)
     work_day = work.filter(work_type=1)
     unfinsh_work_day = work_day.filter(work_state=1)
     finsh_work_day = work_day.filter(work_state=3)
     working_day = work_day.filter(work_state=6)
     help_work_day = work_day.filter(work_state=4)
 
-
     return render(request, 'lg/table-static.html', locals())
+
 
 # @check_login
 @locked
 def table_responsive(request):
     try:
         id = request.session.get('user_id')
-        tea = Teacher.objects.filter(user_id=id)[0]
+        tea = RegisterFirst.objects.filter(id=id)[0]
         print('respnsive', id)
     except IndexError:
         return render(request, 'lg/login.html')
     except:
         return render(request, 'lg/error-404.html')
-    work = Work_arrange.objects.filter(tea_id=id)
+    work = Work_arrange.objects.filter(id=id)
     work_day = work.filter(work_type=2)
     unfinsh_work_day = work_day.filter(work_state=1)
     finsh_work_day = work_day.filter(work_state=3)
@@ -107,19 +111,20 @@ def table_responsive(request):
 
     return render(request, 'lg/table-responsive.html', locals())
 
+
 # @check_login
 @locked
 def table_datatable(request):
     try:
         id = request.session.get('user_id')
-        tea = Teacher.objects.filter(user_id=id)[0]
+        tea = RegisterFirst.objects.filter(id=id)[0]
         print('database', id)
     except IndexError:
         return render(request, 'lg/login.html')
     except:
         return render(request, 'lg/error-404.html')
 
-    work = Work_arrange.objects.filter(tea_id=id)
+    work = Work_arrange.objects.filter(id=id)
     work_day = work.filter(work_type=3)
     unfinsh_work_day = work_day.filter(work_state=1)
     finsh_work_day = work_day.filter(work_state=3)
@@ -134,11 +139,11 @@ def login_views(request):
     else:
         username = request.POST.get('username')
         password = request.POST.get('password')
-        teas = Teacher.objects.filter(user_name=username, pass_word=password)
+        teas = RegisterFirst.objects.filter(username=username, password=password)
         if teas:
             tea = teas[0]
             request.session['is_login'] = '1'
-            request.session['user_id'] = tea.user_id
+            request.session['user_id'] = tea.id
             request.session.set_expiry(0)
             response = redirect('index.html')
             if 'rempwd' in request.POST:
@@ -148,46 +153,47 @@ def login_views(request):
             return response
         else:
             msg = "账户或密码错误"
-            return render(request,'lg/login.html', {'msg': msg})
+            return render(request, 'lg/login.html', {'msg': msg})
+
 
 # @check_login
 @locked
 def message_view(request):
     id = request.session.get('user_id')
-
-    teas = Teacher.objects.filter(user_id=id)
+    teas = RegisterFirst.objects.filter(id=id)
     if teas:
         tea = teas[0]
-        work = Work_arrange.objects.filter(tea_id=id)[0]
+        work = Work_arrange.objects.filter(id=id)[0]
         return render(request, 'lg/message-view.html', locals())
     else:
         return render(request, 'lg/error-404.html')
+
 
 # @check_login
 @locked
 def inbox_view(request):
     id = request.session.get('user_id')
-    teas = Teacher.objects.filter(user_id=id)
+    teas = RegisterFirst.objects.filter(id=id)
     tea = teas[0]
     if "send" in request.GET:
         send_inform = Inform.objects.filter(send_from_tea=id)
         lists = []
         for inform in send_inform:
-            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.user_name,
+            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.username,
                          'send_from_dpt': inform.send_from_dpt.dep_name,
-                         'send_from_tea': inform.send_from_tea.user_name, 'title': inform.title,
+                         'send_from_tea': inform.send_from_tea.username, 'title': inform.title,
                          'times': str(inform.times)}
             lists.append(json_list)
         send = json.dumps(lists, ensure_ascii=False)
         return HttpResponse(json.dumps(lists, ensure_ascii=False), content_type="application/json,charset=utf-8")
 
     elif 'form' in request.GET:
-        from_inform = Inform.objects.filter(send_to_tea=teas[0].user_id)
+        from_inform = Inform.objects.filter(send_to_tea=teas[0].id)
         lists = []
         for inform in from_inform:
-            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.user_name,
+            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.username,
                          'send_from_dpt': inform.send_from_dpt.dep_name,
-                         'send_from_tea': inform.send_from_tea.user_name, 'title': inform.title,
+                         'send_from_tea': inform.send_from_tea.username, 'title': inform.title,
                          'times': str(inform.times)}
             lists.append(json_list)
 
@@ -195,37 +201,38 @@ def inbox_view(request):
 
     elif 'all' in request.GET:
         send_inform = Inform.objects.filter(send_from_tea=id)
-        from_inform = Inform.objects.filter(send_to_tea=teas[0].user_id)
+        from_inform = Inform.objects.filter(send_to_tea=teas[0].id)
 
         lists = []
         for inform in from_inform:
-            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.user_name,
+            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.username,
                          'send_from_dpt': inform.send_from_dpt.dep_name,
-                         'send_from_tea': inform.send_from_tea.user_name, 'title': inform.title,
+                         'send_from_tea': inform.send_from_tea.username, 'title': inform.title,
                          'times': str(inform.times)}
             lists.append(json_list)
         for inform in send_inform:
-            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.user_name,
+            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.username,
                          'send_from_dpt': inform.send_from_dpt.dep_name,
-                         'send_from_tea': inform.send_from_tea.user_name, 'title': inform.title,
+                         'send_from_tea': inform.send_from_tea.username, 'title': inform.title,
                          'times': str(inform.times)}
             lists.append(json_list)
+        print(lists)
         return HttpResponse(json.dumps(lists, ensure_ascii=False), content_type="application/json,charset=utf-8")
     elif 'dustbin' in request.GET:
         send_inform = Inform.objects.filter(send_from_tea=id, isActive=False)
-        from_inform = Inform.objects.filter(send_to_tea=teas[0].user_id, isActive=False)
+        from_inform = Inform.objects.filter(send_to_tea=teas[0].id, isActive=False)
 
         lists = []
         for inform in from_inform:
-            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.user_name,
+            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.username,
                          'send_from_dpt': inform.send_from_dpt.dep_name,
-                         'send_from_tea': inform.send_from_tea.user_name, 'title': inform.title,
+                         'send_from_tea': inform.send_from_tea.username, 'title': inform.title,
                          'times': str(inform.times)}
             lists.append(json_list)
         for inform in send_inform:
-            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.user_name,
+            json_list = {'send_to_dpt': inform.send_to_dpt.dep_name, 'send_to_tea': inform.send_to_tea.username,
                          'send_from_dpt': inform.send_from_dpt.dep_name,
-                         'send_from_tea': inform.send_from_tea.user_name, 'title': inform.title,
+                         'send_from_tea': inform.send_from_tea.username, 'title': inform.title,
                          'times': str(inform.times)}
             lists.append(json_list)
         return HttpResponse(json.dumps(lists, ensure_ascii=False), content_type="application/json,charset=utf-8")
@@ -238,36 +245,50 @@ def inbox_view(request):
 @locked
 def compose_view(request):
     id = request.session.get('user_id')
-    teas = Teacher.objects.filter(user_id=id)
+    tea = RegisterFirst.objects.filter(id=id)[0]
+
+    print('id', id)
+    teas = RegisterFirst.objects.filter(id=id)
+    print(teas)
     if request.method == 'GET':
         id = request.session.get('user_id')
-        teas = Teacher.objects.filter(user_id=id)
+        teas = RegisterFirst.objects.filter(id=id)
         tea = teas[0]
         if 'dep' in request.GET:
             id = request.session.get('user_id')
-            teas = Teacher.objects.filter(user_id=id)[0]
-            department = Department.objects.all()
+            teas = RegisterFirst.objects.filter(id=id)[0]
+            department = Major.objects.all()
+            # print(department[0].dep_name)
             json_list = []
             for dep in department:
+                print(dep.id)
                 json_dict = {
                     'id': dep.id,
-                    'dep_name': dep.dep_name
+                    'dep_name': dep.caption
                 }
                 json_list.append(json_dict)
+            print(json_list)
             dep_all = json.dumps(json_list, ensure_ascii=False)
 
-            return HttpResponse(json.dumps(json_list, ensure_ascii=False), content_type="application/json,charset=utf-8")
+            return HttpResponse(json.dumps(json_list, ensure_ascii=False),
+                                content_type="application/json,charset=utf-8")
         elif 'pid' in request.GET:
             pid = request.GET.get('pid')
-            teachers = Teacher.objects.filter(department=pid)
+            teachers = list(DepToTea.objects.filter(department__id=pid).values('id', 'teacher__username', 'teacher__id'))
+            print(teachers)
             json_list = []
             for teacher in teachers:
+                print(teacher['id'])
+
+                if teacher['teacher__id'] == id:
+                    continue
                 json_dict = {
-                    'user_id': teacher.user_id,
-                    'user_name': teacher.user_name,
+                    'user_id': teacher['id'],
+                    'user_name': teacher['teacher__username'],
 
                 }
                 json_list.append(json_dict)
+            print(json_list)
             return HttpResponse(json.dumps(json_list, ensure_ascii=False),
                                 content_type="application/json,charset=utf-8")
         return render(request, 'lg/compose.html', locals())
@@ -275,16 +296,16 @@ def compose_view(request):
     else:
         # 接收对应部门
         to_dpt = request.POST.get('to_dpt')
-        print(to_dpt)
+        # print(to_dpt)
         # 接收对应老师
         to_tea = request.POST.get('to_tea')
-        print(to_tea)
+        # print(to_tea)
         # 标题
         title = request.POST.get('title')
-        print(title)
+        # print(title)
         # 内容
         content = request.POST.get('content')
-        print(content)
+        # print(content)
         # 文件
 
         # 需要保存的字段有:send_to_dpt, send_to_tea, send_from_dpt, send_from_tea, title,
@@ -297,9 +318,11 @@ def compose_view(request):
             print(file_name)
 
             tea = teas[0]
-            send_from_dpt = tea.department
-            send_from_tea = tea.user_id
-            path = 'file/' + file_name
+            send_from_dpt = DepToTea.objects.filter(teacher__id=id)[0].department
+            # print(send_from_dpt.id)
+            send_from_tea = tea.id
+            # print(os.path.abspath(__file__))
+            path = 'Main/teacher/file/' + file_name
             f = open(path, 'wb')
             for tun in file:
                 f.write(tun)
@@ -307,7 +330,7 @@ def compose_view(request):
             inf = Inform()
             inf.send_to_dpt_id = to_dpt
             inf.send_to_tea_id = to_tea
-            inf.send_from_dpt_id = tea.department_id
+            inf.send_from_dpt_id = DepToTea.objects.filter(teacher__id=id)[0].department.id
             inf.send_from_tea_id = id
             inf.title = title
             inf.content = content
@@ -326,6 +349,7 @@ def compose_view(request):
             inf.save()
         return HttpResponse("发送成功")
 
+
 # @check_login
 @locked
 def logout(request):
@@ -338,6 +362,7 @@ def logout(request):
 def dashboard2(request):
     return render(request, 'lg/dashboard2.html')
 
+
 # @check_login
 @locked
 def my_course(request):
@@ -348,63 +373,77 @@ def my_course(request):
     if 'id' in request.GET:
         course_id = request.GET.get('id')
     course = Grade.objects.get(id=course_id).course.all()
-    # try:
-    #     grade_id = request.GET.get('id')
-    #     grade = Grade.objects.get(id=grade_id)
-    # except:
-    #     pass
-
+    tea = RegisterFirst.objects.filter(id=tea_id)[0]
+    print(tea)
     print(grade_list)
     print(course)
 
     return render(request, 'lg/ui-buttons.html', locals())
 
+
 # @check_login
 @locked
 def validation(request):
+    userid = request.session['user_id']
+    tea = RegisterFirst.objects.filter(id=userid)[0]
     id = request.GET.get('id')
-    teachers = Teacher.objects.filter(user_id=id)
+    # print(id)
+    teachers = RegisterFirst.objects.filter(deptotea__id=id)
+    print(teachers)
+    # teachers = list(DepToTea.objects.filter(department__id=id).values('id', 'teacher__username', 'teacher__id'))
+    # print(teachers)
+    # teachers = RegisterFirst.objects.filter(id=id)
     if teachers:
-        tea = teachers[0]
+        teacher = teachers[0]
+        print()
     return render(request, 'lg/form-validation.html', locals())
+
 
 # @check_login
 @locked
 def xeditable(request):
-    peple = Teacher.objects.all()
+    id = request.session['user_id']
+    tea = RegisterFirst.objects.filter(id=id)[0]
+    peple = DepToTea.objects.all()
     # tea = Teacher.objects.filter(user_id=1)
+    print(peple[0].teacher)
     return render(request, 'lg/form-xeditable.html', locals())
+
 
 # @check_login
 @locked
 def calendar(request):
     return render(request, 'lg/calendar.html')
 
+
 # @check_login
 @locked
 def flot_chart(request):
     return render(request, 'lg/flot-chart.html')
+
 
 # @check_login
 @locked
 def check_day(request):
     return render(request, 'lg/check_day.html')
 
+
 # @check_login
 @locked
 def check_week(request):
     return render(request, 'lg/timeline.html')
+
 
 # @check_login
 @locked
 def inform_filed(request):
     return render(request, 'lg/inform-filed.html')
 
+
 # @check_login
 @locked
 def forgot_password(request):
     return render(request, 'lg/forgot-password.html')
-
 
 
 # @check_login
@@ -420,6 +459,8 @@ def user_info(request):
 @locked
 def course_info(request):
     return render(request, 'lg/course_info.html')
+
+
 #
 # @check_login
 # @locked
@@ -437,15 +478,18 @@ def del_cookie(request):
         return render(request, 'lg/error-500.html', {'error': e})
     return response
 
+
 # @check_login
 @locked
 def settings(request):
     return render(request, 'lg/settings.html')
 
+
 # @check_login
 @locked
 def registration(request):
     return render(request, 'lg/registration.html')
+
 
 # @check_login
 @locked
@@ -463,6 +507,7 @@ def unlock(request):
         request.session['unlock'] = pwd
         request.session['active'] = '0'
         return redirect('locked.html')
+
 
 # @check_login
 def locked(request):

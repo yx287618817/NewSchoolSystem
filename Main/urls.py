@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     url(r'^student_menu/$', views.student_menu, name='student_menu.html'),
     url(r'^$', views.login, name='login.html'),
+    url(r'^login/$', views.login, name='login.html'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^manage_add/$', views.manage_add),
     url(r'^register_one/$', views.Register.register_one),

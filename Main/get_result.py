@@ -10,13 +10,6 @@ from functools import wraps
 from . import Smsverification as c
 
 
-# 后台管理
-class BackManage(object):
-    @staticmethod
-    def add_user():
-        pass
-
-
 # 短信验证
 def code_verification(req):
     client = c.ZhenziSmsClient(
@@ -101,23 +94,23 @@ def is_register(req):
         else:
             return HttpResponse("<script>alert('账号密码错误');location.href='/';</script>")
     else:
+        # 已经登录
         username = req.session.get('username')
         if not username:
             return render(req, 'login.html')
 
     group = list(models.RegisterFirst.objects.filter(
-        username=username).values_list('group__groupName'))
+        username=username).values_list('usergroup__group__groupName'))
 
     group_name_list = [j for i in group for j in i]
-    # print(group_name_list)
 
     number = models.RegisterFirst.objects.filter(username=username).first().number
 
-    if 'TC' in number:
-        return HttpResponseRedirect('/teacher_manage/')
-
     if '管理员' in group_name_list:
         return HttpResponseRedirect('/back_manage/')
+
+    if 'TC' in number:
+        return HttpResponseRedirect('/teacher_manage/')
 
     if 'ST' in number:
         try:
@@ -324,7 +317,11 @@ def is_login(function):
         permission_list = get_permission(username)
         if is_get_permission(permission_list, req.path):
             result = function(req, *args)
-            return result
+            try:
+                return result
+            except Exception as e:
+                print(e)
+                HttpResponse("<script>alert('出错了');location.href='%s';</script>" % req.path)
         req.session.clear()
         return HttpResponse("<script>alert('您没有权限');location.href='/';</script>")
     return inner

@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^table-datatable.html/$', views.table_datatable),
     url(r'^message-view.html/$', views.message_view),
     url(r'^inbox.html/$', views.inbox_view),
-    url(r'^compose.html/$', views.compose_view),
+    # url(r'^compose.html/$', views.compose_view),
     url(r'^logout/$', views.logout),
     url(r'^dashboard2.html/$', views.dashboard2),
     url(r'^my_course.html/$', views.my_course),

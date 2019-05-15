@@ -27,7 +27,6 @@ class RegisterFirst(models.Model):
     email = models.EmailField(verbose_name='邮箱')
     tel = models.CharField(verbose_name='学生电话', max_length=15)
     register_date = models.DateField(verbose_name='注册时间')
-    group = models.ForeignKey('Group', verbose_name='用户组', on_delete=models.CASCADE, default=1)
     register_one_status = models.BooleanField(verbose_name='第一步信息是否已经完成', default=0)
     user_photo = models.BinaryField(verbose_name='用户头像', default=DEFAULT_PHOTO)
     user_salt = models.ForeignKey('HashlibSalt', verbose_name='盐', on_delete=models.CASCADE, default=1)
@@ -196,7 +195,7 @@ class Major(models.Model):
 
 class MajorChild(models.Model):
     major = models.ForeignKey('Major', on_delete=models.CASCADE)
-    caption = models.CharField('专业细分', max_length=32, unique=True)
+    caption = models.CharField('专业细分', max_length=32, null=True, blank=True)
 
     def __str__(self):
         return '%s ==> %s' % (self.major.caption, self.caption)
@@ -297,7 +296,7 @@ class TablePermission(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return '%s: %s' % (self.caption, self.tableUrl)
+        return self.caption
 
 
 # 操作表
@@ -371,7 +370,7 @@ class Grade(models.Model):
     teacher = models.ManyToManyField('Teacher', verbose_name='班级对应教师')
 
     def __str__(self):
-        return '%s' % self.grade_name
+        return self.grade_name
 
     class Meta:
         verbose_name = '班级表'
@@ -401,52 +400,6 @@ class Department(models.Model):
         verbose_name_plural = verbose_name
 
 
-# 编写账户类型表, 存放所有账户的类型
-class Account_type(models.Model):
-    id = models.AutoField(primary_key=True)
-    type_name = models.CharField(verbose_name='账户类型',max_length=128, unique=True)
-
-    def __str__(self):
-        return '%s' % self.type_name
-
-    class Meta:
-        verbose_name = '账户类型'
-        verbose_name_plural = verbose_name
-
-
-class Stu_ate(models.Model):
-    id = models.AutoField(primary_key=True)
-    state = models.CharField(max_length=128, unique=True, verbose_name='学生状态(/在校/...)')
-
-    def __str__(self):
-        return self.state
-
-    class Meta:
-        verbose_name = '学生状态(在校...)'
-        verbose_name_plural = verbose_name
-
-class Student(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    study_num = models.BigIntegerField(verbose_name='学号')
-    user_name = models.CharField(verbose_name='用户名',max_length=16)
-    gender = models.BooleanField(default=True, verbose_name='性别男')
-    birth = models.DateField(verbose_name='出生日期')
-    contact = models.CharField(max_length=16, unique=True, verbose_name='联系方式')
-    parent_tel = models.CharField(max_length=16, unique=True, verbose_name='监护人联系方式')
-    pass_word = models.CharField(verbose_name='密码',max_length=16)
-    grade = models.ForeignKey('Grade', to_field='id', on_delete=models.CASCADE, verbose_name='学生所在班级')
-    state = models.ForeignKey('Stu_ate', to_field='id', on_delete=models.CASCADE, verbose_name='学生状态(在校/..)')
-    acc_type = models.ForeignKey('Account_type', to_field='id', on_delete=models.CASCADE, verbose_name='账户类型默认为学生', default='2')
-    department = models.ForeignKey('Department', to_field='id', on_delete=models.CASCADE,verbose_name='所在系部', default='1')
-    isactive = models.BooleanField(default=True,verbose_name='是否启用')
-    def __str__(self):
-        return '%s' % self.user_name
-
-    class Meta:
-        verbose_name = '学生用户'
-        verbose_name_plural = verbose_name
-
-
 class Education(models.Model):
     id = models.AutoField(primary_key=True)
     education = models.CharField(max_length=128, verbose_name='学历', unique=True)
@@ -458,17 +411,6 @@ class Education(models.Model):
         verbose_name = '学历'
         verbose_name_plural = verbose_name
 
-class ZhiCheng(models.Model):
-    id = models.AutoField(primary_key=True)
-    call = models.CharField(max_length=64, unique=True, verbose_name='职称')
-
-    def __str__(self):
-        return self.call
-
-    class Meta:
-        verbose_name = '职称'
-        verbose_name_plural = verbose_name
-
 
 class Teacher(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -476,12 +418,10 @@ class Teacher(models.Model):
     gender = models.BooleanField(default=True, verbose_name='性别')
     birth = models.DateField(verbose_name='出生日期')
     pass_word = models.CharField(verbose_name='密码',max_length=16)
-    acc_type = models.ForeignKey('Account_type', to_field='id', on_delete=models.CASCADE,verbose_name='账户类型', default='3')
     department = models.ForeignKey('Department', to_field='id', on_delete=models.CASCADE,verbose_name='所属系部')
     email = models.EmailField(unique=True, verbose_name='邮箱')
     contact = models.CharField(max_length=16, unique=True, verbose_name='联系方式')
     education = models.ForeignKey('Education', to_field='id', on_delete=models.CASCADE, verbose_name='学历')
-    call = models.ForeignKey('ZhiCheng', to_field='id', on_delete=models.CASCADE, verbose_name='职称')
     address = models.CharField(max_length=256, verbose_name='家庭地址')
 
     def __str__(self):
@@ -489,22 +429,6 @@ class Teacher(models.Model):
 
     class Meta:
         verbose_name = '教师用户'
-        verbose_name_plural = verbose_name
-
-
-class Admin_user(models.Model):
-    user_name = models.CharField(verbose_name='用户名',max_length=16)
-    user_id = models.AutoField(primary_key=True)
-    pass_word = models.CharField(verbose_name='密码',max_length=16)
-    #  部门编号, 判断是哪个部门的账户登录.
-    department = models.ForeignKey('Department', to_field='id', on_delete=models.CASCADE,verbose_name='部门')
-    acc_type = models.ForeignKey('Account_type', to_field='id', on_delete=models.CASCADE,verbose_name='账户类型', default='1')
-
-    def __str__(self):
-        return '%s' % self.user_name
-
-    class Meta:
-        verbose_name = '管理员'
         verbose_name_plural = verbose_name
 
 
@@ -583,4 +507,15 @@ class Inform(models.Model):
         verbose_name = '消息通知'
         verbose_name_plural = verbose_name
 
+
+class DepToTea(models.Model):
+    department = models.ForeignKey('Major', on_delete=models.CASCADE, verbose_name="对应部门表")
+    teacher = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE, verbose_name="对应教师")
+
+    def __str__(self):
+        return '%s --> %s' % (self.department, self.teacher)
+
+    class Meta:
+        verbose_name = '部门对应老师'
+        verbose_name_plural = verbose_name
 

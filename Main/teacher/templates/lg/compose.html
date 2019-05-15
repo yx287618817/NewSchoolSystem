@@ -100,7 +100,7 @@
     <script>
         function loadDep() {
             $.ajax({
-                url: '/lg/index/compose.html?dep=true',
+                url: '/teacher_manage/compose.html?dep=true',
                 type: 'get',
                 dataType: 'json',
                 success: function (data) {
@@ -119,7 +119,7 @@
             $.ajax({
 
 
-                url: '/lg/index/compose.html',
+                url: '/teacher_manage/compose.html',
                 type: 'get',
                 dataType: 'json',
                 data: 'pid='+id,
@@ -177,37 +177,39 @@
         <div class="left-side-inner">
             <!--Sidebar nav-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="menu-list"><a href="index.html"><i class="icon-home"></i> <span>首页</span></a>
+                <li class="menu-list"><a href="/teacher_manage/"><i class="icon-home"></i> <span>首页</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="index.html"> 获取到的权限</a></li>
+                        <li><a href="/teacher_manage/"> 获取到的权限</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-layers"></i> <span>本学期剩余课程</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="my_course.html"> 一年级一班</a></li>
+                        {% for i in grade_list %}
+                            <li><a href="/teacher_manage/flot-chart.html"> {{ i }}</a></li>
+                        {% endfor %}
 
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-grid"></i> <span>工作任务</span></a>
                     <ul class="sub-menu-list">
-                        <li  class="active"><a href="table-static.html"> 日工作任务</a></li>
-                        <li><a href="table-responsive.html">周工作任务</a></li>
-                        <li><a href="table-datatable.html">月工作任务</a></li>
+                        <li  class="active"><a href="/teacher_manage/table-static.html"> 日工作任务</a></li>
+                        <li><a href="/teacher_manage/table-responsive.html">周工作任务</a></li>
+                        <li><a href="/teacher_manage/table-datatable.html">月工作任务</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list nav-active"><a href="#"><i class="icon-envelope-open"></i> <span>通知公告</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="inbox.html"> 所有通知</a></li>
-                        <li class="active"><a href="compose.html">发送通知</a></li>
+                        <li><a href="/teacher_manage/inbox.html"> 所有通知</a></li>
+                        <li class="active"><a href="/teacher_manage/compose.html">发送通知</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-loop"></i> <span>部门人员</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="form-xeditable.html">所有人员</a></li>
+                        <li><a href="/teacher_manage/form-xeditable.html">所有人员</a></li>
                     </ul>
                 </li>
 
@@ -215,34 +217,36 @@
 
 
 
-                <li><a href="course_info.html"><i class="icon-note"></i> <span>今日课表</span></a></li>
+                <li><a href="/teacher_manage/course_info.html"><i class="icon-note"></i> <span>今日课表</span></a></li>
 
                 <li class="menu-list"><a href="#"><i class="icon-pie-chart"></i> <span>成绩录入</span></a>
                     <ul class="sub-menu-list">
-                    <li><a href="flot-chart.html"> 一年级一班</a></li>
+                    {% for i in grade_list %}
+                            <li><a href="/teacher_manage/flot-chart.html"> {{ i }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
                 <li class="menu-list"><a href="#"><i class="icon-location-pin"></i> <span>考勤</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="check-day.html"> 今日考勤</a></li>
-                        <li><a href="check-week.html"> 本周考勤</a></li>
+                        <li><a href="/teacher_manage/check-day.html"> 今日考勤</a></li>
+                        <li><a href="/teacher_manage/check-week.html"> 本周考勤</a></li>
                     </ul>
                 </li>
 
                 <li class="menu-list"><a href="#"><i class="icon-folder"></i> <span>信息管理</span></a>
                     <ul class="sub-menu-list">
-                        <li><a href="user_info.html"> 个人信息管理</a></li>
-                        <li><a href="dashboard2.html"> 班级信息管理</a></li>
+                        <li><a href="/teacher_manage/user_info.html"> 个人信息管理</a></li>
+                        <li><a href="/teacher_manage/dashboard2.html"> 班级信息管理</a></li>
 
                     </ul>
                 </li>
                 <li class="menu-list"><a href="#"><i class="icon-lock"></i> <span>登录</span></a>
                     <ul class="sub-menu-list">
-                       <li><a href="login.html"> 切换用户 </a></li>
-                        <li><a href="unlocked.html"> 锁定界面 </a></li>
+                       <li><a href="/"> 切换用户 </a></li>
+                        <li><a href="/teacher_manage/unlocked.html"> 锁定界面 </a></li>
                     </ul>
                 </li>
-                <li><a href="widget.html"><i class="icon-wrench"></i> <span>设置</span></a></li>
+                <li><a href="/teacher_manage/widget.html"><i class="icon-wrench"></i> <span>设置</span></a></li>
 
             </ul>
             <!--End sidebar nav-->
@@ -280,7 +284,7 @@
 						 <li class="message-list message-scroll-list">
                           <a href="#">
                               <span class="photo"> <img src="{% static '/lg/assets/images/users/avatar-8.jpg' %}" class="img-circle" alt="img"></span>
-                              <span class="subject">{{tea.user_name}}</span>
+                              <span class="subject">{{tea.username}}</span>
                               <span class="message"> 新消息待处理</span>
                                <span class="time">15分钟之前</span>
                           </a>
@@ -294,14 +298,14 @@
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             <img src="/static/lg/assets/images/users/avatar-6.jpg" alt="" />
-                            {{tea.user_name}}
+                            {{tea.username}}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                           <li> <a href="#"> <i class="fa fa-wrench"></i> 设置 </a> </li>
                           <li> <a href="#"> <i class="fa fa-user"></i> 我的 </a> </li>
                           <li> <a href="#"> <i class="fa fa-info"></i> 帮助 </a> </li>
-                          <li> <a href="logout"> <i class="fa fa-lock"></i> 注销登陆 </a> </li>
+                          <li> <a href="/logout"> <i class="fa fa-lock"></i> 注销登陆 </a> </li>
                         </ul>
                     </li>
 
@@ -340,11 +344,11 @@
                        <div class="row">
                         <div class="col-md-3">
                               <ul class="list-unstyled mailbox-nav">
-                                <li class="active"><a href="inbox.html" id="all"><i class="fa fa-inbox"></i>所有通知
+                                <li class="active"><a href="/teacher_manage/inbox.html" id="all"><i class="fa fa-inbox"></i>所有通知
                                 </a></li>
-                                <li><a href="javascript:void(0);" id="send_inform"><i class="fa fa-sign-out"></i>发件箱</a></li>
-                                <li><a href="javascript:void(0);" id="form_inform"><i class="fa fa-file-text-o"></i>收件箱</a></li>
-                                <li><a href="javascript:void(0);" id="dustbin"><i class="fa fa-trash m-r-5"></i>垃圾箱</a></li>
+                                <li><a href="/teacher_manage/inbox.html" id="send_inform"><i class="fa fa-sign-out"></i>发件箱</a></li>
+                                <li><a href="/teacher_manage/inbox.html" id="form_inform"><i class="fa fa-file-text-o"></i>收件箱</a></li>
+                                <li><a href="/teacher_manage/inbox.html" id="dustbin"><i class="fa fa-trash m-r-5"></i>垃圾箱</a></li>
                               </ul>
                         </div>
                         <div class="col-md-9">
@@ -360,7 +364,7 @@
                             </div>
                             
                                 <div class="compose-body">
-                                    <form class="row" action="compose.html" method="post" name="inf" enctype="multipart/form-data">
+                                    <form class="row" action="" method="post" name="inf" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <label for="to" class="col-md-2 control-label">发送给</label>
@@ -419,7 +423,6 @@
 
 
         <!--Start  Footer -->
-        <footer class="footer-main"><a target="_blank" href=""></a></footer>
          <!--End footer -->
 
        </div>

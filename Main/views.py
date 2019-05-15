@@ -131,18 +131,20 @@ class Register(object):
                         one = models.RegisterFirst.objects.create(user_salt=salt_obj,
                                                                   number=number, register_date=register_date,
                                                                   register_one_status=1, **data)
-                        # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
-                        write_session(request, one.username)
                         if reg_p == '老师注册':
                             gid = models.Group.objects.filter(groupName='意向教师').first()
                             models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
                             return HttpResponse("<script>alert('请牢记您的账号信息,等待管理员开通权限');</script>")
                         gid = models.Group.objects.filter(groupName='意向学生').first()
                         models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
+                        # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
+                        write_session(request, one.username)
                         return HttpResponseRedirect('/register_two/')
-                except Exception:
+                except Exception as e:
+                    print(e)
+                    request.session.clear()
                     return HttpResponse("<script>alert('遇到错误，请重新尝试或联系管理员');location.href='/';</script>")
-            register_one = myforms.RegisterOne(request.POST)
+            # register_one = myforms.RegisterOne(request.POST)
             return render(request, 'register_one.html', locals())
 
     @staticmethod
@@ -288,7 +290,7 @@ def manage_add(request):
         cls = GetManage()
         # cls.make_user()
         cls.make_group()
-        cls.make_user_group()
+        # cls.make_user_group()
         cls.make_table()
         cls.make_table_permission()
         cls.make_permission()
