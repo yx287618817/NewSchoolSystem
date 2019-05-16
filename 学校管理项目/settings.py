@@ -23,7 +23,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'i0kf%ls9254v(l1*9g4ex&7q-3r5zj5fo-+fhyc2$umy#*x-ne'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['daydayupyuan.cn',
     '127.0.0.1',
@@ -92,8 +93,8 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',   # 数据库引擎
         'NAME': 'School',         # 你要存储数据的库名，事先要创建之
-        'USER': 'yuan',         # 数据库用户名
-        'PASSWORD': 'yuantan520',     # 密码
+        'USER': 'group_td',         # 数据库用户名
+        'PASSWORD': '123456',     # 密码
         'HOST': '148.70.196.193',    # 主机
         'PORT': '3306',         # 数据库使用的端口
     }
