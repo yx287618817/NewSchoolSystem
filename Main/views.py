@@ -168,7 +168,7 @@ class Register(object):
                             gid = models.Group.objects.filter(groupName='意向教师').first()
                             models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
                             return HttpResponse("<script>alert('请牢记您的账号信息,等待管理员开通权限');</script>")
-                        gid = models.Group.objects.filter(groupName='意向学生').first()
+                        gid = models.Group.objects.filter(groupName='在校学生').first()
                         models.UserGroup.objects.create(user_id=one.id, group_id=gid.id)
                         # 如果注册信息写入数据库成功，则添加需要在页面展示的信息到session
                         write_session(request, one.username)

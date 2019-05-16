@@ -1,7 +1,7 @@
 .nav{
   background-color: #a9d2f9;
     margin-bottom: 10px;
-    height: 130px;
+    /*height: 130px;*/
 }
 .logo-one{
   width: 100%;
@@ -51,6 +51,11 @@
     font-size: 25px;
     text-align: center;
 }
+.stu_tea{
+    display: block;
+    font-size: 25px;
+    text-align: center;
+}
 .all_background{
     margin-top: 20px;
     border: 1px solid #999999;
@@ -59,6 +64,7 @@
     overflow-x: hidden;
     background: rgba(255,203,212,0.11);
     padding: 10px;
+    min-width: 535px;
 }
 .a-one-index{
     background: #00a8ff;

@@ -472,7 +472,6 @@ def reset_pwd(request):
     return render(request, 'lg/reset-password.html')
 
 
-@is_login
 @locked
 def unlock(request):
     if request.method == 'GET':

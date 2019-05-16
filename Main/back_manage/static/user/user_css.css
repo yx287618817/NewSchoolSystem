@@ -17,32 +17,33 @@
     border-radius: 10px;
     line-height: 30px;
     height: 30px;
-    width: 100%;
+    min-width: 190px;
+    max-width: 200px;
     margin-bottom: 5px;
     background: lightyellow;
 }
 .left-main-a-one{
-    min-width: 120px;
     max-width: 120px;
 }
 .left-main-a-two{
-    min-width: 60px;
-    max-width: 110px;
+    max-width: 63px;
 }
 .left-main-a-two a{
     color: red;
     width: 100%;
-    display: block;
+    /*display: block;*/
     text-align: right;
 }
 .left-main-all{
     margin-bottom: 100px;
+
 }
 .right-main-all>div{
     border-top: 1px solid #999999;
     line-height: 25px;
     padding-top: 10px;
     padding-bottom: 10px;
+
 }
 .user-input-one{
     border: 2px solid #999999;
@@ -79,11 +80,13 @@
     border-bottom: 2px solid red;
     display: block;
     margin-bottom: 20px;
-    width: 40%;
+    width: 60%;
     font-weight: 600;
     color: #03b4ff;
 }
-
+.right-main{
+    min-width: 530px;
+}
 
 
 

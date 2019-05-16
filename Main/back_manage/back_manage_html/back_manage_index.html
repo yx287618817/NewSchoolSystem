@@ -24,73 +24,82 @@
 
   </style>
 </head>
-<body>
-{#<canvas>#}
+
 <div class="container-fluid">
 
 {#  导航栏#}
-  <div class="row nav">
-
-      <div class="col-md-offset-2 col-md-2"><a href="/back_manage/">
-        <img class="logo-one" src="{% static 'back_index/image/logo.png' %}" alt=""></a>
+  <div class="row">
+    <div class="nav">
+      <div class="col-md-offset-1 col-md-2">
+        <div class="row">
+          <a href="/back_manage/"><img class="logo-one" src="{% static 'back_index/image/logo.png' %}" alt=""></a>
+        </div>
       </div>
 
-      <div class="col-md-4 ">
+      <div class="col-md-offset-1 col-md-5">
         <div class="row">
           <div class="col-md-12 "><span class="title-one center-block">欢迎登陆Awesome教务管理系统</span></div>
           <div class="col-md-12 "><span class="title-two center-block">（权限越大责任越大，数据无价谨慎操作）</span></div>
         </div>
       </div>
+
       <div class="col-md-2 user-show">
-        <div class="col-md-12"><span>用户:{{ request.session.account_number }}</span></div>
-        <div class="col-md-12"><a href="/logout/">注销登陆</a></div>
-        <div class="col-md-12"><a href="/teacher_manage/unlocked.html/">锁定屏幕</a></div>
-      </div>
-  </div>
-
-{% block do_something %}
-
-
-  <div class="row main-all">
-    <div class="col-md-offset-1 col-md-10">
-      <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-          <span>请选择您要进行的操作</span>
+        <div class="row">
+          <div class="col-md-12"><span>用户:{{ request.session.account_number }}</span></div>
+          <div class="col-md-12"><a href="/logout/">注销登陆</a></div>
+          <div class="col-md-12"><a href="/teacher_manage/unlocked.html/">锁定屏幕</a></div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-md-5 all_background">
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/group_manage/">1.用户组管理</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/user_manage/">2.用户分配用户组</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/group_permission/">3.用户组分配权限</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/table_manage/">4.权限管理</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/table_permission/">5.子权限管理</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/permission/">6.生成权限</a></div>
-{#          <div class="col-md-6"><a class="a-one-index" href="/back_manage/dep_to_tea/">7.教师分配系部</a></div>#}
-        </div>
-        <div class="col-md-offset-2 col-md-5 all_background">
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/major_manage/">1.专业管理</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/major_child/">2.子专业管理</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/sex_manage/">3.性别管理</a></div>
-          <div class="col-md-6"><a class="a-one-index"href="/back_manage/student_status/">4.学生状态管理</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/student_type/">5.生源类型管理</a></div>
-          <div class="col-md-6"><a class="a-one-index"href="/back_manage/work_state/">6.工作状态管理</a></div>
-          <div class="col-md-6"><a class="a-one-index" href="/back_manage/work_type/">7.工作类型管理</a></div>
-        </div>
-      </div>
-
     </div>
   </div>
 
-{% endblock %}
+  {% block do_something %}
+    <div class="row main-all">
+      <div class="col-md-offset-1 col-md-10">
+        <div class="row">
+          <div class="col-md-offset-4 col-md-4">
+            <span>请选择您要进行的操作</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-4 col-md-4">
+            <a class="stu_tea" href="/student_menu/">去学生端</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-4 col-md-4">
+            <a class="stu_tea" class="center-block" href="/teacher_manage/">去教师端</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 all_background">
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/group_manage/">1.用户组管理</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/user_manage/">2.用户分配用户组</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/group_permission/">3.用户组分配权限</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/table_manage/">4.权限管理</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/table_permission/">5.子权限管理</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/permission/">6.生成权限</a></div>
+  {#          <div class="col-md-6"><a class="a-one-index" href="/back_manage/dep_to_tea/">7.教师分配系部</a></div>#}
+          </div>
+          <div class="col-md-6 all_background">
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/major_manage/">1.专业管理</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/major_child/">2.子专业管理</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/sex_manage/">3.性别管理</a></div>
+            <div class="col-md-6"><a class="a-one-index"href="/back_manage/student_status/">4.学生状态管理</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/student_type/">5.生源类型管理</a></div>
+            <div class="col-md-6"><a class="a-one-index"href="/back_manage/work_state/">6.工作状态管理</a></div>
+            <div class="col-md-6"><a class="a-one-index" href="/back_manage/work_type/">7.工作类型管理</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+
 </div>
 
-{#</canvas>#}
+  {% block script_block %}
 
-{% block script_block %}
-
-{% endblock %}
-{#  <script src="{% static 'js/back_js.js' %}"></script>#}
+  {% endblock %}
 </body>
 </html>
