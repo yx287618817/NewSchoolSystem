@@ -72,7 +72,7 @@ class RegisterThree (models.Model):
     student_high_school = models.CharField('高中所在学校', max_length=18)
     student_sex = models.ForeignKey('Sex', verbose_name='性别', on_delete=models.CASCADE)
     student_type = models.ForeignKey('StudentType', verbose_name='生源类型', on_delete=models.CASCADE)
-    student_status = models.ForeignKey('StudentStatus', verbose_name='生源状态', on_delete=models.CASCADE, default=1,)
+    student_status = models.ForeignKey('StudentStatus', verbose_name='生源状态', on_delete=models.CASCADE, default=2,)
     register_three_status = models.BooleanField('第三步信息是否已经完成', default=0)
 
     def __str__(self):
@@ -115,32 +115,7 @@ class Grades(models.Model):
         verbose_name_plural = verbose_name
 
 
-class Classes(models.Model):
-    """
-    班级表
-    """
-    class_name = models.CharField('班级名称', max_length=32, unique=True)
 
-    def __str__(self):
-        return self.class_name
-
-    class Meta:
-        verbose_name = '班级管理'
-        verbose_name_plural = verbose_name
-
-
-class ClassSelect(models.Model):
-    grade_name = models.ForeignKey('Grades', on_delete=models.CASCADE, verbose_name='年级名称')
-    class_name = models.ForeignKey('Classes', on_delete=models.CASCADE, verbose_name='班级名称')
-    # 2018届
-
-    def __str__(self):
-        return '%s ===> %s' % (self.grade_name.grade_name, self.class_name.class_name)
-
-    class Meta:
-        unique_together = ['grade_name', 'class_name']
-        verbose_name = '班级分配'
-        verbose_name_plural = verbose_name
 
 
 # ------------------------------------------- 学生多选 ---------------------------------------------------
@@ -484,7 +459,17 @@ class Work_arrange(models.Model):
         verbose_name = '工作安排'
         verbose_name_plural = verbose_name
 
-# 保存数据库格式: 工作标题,完成人,完成时间,备注.
+
+class DepToTea(models.Model):
+    department = models.ForeignKey('Major', on_delete=models.CASCADE, verbose_name="对应部门表")
+    teacher = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE, verbose_name="对应教师")
+
+    def __str__(self):
+        return '%s --> %s' % (self.department, self.teacher)
+
+    class Meta:
+        verbose_name = '部门对应老师'
+        verbose_name_plural = verbose_name
 
 
 class Inform(models.Model):
@@ -506,16 +491,3 @@ class Inform(models.Model):
     class Meta:
         verbose_name = '消息通知'
         verbose_name_plural = verbose_name
-
-
-class DepToTea(models.Model):
-    department = models.ForeignKey('Major', on_delete=models.CASCADE, verbose_name="对应部门表")
-    teacher = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE, verbose_name="对应教师")
-
-    def __str__(self):
-        return '%s --> %s' % (self.department, self.teacher)
-
-    class Meta:
-        verbose_name = '部门对应老师'
-        verbose_name_plural = verbose_name
-

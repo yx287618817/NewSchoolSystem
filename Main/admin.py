@@ -118,36 +118,36 @@ class Grade_Admin(admin.ModelAdmin):
     ]
 
 
-@admin.register(models.Inform)
-class Inform(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'send_from_tea',
-        'send_from_dpt',
-        'send_to_dpt',
-        'send_to_tea',
-        'title',
-        'filed_name',
-        'local_file',
-        'times',
-        'isActive',
-    ]
-    list_filter = [
-        'send_from_tea',
-        'send_from_dpt',
-        'title',
-    ]
+# @admin.register(models.Inform)
+# class Inform(admin.ModelAdmin):
+#     list_display = [
+#         'id',
+#         'send_from_tea',
+#         'send_from_dpt',
+#         'send_to_dpt',
+#         'send_to_tea',
+#         'title',
+#         'filed_name',
+#         'local_file',
+#         'times',
+#         'isActive',
+#     ]
+#     list_filter = [
+#         'send_from_tea',
+#         'send_from_dpt',
+#         'title',
+#     ]
 
-    list_display_links = [
-        'id',
-        'send_from_tea',
-        'send_from_dpt',
-        'send_to_dpt',
-        'send_to_tea',
-        'title',
-        'filed_name',
-        'times'
-    ]
+    # list_display_links = [
+    #     'id',
+    #     'send_from_tea',
+    #     'send_from_dpt',
+    #     'send_to_dpt',
+    #     'send_to_tea',
+    #     'title',
+    #     'filed_name',
+    #     'times'
+    # ]
 
 
 @admin.register(models.Education)

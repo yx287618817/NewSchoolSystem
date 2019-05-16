@@ -168,7 +168,6 @@ def user_manage(request):
             user_mes = [user_obj.username, user_obj.tel, user_obj.number]
         g_lst = models.UserGroup.objects.filter(user__username=username)
         groups = models.Group.objects.exclude(usergroup__user__username=username)
-        print(groups)
         return render(request, 'user_manage.html', locals())
 
 

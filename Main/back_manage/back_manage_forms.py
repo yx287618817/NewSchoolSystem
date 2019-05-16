@@ -77,7 +77,8 @@ class Work_type(forms.Form):
 
 
 DEP = models.Major.objects.all()
-TEA = models.Teacher.objects.all()
+TEA = models.RegisterFirst.objects.filter(number__istartswith='TC').all()
+
 
 class DepToTea(forms.Form):
     department = forms.ModelChoiceField(label='所在系', queryset=DEP)
