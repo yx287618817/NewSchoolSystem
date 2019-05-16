@@ -31,13 +31,13 @@ def student_leave(request):
 @is_login
 @locked
 def student_performance(request):
-    return render(request, 'student_announcement.html')
+    return render(request, 'student_performance.html')
 
 
 @is_login
 @locked
 def student_record(request):
-    return render(request, 'student_announcement.html')
+    return render(request, 'student_record.html')
 
 
 @is_login

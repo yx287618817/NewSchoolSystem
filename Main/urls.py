@@ -17,6 +17,6 @@ urlpatterns = [
     url(r'^student_announcement/$', views.student_announcement),
     url(r'^student_course/$', views.student_course),
     url(r'^student_leave/$', views.student_leave),
-    url(r'^student_performance/$', views.student_announcement),
-    url(r'^student_record/$', views.student_announcement),
+    url(r'^student_performance/$', views.student_performance),
+    url(r'^student_record/$', views.student_record),
 ]

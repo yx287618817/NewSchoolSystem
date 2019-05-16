@@ -69,7 +69,7 @@ def index(request):
     # return render(request, 'lg/login.html')
 
 
-@is_login
+# @check_login
 @locked
 def table_static(request):
     try:
@@ -89,7 +89,7 @@ def table_static(request):
     return render(request, 'lg/table-static.html', locals())
 
 
-@is_login
+# @check_login
 @locked
 def table_responsive(request):
     try:
@@ -109,7 +109,7 @@ def table_responsive(request):
     return render(request, 'lg/table-responsive.html', locals())
 
 
-@is_login
+# @check_login
 @locked
 def table_datatable(request):
     try:
@@ -152,7 +152,7 @@ def login_views(request):
             return render(request, 'lg/login.html', {'msg': msg})
 
 
-@is_login
+# @check_login
 @locked
 def message_view(request):
     id = request.session.get('user_id')
@@ -165,7 +165,7 @@ def message_view(request):
         return render(request, 'lg/error-404.html')
 
 
-@is_login
+# @check_login
 @locked
 def inbox_view(request):
     id = request.session.get('user_id')
@@ -236,7 +236,7 @@ def inbox_view(request):
         return render(request, 'lg/inbox.html', locals())
 
 
-@is_login
+# @check_login
 @locked
 def compose_view(request):
     id = request.session.get('user_id')
@@ -331,20 +331,20 @@ def compose_view(request):
         return HttpResponse("发送成功")
 
 
-@is_login
+# @check_login
 @locked
 def logout(request):
     request.session.flush()
     return redirect('/lg/index/login.html')
 
 
-@is_login
+# @check_login
 @locked
 def dashboard2(request):
     return render(request, 'lg/dashboard2.html')
 
 
-@is_login
+# @check_login
 @locked
 def my_course(request):
     tea_id = request.session['user_id']
@@ -358,7 +358,7 @@ def my_course(request):
     return render(request, 'lg/ui-buttons.html', locals())
 
 
-@is_login
+# @check_login
 @locked
 def validation(request):
     userid = request.session['user_id']
@@ -375,7 +375,7 @@ def validation(request):
     return render(request, 'lg/form-validation.html', locals())
 
 
-@is_login
+# @check_login
 @locked
 def xeditable(request):
     id = request.session['user_id']
@@ -385,43 +385,43 @@ def xeditable(request):
     return render(request, 'lg/form-xeditable.html', locals())
 
 
-@is_login
+# @check_login
 @locked
 def calendar(request):
     return render(request, 'lg/calendar.html')
 
 
-@is_login
+# @check_login
 @locked
 def flot_chart(request):
     return render(request, 'lg/flot-chart.html')
 
 
-@is_login
+# @check_login
 @locked
 def check_day(request):
     return render(request, 'lg/check_day.html')
 
 
-@is_login
+# @check_login
 @locked
 def check_week(request):
     return render(request, 'lg/timeline.html')
 
 
-@is_login
+# @check_login
 @locked
 def inform_filed(request):
     return render(request, 'lg/inform-filed.html')
 
 
-@is_login
+# @check_login
 @locked
 def forgot_password(request):
     return render(request, 'lg/forgot-password.html')
 
 
-@is_login
+# @check_login
 @locked
 def user_info(request):
     if request.method == 'GET':
@@ -430,7 +430,7 @@ def user_info(request):
         return render(request, 'lg/user_info.html')
 
 
-@is_login
+# @check_login
 @locked
 def course_info(request):
     return render(request, 'lg/course_info.html')
@@ -442,7 +442,7 @@ def course_info(request):
 # def test(request):
 #     return render(request, 'lg/test.html')
 
-@is_login
+# @check_login
 @locked
 def del_cookie(request):
     response = HttpResponse('quit')
@@ -454,24 +454,25 @@ def del_cookie(request):
     return response
 
 
-@is_login
+# @check_login
 @locked
 def settings(request):
     return render(request, 'lg/settings.html')
 
 
-@is_login
+# @check_login
 @locked
 def registration(request):
     return render(request, 'lg/registration.html')
 
 
-@is_login
+# @check_login
 @locked
 def reset_pwd(request):
     return render(request, 'lg/reset-password.html')
 
 
+# @check_login
 @locked
 def unlock(request):
     if request.method == 'GET':
