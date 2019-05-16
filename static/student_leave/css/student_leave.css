@@ -1,0 +1,408 @@
+.background_centre{
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.row-zero{
+    height:40px;
+    margin-left: 24px;
+    margin-top: 24px;
+}
+
+.Leave-one{
+    height: 700px;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+
+.Leave-one::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+
+.Leave-one::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(201, 237, 255, 0.2);
+    background: #3399cc;
+}
+
+.Leave-one::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    background: #c9edff;
+}
+
+.Leave-pass{
+    width: 30%;
+    height: 120px;
+    background-color: #e5dfff;
+    border-radius: 9px;
+    margin-left: 35px;
+}
+
+.Leave-pass2{
+    width: 30%;
+    height: 120px;
+    background-color: #e5dfff;
+    border-radius: 9px;
+    margin-left: 15px;
+    margin-bottom: 15px
+}
+
+.Leave-refuse{
+    width: 30%;
+    height: 120px;
+    background-color: #ffe0e5;
+    border-radius: 9px;
+    margin-left: 15px;
+    margin-bottom: 15px
+}
+
+
+.top_text{
+    font-size: 20px;
+    color: #000000;
+    float: left;
+    line-height: 24px;
+}
+
+.Leave-pass-text{
+    font-size: 12px;
+    margin-left: -2px;
+    color: #ffffff;
+}
+
+#Leave-pass-background{
+    height: 22px;
+    background-color: #5935f3;
+    border-radius: 5px;
+    line-height: 18px;
+    margin-top: 15px;
+}
+
+div#Leave-pass-background3{
+    height: 22px;
+    background-color: #3399cc;
+    border-radius: 5px;
+    line-height: 18px;
+    margin-top: 15px;
+}
+
+p#Leave-text-three{
+    color: #3399cc;
+    font-size: 12px;
+    text-align: left;
+    line-height: 5px;
+}
+
+p#Leave-text-four{
+    color: #3399cc;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 35px;
+    margin-top: -8px;
+}
+
+span.Leave-revocation{
+    cursor: pointer;
+    text-decoration:underline;
+    font-size: 12px;
+    float: right;
+    height: 10px;
+    color: #3399cc;
+    margin-top: -80px;
+}
+
+span.Leave-revocation:hover{
+    font-weight: bold;
+    color: #ff3f5c;
+}
+
+div.Leave-pass3{
+    width: 30%;
+    height: 120px;
+    background-color: #c9edff;
+    border-radius: 9px;
+    margin-left: 35px;
+}
+
+
+#Leave-text-one{
+    color: #5935f3;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 35px;
+    margin-top: -8px;
+}
+
+#Leave-text-two{
+    color: #5935f3;
+    font-size: 12px;
+    text-align: left;
+    line-height: 5px;
+}
+
+
+.Leave-pass-image{
+    float: right;
+    margin-right: -15px;
+    margin-top: -65px;
+    height: 65%;
+}
+
+.Leave-text{
+    margin-top: -12px;
+    margin-left: 3px;
+}
+
+#Leave-pass-background2{
+    height: 22px;
+    background-color: #ff3f5c;
+    border-radius: 5px;
+    line-height: 18px;
+    margin-top: 15px;
+}
+
+#Leave-text-one2{
+    color: #ff3f5c;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 35px;
+    margin-top: -8px;
+}
+
+#Leave-text-two2{
+    color: #ff3f5c;
+    font-size: 12px;
+    text-align: left;
+    line-height: 5px;
+}
+
+
+#Leave-weite{
+    height: 710px;
+    background-color: #ffffff;
+    overflow:hidden;
+    position: absolute;
+    width: 90%;
+}
+
+.Leave-weite-in{
+    margin-top: 20px;
+    background-color: #e6e6e6;
+    height: 690px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    left: 10px;
+    top: 0;
+    width: 95%;
+    margin-bottom: 20px;
+}
+
+.Leave-weite-in span{
+    position: relative;
+    left: 0;
+    top: 230px;
+    color:#999999 ;
+    font-size: 25px;
+    margin-top: 270px;
+    letter-spacing:3px;
+    font-weight: bold;
+}
+
+
+.Leave-icon{
+    height: 100px;
+    margin-top: 270px;
+}
+
+.Leave-weite-text{
+    margin-top: 12px;
+    background-color: #ffffff;
+    height: 680px;
+    border-radius: 10px;
+    overflow:hidden;
+}
+
+.Leave-weite-text p{
+    font-size: 14px;
+    line-height: 10px;
+    position: relative;
+    top: 16px;
+    left: -120px;
+    color: #222222;
+}
+
+select#Leave-type-in{
+    width                    : 300px;
+    height                   : 40px;
+    line-height              : 20px;
+    padding-right            : 20pt;
+    text-indent              : 4pt;
+    text-align               : center;
+    vertical-align           : middle;
+    border                   : 1px solid #dcdcdc;
+    -moz-border-radius       : 6px;
+    -webkit-border-radius    : 6px;
+    border-radius            : 6px;
+    -webkit-appearance       : none;
+    -moz-appearance          : none;
+    appearance               : none;
+    font-family              : SimHei;
+    font-size                : 16px;
+    font-weight              : 100;
+    color                    : #3399cc;
+    cursor                   : pointer;
+    outline                  : none;
+}
+
+label#Leave-box-type{
+    position: relative;
+    display: inline-block;
+    height: 20px;
+}
+
+label#Leave-box-type::after{
+    content                 : "\25bc";
+    position                : absolute;
+    top                     : 32px;
+    right                   : 8px;
+    bottom                  : 0;
+    width                   : 20px;
+    line-height             : 10px;
+    vertical-align          : middle;
+    text-align              : center;
+    background              : #999999;
+    color                   : #999999;
+    -moz-border-radius      : 0 6px 6px 0;
+    -webkit-border-radius   : 0 6px 6px 0;
+    border-radius           : 0 6px 6px 0;
+    pointer-events          : none;
+}
+
+p.Leave-weite-endDate{
+    position: relative;
+    top: 58px;
+}
+
+p.Leave-weite-startDate{
+    position: relative;
+    top: 10px;
+}
+
+div.stay-list-left{
+    width: 35%;
+    position: relative;
+    top: -33px;
+}
+
+div.Leave-weite-text textarea{
+    width: 92%;
+    height: 150px;
+    border: 1px solid #dcdcdc;
+    font-size: 14px;
+    line-height: 30px;
+    margin-top: -39px;
+}
+
+p.Leave-weite-reason{
+    position: relative;
+    top:-41px
+}
+
+p.Leave-weite-audit{
+    position: relative;
+    top:-6px;
+}
+
+div.Leave-weite-text img{
+    float: left;
+    margin-left: 16px;
+}
+
+p.Leave-weite-director{
+    text-align: left;
+    position: relative;
+    left: 10px;
+    top: 0px;
+    line-height: 17px;
+    color: #999999;
+    margin-bottom: 25px;
+}
+
+p.Leave-weite-copy{
+    position: relative;
+    top: 0px;
+    left: -126px;
+
+}
+
+div.Leave-weite-copy2 {
+    position: relative;
+    left: 134px;
+    bottom: 60px;
+}
+
+/*div.Leave-weite-button{*/
+    /*position: relative;*/
+    /*left: 10px;*/
+    /*top: -52px;*/
+    /*line-height: 20px;*/
+    /*float: left;*/
+/*}*/
+
+/*div.Leave-weite-button button{*/
+    /*margin-left: 50px;*/
+    /*width: 65px;*/
+	/*border-width: 0px; !* 边框宽度 *!*/
+	/*border-radius: 3px; !* 边框半径 *!*/
+	/*background: #1E90FF; !* 背景颜色 *!*/
+	/*cursor: pointer; !* 鼠标移入按钮范围时出现手势 *!*/
+	/*outline: none; !* 不显示轮廓线 *!*/
+	/*color: white; !* 字体颜色 *!*/
+	/*font-size: 12px; !* 字体大小 *!*/
+/*}*/
+
+button.Leave-weite-button-one{
+    position: relative;
+    top: -52px;
+    line-height: 20px;
+    float: left;
+    width: 160%;
+	border-width: 0px; /* 边框宽度 */
+	border-radius: 3px; /* 边框半径 */
+	background: #3399cc; /* 背景颜色 */
+	cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+	outline: none; /* 不显示轮廓线 */
+	color: white; /* 字体颜色 */
+	font-size: 12px; /* 字体大小 */
+}
+
+button.Leave-weite-button-one:hover{
+    box-shadow:1px 1px 5px #28779f;
+}
+
+button.Leave-weite-button-two{
+    position: relative;
+    top: -52px;
+    right: -61px;
+    line-height: 20px;
+    float: left;
+    width: 160%;
+	border-width: 0px; /* 边框宽度 */
+	border-radius: 3px; /* 边框半径 */
+	background: #c9edff; /* 背景颜色 */
+	cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+	outline: none; /* 不显示轮廓线 */
+	color: #3399cc; /* 字体颜色 */
+	font-size: 12px; /* 字体大小 */
+}
+
+button.Leave-weite-button-two:hover{
+    background-color: #ff3f5c;
+    box-shadow:1px 1px 5px #8b2738;
+    color: #ffffff;
+}

@@ -66,7 +66,7 @@ def index(request):
         tea = user[0]
         return render(request, 'lg/index.html', locals())
     return render(request, 'lg/index.html', locals())
-    # return render(request, 'lg/login.html')
+    # return render(request, 'login.html')
 
 
 # @check_login
@@ -76,7 +76,7 @@ def table_static(request):
         id = request.session.get('user_id')
         tea = RegisterFirst.objects.filter(id=id)[0]
     except IndexError:
-        return render(request, 'lg/login.html')
+        return render(request, 'login.html')
     except:
         return render(request, 'lg/error-404.html')
     work = Work_arrange.objects.filter(id=id)
@@ -96,7 +96,7 @@ def table_responsive(request):
         id = request.session.get('user_id')
         tea = RegisterFirst.objects.filter(id=id)[0]
     except IndexError:
-        return render(request, 'lg/login.html')
+        return render(request, 'login.html')
     except:
         return render(request, 'lg/error-404.html')
     work = Work_arrange.objects.filter(id=id)
@@ -116,7 +116,7 @@ def table_datatable(request):
         id = request.session.get('user_id')
         tea = RegisterFirst.objects.filter(id=id)[0]
     except IndexError:
-        return render(request, 'lg/login.html')
+        return render(request, 'login.html')
     except:
         return render(request, 'lg/error-404.html')
 
@@ -131,7 +131,7 @@ def table_datatable(request):
 
 def login_views(request):
     if request.method == 'GET':
-        return render(request, 'lg/login.html')
+        return render(request, 'login.html')
     else:
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -149,7 +149,7 @@ def login_views(request):
             return response
         else:
             msg = "账户或密码错误"
-            return render(request, 'lg/login.html', {'msg': msg})
+            return render(request, 'login.html', {'msg': msg})
 
 
 # @check_login
@@ -240,19 +240,15 @@ def inbox_view(request):
 @locked
 def compose_view(request):
     id = request.session.get('user_id')
-    tea = RegisterFirst.objects.filter(id=id)[0]
-    # print('id', id)
+    tea = RegisterFirst.objects.filter(id=id).first()
     teas = RegisterFirst.objects.filter(id=id)
-    # print(teas)
     if request.method == 'GET':
         id = request.session.get('user_id')
-        # teas = RegisterFirst.objects.filter(id=id)
         tea = teas[0]
         if 'dep' in request.GET:
             id = request.session.get('user_id')
             teas = RegisterFirst.objects.filter(id=id)[0]
             department = Major.objects.all()
-            # print(department[0].dep_name)
             json_list = []
             for dep in department:
                 json_dict = {
@@ -260,7 +256,6 @@ def compose_view(request):
                     'dep_name': dep.caption
                 }
                 json_list.append(json_dict)
-            # print(json_list)
             dep_all = json.dumps(json_list, ensure_ascii=False)
 
             return HttpResponse(json.dumps(json_list, ensure_ascii=False),
@@ -268,9 +263,6 @@ def compose_view(request):
         elif 'pid' in request.GET:
             pid = request.GET.get('pid')
             teachers = list(DepToTea.objects.filter(department_id=pid).values('id', 'teacher__username', 'teacher__id'))
-            # print(DepToTea.objects.all())
-            # print(DepToTea.objects.filter(id=pid)[0].department)
-            print(teachers)
             json_list = []
             for teacher in teachers:
                 if teacher['teacher__id'] == id:
@@ -281,7 +273,6 @@ def compose_view(request):
 
                 }
                 json_list.append(json_dict)
-            # print(json_list)
             return HttpResponse(json.dumps(json_list, ensure_ascii=False),
                                 content_type="application/json,charset=utf-8")
         return render(request, 'lg/compose.html', locals())
@@ -327,6 +318,7 @@ def compose_view(request):
         inf.send_from_tea_id = id
         inf.title = title
         inf.content = content
+        print(to_dpt, to_tea, send_from_dpt, id, title, content)
         inf.save()
         return HttpResponse("发送成功")
 
@@ -344,17 +336,18 @@ def dashboard2(request):
     return render(request, 'lg/dashboard2.html')
 
 
+def test(request):
+    pid = 12
+    teachers = list(DepToTea.objects.filter(department_id=12).values('id', 'teacher__username', 'teacher__id'))
+    print(teachers)
+    return HttpResponse('ok')
+
 # @check_login
 @locked
 def my_course(request):
     tea_id = request.session['user_id']
-    grade_list = Grade.objects.filter(teacher=tea_id)
-    course_id = grade_list[0].id
-    if 'id' in request.GET:
-        course_id = request.GET.get('id')
-    course = Grade.objects.get(id=course_id).course.all()
-    tea = RegisterFirst.objects.filter(id=tea_id)[0]
-
+    tea = RegisterFirst.objects.filter(id=tea_id).first()
+    course = Course.objects.filter(grade__teacher=tea).all()
     return render(request, 'lg/ui-buttons.html', locals())
 
 
@@ -365,13 +358,13 @@ def validation(request):
     tea = RegisterFirst.objects.filter(id=userid)[0]
     id = request.GET.get('id')
     # print(id)
-    teachers = RegisterFirst.objects.filter(deptotea__id=id)
-    print(teachers)
+    teachers = RegisterFirst.objects.filter(deptotea__id=id).first()
+    # print(teachers)
     # teachers = list(DepToTea.objects.filter(department__id=id).values('id', 'teacher__username', 'teacher__id'))
     # print(teachers)
     # teachers = RegisterFirst.objects.filter(id=id)
-    if teachers:
-        teacher = teachers[0]
+    # if teachers:
+    #     teacher = teachers[0]
     return render(request, 'lg/form-validation.html', locals())
 
 

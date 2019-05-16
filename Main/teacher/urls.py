@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^table-responsive.html/$', views.table_responsive),
     url(r'^table-datatable.html/$', views.table_datatable),
     url(r'^message-view.html/$', views.message_view),
+    url(r'^compose.html/$', views.compose_view),
     url(r'^inbox.html/$', views.inbox_view),
     url(r'^dashboard.html/$', views.dashboard2),
     url(r'^my_course.html/$', views.my_course),
@@ -21,4 +22,5 @@ urlpatterns = [
     url(r'^locked.html/$', views.lockeds),
     url(r'^user_info.html/$', views.user_info),
     url(r'^course_info.html/$', views.course_info),
+    url(r'^test/$', views.test),
 ]

@@ -1,0 +1,77 @@
+.background_centre{
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    /*overflow:hidden;*/
+}
+
+/*.background_centre::-webkit-scrollbar {!*滚动条整体样式*!*/
+    /*width: 5px;     !*高宽分别对应横竖滚动条的尺寸*!*/
+    /*height: 1px;*/
+/*}*/
+
+/*.background_centre::-webkit-scrollbar-thumb {!*滚动条里面小方块*!*/
+    /*border-radius: 10px;*/
+    /*-webkit-box-shadow: inset 0 0 5px rgba(201, 237, 255, 0.2);*/
+    /*background: #3399cc;*/
+/*}*/
+
+/*.background_centre::-webkit-scrollbar-track {!*滚动条里面轨道*!*/
+    /*-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);*/
+    /*border-radius: 10px;*/
+    /*background: #c9edff;*/
+/*}*/
+
+
+
+.Stick_headline{
+    font-size: 16px;
+    color: #999999;
+    float: left;
+    margin-top: -30px;
+    margin-left: 62px;
+    margin-bottom: 30px;
+}
+
+
+span.Performance-examination{
+    font-size: 16px;
+    color: #999999;
+    float: left;
+    margin-top: 0px;
+    margin-left: 62px;
+    margin-bottom: 30px;
+}
+
+.row-one{
+    height: 35px;
+}
+.row-two{
+    height: 86px;
+    width: 81%;
+    border-bottom:1px solid #c5c5c5;
+    border-top:1px solid #C5C5C5 ;
+    margin-left: 76px;
+}
+
+.Row-two-in{
+    height: 40px;
+    width: 20%;
+    margin-top: 22px;
+}
+
+.Row-two-in1{
+   border-left: 1px solid #C5C5C5;
+}
+
+.Row-two-in-p1{
+    line-height: 9px;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.Row-two-in-p2{
+    line-height: 9px;
+    font-size: 14px;
+    color: #c5c5c5;
+}

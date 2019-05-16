@@ -1,0 +1,122 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.middle_main{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -325px;
+    margin-left: -525px;
+    width: 1050px;
+    height: 650px;
+}
+.middle_image{
+    display: inline-block;
+}
+.middle_input{
+    width: 400px;
+    height: 644px;
+    background-color: white;
+    float: right;
+}
+p{
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+}
+.login_1{
+    padding-top:40px;
+}
+.login_1>img{
+    width: 150px;
+    height: 50px;
+}
+.login_2{
+    font-size: 38px;
+    font-weight: 900;
+}
+.login_3{
+    font-size: 20px;
+    font-weight: 400;
+}
+.login_4{
+    font-size: 20px;
+    font-weight: 400;
+}
+.login_4>span>a{
+    text-decoration: none;
+}
+.login_5{
+    font-size: 20px;
+    font-weight: 400;
+}
+.login_6>input{
+    margin-top: 20px;
+    width: 280px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 400;
+    border: 2px solid darkgray;
+    background-color: transparent;
+}
+.login_6{
+    padding-bottom: 0;
+}
+.login_6>input:focus{background-color: transparent;}
+.login_7>input:focus{background-color: transparent;}
+.login_7{
+    padding-top: 0;
+}
+.login_7>input{
+    width: 280px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 400;
+    border: 2px solid darkgray;
+    border-top: none;
+    background-color: transparent;
+}
+.login_8>input{
+    float: left;
+    height: 60px;
+}
+.login_8>label{
+    font-size: 20px;
+    float: left;
+}
+.login_8>a{
+    float: right;
+    text-decoration: none;
+    color: darkgray;
+    font-size: 20px;
+    margin-right: 10px;
+}
+.login_8>img{
+    margin-left: 10px;
+    padding-top: 4px;
+}
+.login_9{
+    line-height: 50px;
+}
+.login_9 a{
+    font-size: 22px;
+    text-decoration: none;
+    color: #5897fb;
+    margin-left: 20px;
+}
+.login_9>input{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #3875d7;
+    height: 40px;
+    width: 150px;
+    font-size: 20px;
+    margin-right: 20px;
+}
+.result-btn{
+    color: white;
+    text-align: center;
+    background-color: #0f0f0f;
+}

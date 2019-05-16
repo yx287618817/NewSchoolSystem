@@ -74,6 +74,8 @@ def get_user_photo(username):
 
 def write_session(req, username):
     req.session['username'] = username
+    req.session['user_id'] = models.RegisterFirst.objects.filter(
+        username=username).values_list('id').first()[0]
     req.session['number'] = models.RegisterFirst.objects.filter(
         username=username).values_list('number').first()[0]
     req.session['account_number'] = models.RegisterFirst.objects.filter(

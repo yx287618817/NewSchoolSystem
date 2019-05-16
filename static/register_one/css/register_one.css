@@ -1,0 +1,64 @@
+.return-one{
+  display: block;
+  width: 100%;
+  line-height: 35px;
+  font-size: 22px;
+  text-decoration: none;
+  color: #3884ce;
+  text-align: center;
+}
+.top{
+  margin-top: 50px;
+}
+.img-one{
+  width: 100%;
+  height: 35px;
+}
+.img-two{
+  margin-top:20px;
+  width: 70px;
+  height: 70px;
+}
+span{
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.span-one{
+  color: #3884ce;
+  font-size: 28px;
+}
+.span-two{
+  color: #c4c4c4;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+.input-one{
+  font-size: 18px;
+}
+.input-two>input{
+  font-size: 16px;
+  width: 100%;
+  height: 40px;
+  margin: 10px 0;
+}
+.input-three>ul>li{
+  font-size: 20px;
+  font-weight: 600;
+  color: red;
+  list-style: none;
+  width: 100%
+}
+.sms_code_verification{
+  width: 40%;
+  line-height: 25px;
+  text-align: center;
+}
+.sms_code{
+  display: block;
+  height: 40px;
+  width: 100%;
+}
+.sms_result{
+  margin-top: 10px;
+}
