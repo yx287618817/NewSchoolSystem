@@ -40,7 +40,6 @@ function send_verification_code() {
         processData: false,
         contentType: false,
     }).done(function(arg) {
-        console.log(arg);
         let send_code = $('.sms_code_verification');
         send_code.val(arg);
         if (arg=='发送成功'){

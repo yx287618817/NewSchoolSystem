@@ -27,7 +27,6 @@ hr{
 .input_one>input{
     display: block;
     width: 100%;
-    text-align: center;
 }
 .dis{
     font-size: 16px;

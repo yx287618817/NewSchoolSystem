@@ -54,7 +54,6 @@ def verification_pwd(username, password):
     p = hashlib.sha256()
     p.update(bytes(password + salt, encoding='utf-8'))
     pwd = p.hexdigest()
-    print(pwd)
     if models.RegisterFirst.objects.filter(username=username, password=pwd).first():
         return True
     else:
@@ -288,7 +287,7 @@ def get_tc_card_id():
 # re判断是否有权限
 def is_get_permission(permission_list, path):
     for i in permission_list:
-        sr = r'^%s(\?[a-zA-Z]+=[0-9]+)?/$' % i[:-1]
+        sr = r'^%s(\?[a-zA-Z]+=[0-9]+(&[a-zA-Z]+=[0-9]+)?)?' % i
         try:
             re.match(sr, path).group()
         except Exception:

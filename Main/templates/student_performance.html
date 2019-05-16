@@ -1,0 +1,159 @@
+{% extends 'main_student__templates.html' %}
+{% load staticfiles %}
+
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'student_performance/css/student_performance.css' %}">
+    <link rel="stylesheet" href="{% static 'student_performance/css/index-one.css' %}">
+
+
+{% endblock %}
+
+
+{% block middle_message %}
+
+
+<div class="background_centre">
+
+  <div class="row">
+      <div class="col-md-3 row-zero">
+        <span class="top_text">查看成绩</span>
+      </div>
+
+{#      迄今为止最好的成绩#}
+      <div class="row">
+          <div class="col-md-12 row-one">
+              <span class="Stick_headline">迄今为止最好的成绩</span>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-12 row-two">
+
+              <div class="col-md-2 Row-two-in">
+                  <p class="Row-two-in-p1">100</p>
+                  <p class="Row-two-in-p2">单科最高分</p>
+              </div>
+
+              <div class="col-md-2 Row-two-in Row-two-in1">
+                  <p class="Row-two-in-p1">590</p>
+                  <p class="Row-two-in-p2">最高总分</p>
+              </div>
+
+              <div class="col-md-2 Row-two-in Row-two-in1">
+                  <p class="Row-two-in-p1">6</p>
+                  <p class="Row-two-in-p2">班级排名</p>
+              </div>
+
+              <div class="col-md-2 Row-two-in Row-two-in1">
+                  <p class="Row-two-in-p1">48</p>
+                  <p class="Row-two-in-p2">年级排名</p>
+              </div>
+
+              <div class="col-md-2 Row-two-in Row-two-in1">
+                  <p class="Row-two-in-p1">大奔自燃术</p>
+                  <p class="Row-two-in-p2">最高分科目</p>
+              </div>
+
+          </div>
+      </div>
+
+{#    本次考试详情  #}
+      <div class="row">
+          <div class="col-md-12 row-one">
+              <span class="Performance-examination">考试月份及总分</span>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-12">
+            <div id="chart1" class="border"></div>
+            <span class="Performance-examination">考试详情</span>
+            <div id="chart2" class="border"></div>
+
+          </div>
+
+      </div>
+  </div>
+
+</div>
+
+
+
+{% endblock %}
+
+
+{% block right_message %}
+  <div class="row d6d1 center-block">
+                <span>今日课程</span>
+              </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第一节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第二节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第三节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第四节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第五节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第六节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+
+    <script src={% static 'student_performance/js/docs/assets/js/frappe-charts.min.js' %}></script>
+    <script src={% static 'student_performance/js/docs/assets/js/frappe-charts.min.iife.js' %}></script>
+    <script src={% static 'student_performance/js/docs/assets/js/highlight.pack.js' %}></script>
+    <script src={% static 'student_performance/js/docs/assets/js/index.js' %}></script>
+    <script src={% static 'student_performance/js/docs/assets/js/old_index.js' %}></script>
+
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'main_student__templates.html' %}
+{% load staticfiles %}
+
+
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'student_course/css/student_course.css' %}">
+{#    <link rel="stylesheet" href="{% static 'student_course/css/simple-calendar.css' %}">#}
+    <link rel="stylesheet" href="{% static 'student_course/css/fullcalendar.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/responsive.css'%}">
+
+{#    <script type="text/javascript" src={% static 'student_course/js/simple-calendar.js' %}></script>#}
+    <script type="text/javascript" src={% static 'student_course/js/jquery.min.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/jquery.slimscroll.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/jquery-ui.min.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/moment.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/fullcalendar.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/calendar-custom.js' %}></script>
+
+{% endblock %}
+
+
+
+{% block middle_message %}
+
+{#    顶部文本#}
+<div class="background_centre">
+
+  <div class="row">
+      <div class="col-md-3 row-zero">
+        <span class="top_text">全部课程</span>
+      </div>
+  </div>
+
+  <div class="row" id='container'>
+{#      <div class="col-md-12" id='container'></div>#}
+{#              <div class="row">#}
+                <div class="calendar-layout clearfix">
+{#                  <div class="col-md-3">#}
+{#                     <div class="white-box">#}
+{#                       <div id='external-events'>#}
+{#                       <h2 class="header-title">DRAGGABLE EVENTS</h2>#}
+{#                      <div class='fc-event bg-primary'>Client Meeting 1</div>#}
+{#                      <div class='fc-event bg-success'>Client Meeting 2</div>#}
+{#                      <div class='fc-event bg-warning'>Client Meeting 3</div>#}
+{#                      <div class='fc-event bg-danger'>Client Meeting 4</div>#}
+{#                      <div class='fc-event bg-purple'>Client Meeting 5</div>#}
+{#                      <div class='fc-event bg-success'>Client Meeting 6</div>#}
+{#                      <div class='fc-event bg-danger'>Client Meeting 7</div>#}
+{#                      <div class='fc-event bg-info'>Client Meeting 8</div>#}
+{#                    </div>#}
+{#                    </div>#}
+{#                  </div>#}
+                  <div class="col-md-12">
+                      <div class="white-box">
+                         <div id='calendar'></div>
+                    </div>
+                  </div>
+                </div>
+{#            </div>#}
+  </div>
+
+
+
+
+</div>
+
+
+<script>
+    var myCalendar = new SimpleCalendar('#container');
+</script>
+{% endblock %}
+
+
+{% block right_message %}
+  <div class="row d6d1 center-block">
+                <span>今日课程</span>
+  </div>
+
+  <div class="row d6d2">
+      <div class="col-md-12">
+         <div class="white-box">
+           <div id='external-events'>
+           <h2 class="header-title">DRAGGABLE EVENTS</h2>
+          <div class='fc-event bg-primary'>九零后空巢老人养生及应用</div>
+          <div class='fc-event bg-success'>霸天虎的革命思想</div>
+          <div class='fc-event bg-warning'>大学英语</div>
+          <div class='fc-event bg-danger'>大学语文</div>
+          <div class='fc-event bg-purple'>大学养生</div>
+          <div class='fc-event bg-success'>发动机漏油定位技术</div>
+          <div class='fc-event bg-danger'>社会主义核心价值观</div>
+          <div class='fc-event bg-info'>马克思</div>
+        </div>
+        </div>
+      </div>
+  </div>
+
+
+
+{% endblock %}

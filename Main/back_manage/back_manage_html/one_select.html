@@ -69,7 +69,8 @@
                 {% if foo.0 == 'id' %}
                   <input class="center-block" style="display: none" name="{{ foo.0 }}" type="text" value="{{ foo.1 }}">
                   {% else %}
-                  <input class="center-block" name="{{ foo.0 }}" type="text" value="{{ foo.1 }}">
+                  <input class="center-block" name="{{ foo.0 }}" type="text" value="{{ foo.1 }}"
+                         onchange="check_file_two(this)">
                 {% endif %}
               {% endfor %}
               <input class="center-block" name="res" type="submit" value="确定更新">

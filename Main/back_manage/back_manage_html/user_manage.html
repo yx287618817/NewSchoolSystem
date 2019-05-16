@@ -69,14 +69,38 @@
       <div class="col-md-12">
         <span class="center-block user-title-one">用户列表:点击用户可修改用户所在组,点击删除将删除用户(谨慎操作)</span>
       </div>
+{#      意向教师#}
       <div class="col-md-12 left-main-all">
-        {% for foo in users_lst %}
-          <div class="col-md-3 left-main-div-one">
-            <div class="col-md-8 left-main-a-one">
-              <a href="?query=user&user={{ foo }}">{{ foo }}</a>
+        <div class="row">
+          <div class="col-md-4"><span class="teach-one">意向教师</span></div>
+        </div>
+        {% for foo in teac_lst %}
+          <div class="col-md-3 ">
+            <div class="left-main-div-one">
+              <div class="col-md-8 left-main-a-one">
+                <a href="?query=user&user={{ foo }}">{{ foo }}</a>
+              </div>
+              <div class="col-md-4 left-main-a-two">
+                <a class="delete_user" href="?query=delete&user={{ foo }}">删除</a>
+              </div>
             </div>
-            <div class="col-md-4 left-main-a-two">
-              <a class="delete_user" href="?query=delete&user={{ foo }}">删除</a>
+          </div>
+        {% endfor %}
+      </div>
+{#    教师#}
+      <div class="col-md-12 left-main-all">
+        <div class="row">
+          <div class="col-md-4"><span class="teach-one">在职教师</span></div>
+        </div>
+        {% for foo in users_lst %}
+          <div class="col-md-3">
+            <div class="left-main-div-one">
+              <div class="col-md-8 left-main-a-one">
+                <a href="?query=user&user={{ foo }}">{{ foo }}</a>
+              </div>
+              <div class="col-md-4 left-main-a-two">
+                <a class="delete_user" href="?query=delete&user={{ foo }}">删除</a>
+              </div>
             </div>
           </div>
         {% endfor %}

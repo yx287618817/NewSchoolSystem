@@ -1,70 +1,345 @@
 {% extends 'main_student__templates.html' %}
 {% load staticfiles %}
 
-{% block style %}
-  <style>
-    *{
-      border: 1px solid red;
-    }
-  .span-120{
-    line-height: 25px;
-    display: block;
-    width: 80%;
 
-  }
-  .img-120{
-    width: 20px;
-    height: 20px;
-  }
-  </style>
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'student_leave/css/smoothness/jquery.ui.css'%}">
+    <link rel="stylesheet" href="{% static 'student_leave/css/student_leave.css' %}">
+    <link rel="stylesheet" href="{% static 'student_record/css/student_record.css' %}">
+    <link rel="stylesheet" href="{% static 'student_leave/css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'student_leave/css/css.css' %}">
+
+
 {% endblock %}
+
 
 
 {% block middle_message %}
 
-<div class="container">
-
-{#  消息标题，头部#}
-  <div class="row">
-    <div class="col-md-2">
-      <span>请假记录</span>
-    </div>
-  </div>
+{#    顶部文本#}
+<div class="background_centre">
 
   <div class="row">
-
-    <div class="col-md-4">
-
-      <div class="row">
-        <div class="col-md-9 span-120">
-
-          <div class="row">
-            <div class="col-md-5"><span>已通过</span></div>
-            <div class="col-md-7">晚自习假</div>
-          </div>
-
-          <div class="row"> <span>理由：拯救世界</span> </div>
-
-          <div class="row"><span>时间： 2019-04-19 晚自习</span></div>
-
-           <div class="row"><span>审核：Maraya任建军</span></div>
-
-        </div>
-
-
-
-        <div class="col-md-3"><img class="img-120" src="{% static 'main_template/image/1.jpg' %}" alt=""></div>
+      <div class="col-md-3 row-zero">
+        <span class="top_text">请假记录</span>
       </div>
-    </div>
-
   </div>
 
+   <div class="row Leave-one">
+       <div class="col-md-4 Leave-pass">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
 
+
+       <div class="col-md-4 Leave-refuse">
+           <div class="col-md-4" id="Leave-pass-background2"><span class="Leave-pass-text">已驳回</span></div>
+           <p id="Leave-text-one2">社团假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two2">理由：参加社团的学校外活动</p>
+               <p id="Leave-text-two2">时间：04.26 ~ 04.26  共0.5天</p>
+               <p id="Leave-text-two2">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-refuse.jpg' %}">
+       </div>
+
+
+       <div class="col-md-4 Leave-refuse">
+           <div class="col-md-4" id="Leave-pass-background2"><span class="Leave-pass-text">已驳回</span></div>
+           <p id="Leave-text-one2">社团假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two2">理由：参加社团的学校外活动</p>
+               <p id="Leave-text-two2">时间：04.26 ~ 04.26  共0.5天</p>
+               <p id="Leave-text-two2">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-refuse.jpg' %}">
+       </div>
+
+
+{#-------------------第二行--------------------#}
+
+        <div class="col-md-4 Leave-pass">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+        <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+       <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+{#-------------------第三行--------------------#}
+
+       <div class="col-md-4 Leave-pass">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+        <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+       <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+{#-------------------第四行--------------------#}
+
+
+       <div class="col-md-4 Leave-pass">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+        <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+       <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+{#   -------------------第五行--------------------    #}
+
+       <div class="col-md-4 Leave-pass">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+        <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+       <div class="col-md-4 Leave-pass2">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+{#   -------------------第六行--------------------    #}
+       <div class="col-md-4 Leave-pass">
+           <div class="col-md-4" id="Leave-pass-background"><span class="Leave-pass-text">已通过</span></div>
+           <p id="Leave-text-one">晚自习假</p>
+           <div class="row Leave-text">
+               <p id="Leave-text-two">理由：拯救世界</p>
+               <p id="Leave-text-two">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-two">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-pass.jpg' %}">
+       </div>
+
+        <div class="col-md-4 Leave-pass3">
+           <div class="col-md-4" id="Leave-pass-background3"><span class="Leave-pass-text">审核中</span></div>
+           <p id="Leave-text-four">事假</p>
+           <span class="Leave-revocation">撤回</span>
+           <div class="row Leave-text">
+               <p id="Leave-text-three">理由：拯救世界</p>
+               <p id="Leave-text-three">时间：2019-04-19  晚自习</p>
+               <p id="Leave-text-three">审核：加藤鹰之时手继承人</p>
+           </div>
+           <img class="Leave-pass-image" src="{% static 'student_leave/image/Leave-audit.jpg' %}">
+       </div>
+   </div>
 </div>
 {% endblock %}
 
 
+
 {% block right_message %}
 
+{#    添加请假信息 点击后#}
+<div id="Leave-weite">
+    <form>
+
+{#-----------------------------请假类型----------------------------------#}
+        <div class="col-md-12 Leave-weite-text center-block">
+            <p>请假类型</p>
+              <label  id="Leave-box-type">
+                <select id="Leave-type-in">
+                  <option value="tacitly-approve">-请选择-</option>
+                  <option value="self-study">晚自习假</option>
+                  <option value="organization">社团假</option>
+                  <option value="sick">病假</option>
+                  <option value="personal">事假</option>
+                </select>
+              </label>
+            {#----------------------------请假时间---------------------------------#}
+            <p class="Leave-weite-startDate">开始时间</p>
+            <p class="Leave-weite-endDate">结束时间</p>
+            <div class="webIndex">
+                <div class="stay-list clearFloat">
+                    <div class="stay-list-left">
+                        <div class="sea-div">
+                            <label class="search-lab"></label><input type="text" readonly  id="startDate"/>
+                        </div>
+
+                    <div class="sea-div">
+                            <label class="search-lab"></label><input type="text" readonly  id="endDate"/>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+{#----------------------------请假事由---------------------------------#}
+            <p class="Leave-weite-reason">请假事由</p>
+            <textarea type="text" name="record" placeholder="请填写请假事由"></textarea>
+
+{#----------------------------审核老师---------------------------------#}
+            <p class="Leave-weite-audit">审核老师</p>
+            <img src="{% static 'student_leave/image/2.png' %}">
+            <p class="Leave-weite-director">班主任<br>
+            加藤鹰之手</p>
+
+{#----------------------------抄送人---------------------------------#}
+            <p class="Leave-weite-copy">抄送人</p>
+            <img src="{% static 'student_leave/image/3.png' %}">
+            <p class="Leave-weite-director">课堂老师<br>
+            Abraham</p>
+
+        <div class="Leave-weite-copy2">
+             <img src="{% static 'student_leave/image/4.png' %}">
+            <p class="Leave-weite-director">课堂老师<br>
+            Gwendolyn</p>
+        </div>
+
+{#----------------------------提交按钮---------------------------------#}
+            <div class="Leave-weite-button center-block">
+                <div class="col-md-4">
+                <button type="button" name="confirm" class="Leave-weite-button-one">提交</button>
+                </div>
+
+                <div class="col-md-4">
+                <button type="button" name="cancel" class="Leave-weite-button-two">取消</button>
+                </div>
+
+            </div>
+{#-------------------------------------------------------------------#}
+        </div>
+    </form>
+</div>
+
+{#----------------------------点击前---------------------------------#}
+    <div class="col-md-12 Leave-weite-in  center-block" onclick="funcone()">
+        <span>添加新的请假条</span>
+        <img class="Leave-icon center-block" src="{% static 'student_leave/image/1.png' %}">
+    </div>
+</div>
 
 {% endblock %}
+
+
+
+{% block script_one %}
+
+    <script src="{% static 'student_leave/js/moment.min.js' %}"></script>
+    <script src="{% static 'student_leave/js/jquery.ui.js' %}"></script>
+    <script src="{% static 'student_leave/js/stay.js' %}"></script>
+    <script src="{% static 'student_leave/js/jquery.js' %}"></script>
+    <script src="{% static 'student_leave/js/hotel/hotel.search.js' %}"></script>
+
+    <script>
+    function funcone() {
+            $('.Leave-weite-in').css(
+                'display', 'none'
+            )
+        }
+    $(document).ready(function(){
+        $('.Leave-weite-button-two').click(function () {
+            $('.Leave-weite-in').css(
+                'display', 'block'
+            )
+        })
+    })
+    </script>
+
+{% endblock %}
+
+

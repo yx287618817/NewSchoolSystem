@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, render_to_response
 from functools import wraps
 from ..models import *
+from ..get_result import is_login
 import time
 import os
 # Create your views here.
@@ -49,29 +50,26 @@ def locked(func):
             if request.session['active'] == '1':
                 return func(request, *args, **kwargs)
             else:
-                return redirect('/lg/index/locked.html')
+                return redirect('/teacher_manage/locked.html')
         else:
             return func(request, *args, **kwargs)
 
     return inner
 
 
-# @check_login
+@is_login
 @locked
 def index(request):
-    print("主页路由")
     user_id = request.session.get('user_id')
-    print(user_id)
     user = RegisterFirst.objects.filter(id=user_id)
     if user:
-        print('主页')
         tea = user[0]
         return render(request, 'lg/index.html', locals())
     return render(request, 'lg/index.html', locals())
     # return render(request, 'lg/login.html')
 
 
-# @check_login
+@is_login
 @locked
 def table_static(request):
     try:
@@ -91,13 +89,12 @@ def table_static(request):
     return render(request, 'lg/table-static.html', locals())
 
 
-# @check_login
+@is_login
 @locked
 def table_responsive(request):
     try:
         id = request.session.get('user_id')
         tea = RegisterFirst.objects.filter(id=id)[0]
-        print('respnsive', id)
     except IndexError:
         return render(request, 'lg/login.html')
     except:
@@ -112,13 +109,12 @@ def table_responsive(request):
     return render(request, 'lg/table-responsive.html', locals())
 
 
-# @check_login
+@is_login
 @locked
 def table_datatable(request):
     try:
         id = request.session.get('user_id')
         tea = RegisterFirst.objects.filter(id=id)[0]
-        print('database', id)
     except IndexError:
         return render(request, 'lg/login.html')
     except:
@@ -156,7 +152,7 @@ def login_views(request):
             return render(request, 'lg/login.html', {'msg': msg})
 
 
-# @check_login
+@is_login
 @locked
 def message_view(request):
     id = request.session.get('user_id')
@@ -169,7 +165,7 @@ def message_view(request):
         return render(request, 'lg/error-404.html')
 
 
-# @check_login
+@is_login
 @locked
 def inbox_view(request):
     id = request.session.get('user_id')
@@ -216,7 +212,6 @@ def inbox_view(request):
                          'send_from_tea': inform.send_from_tea.username, 'title': inform.title,
                          'times': str(inform.times)}
             lists.append(json_list)
-        print(lists)
         return HttpResponse(json.dumps(lists, ensure_ascii=False), content_type="application/json,charset=utf-8")
     elif 'dustbin' in request.GET:
         send_inform = Inform.objects.filter(send_from_tea=id, isActive=False)
@@ -241,18 +236,17 @@ def inbox_view(request):
         return render(request, 'lg/inbox.html', locals())
 
 
-# @check_login
+@is_login
 @locked
 def compose_view(request):
     id = request.session.get('user_id')
     tea = RegisterFirst.objects.filter(id=id)[0]
-
-    print('id', id)
+    # print('id', id)
     teas = RegisterFirst.objects.filter(id=id)
-    print(teas)
+    # print(teas)
     if request.method == 'GET':
         id = request.session.get('user_id')
-        teas = RegisterFirst.objects.filter(id=id)
+        # teas = RegisterFirst.objects.filter(id=id)
         tea = teas[0]
         if 'dep' in request.GET:
             id = request.session.get('user_id')
@@ -261,25 +255,24 @@ def compose_view(request):
             # print(department[0].dep_name)
             json_list = []
             for dep in department:
-                print(dep.id)
                 json_dict = {
                     'id': dep.id,
                     'dep_name': dep.caption
                 }
                 json_list.append(json_dict)
-            print(json_list)
+            # print(json_list)
             dep_all = json.dumps(json_list, ensure_ascii=False)
 
             return HttpResponse(json.dumps(json_list, ensure_ascii=False),
                                 content_type="application/json,charset=utf-8")
         elif 'pid' in request.GET:
             pid = request.GET.get('pid')
-            teachers = list(DepToTea.objects.filter(department__id=pid).values('id', 'teacher__username', 'teacher__id'))
+            teachers = list(DepToTea.objects.filter(department_id=pid).values('id', 'teacher__username', 'teacher__id'))
+            # print(DepToTea.objects.all())
+            # print(DepToTea.objects.filter(id=pid)[0].department)
             print(teachers)
             json_list = []
             for teacher in teachers:
-                print(teacher['id'])
-
                 if teacher['teacher__id'] == id:
                     continue
                 json_dict = {
@@ -288,7 +281,7 @@ def compose_view(request):
 
                 }
                 json_list.append(json_dict)
-            print(json_list)
+            # print(json_list)
             return HttpResponse(json.dumps(json_list, ensure_ascii=False),
                                 content_type="application/json,charset=utf-8")
         return render(request, 'lg/compose.html', locals())
@@ -310,78 +303,62 @@ def compose_view(request):
 
         # 需要保存的字段有:send_to_dpt, send_to_tea, send_from_dpt, send_from_tea, title,
         # content, file_name, file,
-
+        inf = Inform()
         if 'file' in request.FILES:
             file = request.FILES.get('file')
             t = time.time()
             file_name = '%.0f' % t + '.' + file.name.split('.')[-1]
-            print(file_name)
-
             tea = teas[0]
-            send_from_dpt = DepToTea.objects.filter(teacher__id=id)[0].department
-            # print(send_from_dpt.id)
+            # send_from_dpt = DepToTea.objects.filter(teacher__来自哪个教师__id=id)
+            # print(send_from_dpt)
             send_from_tea = tea.id
-            # print(os.path.abspath(__file__))
             path = 'Main/teacher/file/' + file_name
             f = open(path, 'wb')
             for tun in file:
                 f.write(tun)
             f.close()
-            inf = Inform()
-            inf.send_to_dpt_id = to_dpt
-            inf.send_to_tea_id = to_tea
-            inf.send_from_dpt_id = DepToTea.objects.filter(teacher__id=id)[0].department.id
-            inf.send_from_tea_id = id
-            inf.title = title
-            inf.content = content
             inf.filed_name = file.name
             inf.local_file = file_name
-            inf.save()
-        else:
-            tea = teas[0]
-            inf = Inform()
-            inf.send_to_dpt_id = to_dpt
-            inf.send_to_tea_id = to_tea
-            inf.send_from_dpt_id = tea.department_id
-            inf.send_from_tea_id = id
-            inf.title = title
-            inf.content = content
-            inf.save()
+        send_from_dpt = Major.objects.filter(deptotea__teacher_id=id).first()
+
+        inf.send_to_dpt_id = to_dpt
+        inf.send_to_tea_id = to_tea
+        inf.send_from_dpt = send_from_dpt
+        inf.send_from_tea_id = id
+        inf.title = title
+        inf.content = content
+        inf.save()
         return HttpResponse("发送成功")
 
 
-# @check_login
+@is_login
 @locked
 def logout(request):
     request.session.flush()
     return redirect('/lg/index/login.html')
 
 
-# @check_login
+@is_login
 @locked
 def dashboard2(request):
     return render(request, 'lg/dashboard2.html')
 
 
-# @check_login
+@is_login
 @locked
 def my_course(request):
     tea_id = request.session['user_id']
-    print(id)
     grade_list = Grade.objects.filter(teacher=tea_id)
     course_id = grade_list[0].id
     if 'id' in request.GET:
         course_id = request.GET.get('id')
     course = Grade.objects.get(id=course_id).course.all()
     tea = RegisterFirst.objects.filter(id=tea_id)[0]
-    print(tea)
-    print(grade_list)
-    print(course)
 
     return render(request, 'lg/ui-buttons.html', locals())
 
 
-# @check_login
+@is_login
 @locked
 def validation(request):
     userid = request.session['user_id']
@@ -395,58 +372,56 @@ def validation(request):
     # teachers = RegisterFirst.objects.filter(id=id)
     if teachers:
         teacher = teachers[0]
-        print()
     return render(request, 'lg/form-validation.html', locals())
 
 
-# @check_login
+@is_login
 @locked
 def xeditable(request):
     id = request.session['user_id']
     tea = RegisterFirst.objects.filter(id=id)[0]
     peple = DepToTea.objects.all()
     # tea = Teacher.objects.filter(user_id=1)
-    print(peple[0].teacher)
     return render(request, 'lg/form-xeditable.html', locals())
 
 
-# @check_login
+@is_login
 @locked
 def calendar(request):
     return render(request, 'lg/calendar.html')
 
 
-# @check_login
+@is_login
 @locked
 def flot_chart(request):
     return render(request, 'lg/flot-chart.html')
 
 
-# @check_login
+@is_login
 @locked
 def check_day(request):
     return render(request, 'lg/check_day.html')
 
 
-# @check_login
+@is_login
 @locked
 def check_week(request):
     return render(request, 'lg/timeline.html')
 
 
-# @check_login
+@is_login
 @locked
 def inform_filed(request):
     return render(request, 'lg/inform-filed.html')
 
 
-# @check_login
+@is_login
 @locked
 def forgot_password(request):
     return render(request, 'lg/forgot-password.html')
 
 
-# @check_login
+@is_login
 @locked
 def user_info(request):
     if request.method == 'GET':
@@ -455,7 +430,7 @@ def user_info(request):
         return render(request, 'lg/user_info.html')
 
 
-# @check_login
+@is_login
 @locked
 def course_info(request):
     return render(request, 'lg/course_info.html')
@@ -467,7 +442,7 @@ def course_info(request):
 # def test(request):
 #     return render(request, 'lg/test.html')
 
-# @check_login
+@is_login
 @locked
 def del_cookie(request):
     response = HttpResponse('quit')
@@ -479,25 +454,25 @@ def del_cookie(request):
     return response
 
 
-# @check_login
+@is_login
 @locked
 def settings(request):
     return render(request, 'lg/settings.html')
 
 
-# @check_login
+@is_login
 @locked
 def registration(request):
     return render(request, 'lg/registration.html')
 
 
-# @check_login
+@is_login
 @locked
 def reset_pwd(request):
     return render(request, 'lg/reset-password.html')
 
 
-# @check_login
+@is_login
 @locked
 def unlock(request):
     if request.method == 'GET':
@@ -506,18 +481,26 @@ def unlock(request):
         pwd = request.POST.get('unpwd')
         request.session['unlock'] = pwd
         request.session['active'] = '0'
-        return redirect('locked.html')
+        return redirect('/teacher_manage/locked.html')
 
 
 # @check_login
-def locked(request):
+def lockeds(request):
     if request.method == 'GET':
         return render(request, 'lg/locked.html')
     else:
         pwd = request.POST.get('unpwd')
         if pwd == request.session['unlock']:
             request.session['active'] = '1'
-            return redirect('index.html')
+            number = list(RegisterFirst.objects.filter(username=request.session.get(
+                'username', None)).values_list('number').first())[0]
+            if 'ST' in number:
+                return redirect('/student_menu/')
+            g_list = list(RegisterFirst.objects.filter(username=request.session.get(
+                'username', None)).values_list('usergroup__group__groupName').first())
+            if '管理员' in g_list:
+                return redirect('/back_manage/')
+            return redirect('/teacher_manage/')
         else:
             msg = "解锁失败, 请输入正确密码!"
             return render(request, 'lg/locked.html', locals())

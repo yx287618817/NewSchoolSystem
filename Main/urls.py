@@ -14,4 +14,9 @@ urlpatterns = [
     url(r'^update_user_photo/$', views.update_user_photo),
     url(r'^sms_verification/$', views.sms_verification),
     url(r'^forget_passwd/$', views.forget_passwd),
+    url(r'^student_announcement/$', views.student_announcement),
+    url(r'^student_course/$', views.student_course),
+    url(r'^student_leave/$', views.student_leave),
+    url(r'^student_performance/$', views.student_announcement),
+    url(r'^student_record/$', views.student_announcement),
 ]

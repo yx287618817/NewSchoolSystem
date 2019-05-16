@@ -14,7 +14,12 @@
 }
 .left-main-div-one{
     border: 1px solid black;
+    border-radius: 10px;
     line-height: 30px;
+    height: 30px;
+    width: 100%;
+    margin-bottom: 5px;
+    background: lightyellow;
 }
 .left-main-a-one{
     min-width: 120px;
@@ -69,8 +74,15 @@
     border: 1px solid #999999;
     height: 28px;
 }
-
-
+.teach-one{
+    font-size: 18px;
+    border-bottom: 2px solid red;
+    display: block;
+    margin-bottom: 20px;
+    width: 40%;
+    font-weight: 600;
+    color: #03b4ff;
+}
 
 
 

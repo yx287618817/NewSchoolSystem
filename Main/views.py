@@ -7,8 +7,41 @@ from functools import wraps
 from . import myforms
 import base64
 from django.views.decorators.csrf import csrf_exempt
+from .teacher.views import locked
 
 
+@is_login
+@locked
+def student_announcement(request):
+    return render(request, 'student_announcement.html')
+
+
+@is_login
+@locked
+def student_course(request):
+    return render(request, 'student_course.html')
+
+
+@is_login
+@locked
+def student_leave(request):
+    return render(request, 'student_leave.html')
+
+
+@is_login
+@locked
+def student_performance(request):
+    return render(request, 'student_announcement.html')
+
+
+@is_login
+@locked
+def student_record(request):
+    return render(request, 'student_announcement.html')
+
+
+@is_login
+@locked
 def forget_passwd(request):
     if request.method == 'GET':
         request.session.clear()
@@ -45,14 +78,19 @@ def forget_passwd(request):
                 return HttpResponse("<script>alert('账号与手机号不符合');</script>")
         return HttpResponse("<script>alert('信息填写不完整');</script>")
 
+
 @csrf_exempt
 def sms_verification(request):
     if request.POST.get('code', None):
         code = request.POST.get('code', None)
         if code != request.session.get('code_vfi'):
             return HttpResponse('false')
+        return HttpResponse('true')
     request.session['code_vfi'] = '123456'
     return HttpResponse('发送成功')
+    # if code_verification(request):
+    #     return HttpResponse('发送成功')
+    # return HttpResponse('发送失败')
 
 #
 # def leave(request):
@@ -79,11 +117,6 @@ def update_user_photo(request):
         1：经过第一步注册后，将注册信息输入数据库，选择专业关联第一步，专业选择完成，填写后续信息，关联专业
             first 《==  two  《== three
 """
-
-
-# 老师登陆
-def teacher_login(request):
-    return HttpResponse("<script>alert('未开发');location.href='/';</script>")
 
 
 # 登录界面
@@ -264,6 +297,7 @@ class Register(object):
 
 # 管理页面首页
 @is_login
+@locked
 def student_menu(request):
     username = request.session.get('username', None)
     if username:

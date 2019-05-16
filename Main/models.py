@@ -12,6 +12,31 @@ class HashlibSalt(models.Model):
 
 # ------------------------------------------- 用户表 ---------------------------------------------------
 
+
+class RegisterThree (models.Model):
+    first = models.ForeignKey('RegisterFirst', verbose_name='用户', on_delete=models.CASCADE)
+    student_real_name = models.CharField('姓名', max_length=32)
+    student_id_card = models.CharField('身份证', max_length=18)
+    student_location_of_household_registration = models.CharField('户口性质', max_length=32)
+    student_tel_two = models.CharField('第二联系人', max_length=15)
+    student_address = models.CharField('现居住地', max_length=128)
+    student_registration_address = models.CharField('户籍所在地', max_length=128)
+    student_middle_school = models.CharField('初中所在学校', max_length=18)
+    student_high_school = models.CharField('高中所在学校', max_length=18)
+    student_sex = models.ForeignKey('Sex', verbose_name='性别', on_delete=models.CASCADE)
+    student_type = models.ForeignKey('StudentType', verbose_name='生源类型', on_delete=models.CASCADE)
+    student_status = models.ForeignKey('StudentStatus', verbose_name='生源状态', on_delete=models.CASCADE, default=2,)
+    register_three_status = models.BooleanField('第三步信息是否已经完成', default=0)
+
+    def __str__(self):
+        return self.student_real_name
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = '重要信息'
+        verbose_name_plural = verbose_name
+
+
 class RegisterFirst(models.Model):
     """
     注册第一页
@@ -58,30 +83,6 @@ class RegisterTwo(models.Model):
         verbose_name = '学生专业关系'
         verbose_name_plural = verbose_name
 
-
-class RegisterThree (models.Model):
-    first = models.ForeignKey('RegisterFirst', verbose_name='用户', on_delete=models.CASCADE)
-    student_real_name = models.CharField('姓名', max_length=32)
-    # student_photo = models.ImageField('头像')
-    student_id_card = models.CharField('身份证', max_length=18)
-    student_location_of_household_registration = models.CharField('户口性质', max_length=32)
-    student_tel_two = models.CharField('第二联系人', max_length=15)
-    student_address = models.CharField('现居住地', max_length=128)
-    student_registration_address = models.CharField('户籍所在地', max_length=128)
-    student_middle_school = models.CharField('初中所在学校', max_length=18)
-    student_high_school = models.CharField('高中所在学校', max_length=18)
-    student_sex = models.ForeignKey('Sex', verbose_name='性别', on_delete=models.CASCADE)
-    student_type = models.ForeignKey('StudentType', verbose_name='生源类型', on_delete=models.CASCADE)
-    student_status = models.ForeignKey('StudentStatus', verbose_name='生源状态', on_delete=models.CASCADE, default=2,)
-    register_three_status = models.BooleanField('第三步信息是否已经完成', default=0)
-
-    def __str__(self):
-        return self.first.username
-
-    class Meta:
-        ordering = ['id']
-        verbose_name = '重要信息'
-        verbose_name_plural = verbose_name
 
 # ------------------------------------------- 通用多选 ---------------------------------------------------
 
@@ -337,15 +338,16 @@ class UserGroup(models.Model):
 # *********************************************************************************
 
 
+
 # 年级表
 class Grade(models.Model):
     grade_name = models.CharField(max_length=128, unique=True, verbose_name='班级名称')
-    department = models.ForeignKey('Department', to_field='id', on_delete=models.CASCADE, verbose_name='班级所在系部')
-    course = models.ManyToManyField('Course',verbose_name='多对多关系')
-    teacher = models.ManyToManyField('Teacher', verbose_name='班级对应教师')
+    department = models.ForeignKey('Major', on_delete=models.CASCADE, verbose_name='班级所在系部')
+    course = models.ManyToManyField('Course', verbose_name='课程与班级')
+    teacher = models.ManyToManyField('RegisterFirst', verbose_name='班级对应教师')
 
     def __str__(self):
-        return self.grade_name
+        return '%s' % self.grade_name
 
     class Meta:
         verbose_name = '班级表'
@@ -363,15 +365,29 @@ class Course(models.Model):
         verbose_name_plural = verbose_name
 
 
-class Department(models.Model):
-    id = models.AutoField(primary_key=True)
-    dep_name = models.CharField(verbose_name='部门名称',max_length=32, unique=True)
+
+class DepToTea(models.Model):
+    department = models.ForeignKey('Major', on_delete=models.CASCADE, verbose_name="对应部门表")
+    teacher = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE, verbose_name="对应教师")
 
     def __str__(self):
-        return '%s' % self.dep_name
+        return '%s --> %s' % (self.department_id, self.teacher_id)
 
     class Meta:
-        verbose_name = '部门分类'
+        verbose_name = '部门对应老师'
+        verbose_name_plural = verbose_name
+
+
+# 编写账户类型表, 存放所有账户的类型
+class Account_type(models.Model):
+    id = models.AutoField(primary_key=True)
+    type_name = models.CharField(verbose_name='账户类型',max_length=128, unique=True)
+
+    def __str__(self):
+        return '%s' % self.type_name
+
+    class Meta:
+        verbose_name = '账户类型'
         verbose_name_plural = verbose_name
 
 
@@ -386,21 +402,30 @@ class Education(models.Model):
         verbose_name = '学历'
         verbose_name_plural = verbose_name
 
+class ZhiCheng(models.Model):
+    id = models.AutoField(primary_key=True)
+    call = models.CharField(max_length=64, unique=True, verbose_name='职称')
+
+    def __str__(self):
+        return self.call
+
+    class Meta:
+        verbose_name = '职称'
+        verbose_name_plural = verbose_name
+
 
 class Teacher(models.Model):
     user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(verbose_name='用户名',max_length=16)
-    gender = models.BooleanField(default=True, verbose_name='性别')
+    real_name = models.CharField(verbose_name='姓名',max_length=16)
+    gender = models.ForeignKey('Sex', on_delete=models.CASCADE, verbose_name='性别')
     birth = models.DateField(verbose_name='出生日期')
-    pass_word = models.CharField(verbose_name='密码',max_length=16)
-    department = models.ForeignKey('Department', to_field='id', on_delete=models.CASCADE,verbose_name='所属系部')
-    email = models.EmailField(unique=True, verbose_name='邮箱')
-    contact = models.CharField(max_length=16, unique=True, verbose_name='联系方式')
+    acc_type = models.ForeignKey('Account_type', to_field='id', on_delete=models.CASCADE,verbose_name='账户类型', default='3')
     education = models.ForeignKey('Education', to_field='id', on_delete=models.CASCADE, verbose_name='学历')
+    call = models.ForeignKey('ZhiCheng', to_field='id', on_delete=models.CASCADE, verbose_name='职称')
     address = models.CharField(max_length=256, verbose_name='家庭地址')
 
     def __str__(self):
-        return '%s' % self.user_name
+        return '%s' % self.real_name
 
     class Meta:
         verbose_name = '教师用户'
@@ -436,9 +461,9 @@ class Work_arrange(models.Model):
     #  主键查询
     id = models.AutoField(primary_key=True)
     # 部门用来表示是哪个部门的工作,
-    department = models.ForeignKey('Department',to_field='id',on_delete=models.CASCADE, verbose_name='部门', max_length=64)
+    department = models.ForeignKey('Major', to_field='id',on_delete=models.CASCADE, verbose_name='部门', max_length=64)
     # 表示给这个部门的某个教师分配的工作
-    tea_id = models.ForeignKey('Teacher', to_field='user_id', on_delete=models.CASCADE,verbose_name='对应教师')
+    tea_id = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE,verbose_name='对应教师')
     # 工作标题
     title = models.CharField(verbose_name='工作标题',max_length=512)
     # 工作内容
@@ -459,25 +484,13 @@ class Work_arrange(models.Model):
         verbose_name = '工作安排'
         verbose_name_plural = verbose_name
 
-
-class DepToTea(models.Model):
-    department = models.ForeignKey('Major', on_delete=models.CASCADE, verbose_name="对应部门表")
-    teacher = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE, verbose_name="对应教师")
-
-    def __str__(self):
-        return '%s --> %s' % (self.department, self.teacher)
-
-    class Meta:
-        verbose_name = '部门对应老师'
-        verbose_name_plural = verbose_name
+# 保存数据库格式: 工作标题,完成人,完成时间,备注.
 
 
 class Inform(models.Model):
     id = models.AutoField(primary_key=True)
-    send_from_tea = models.ForeignKey('Teacher', to_field='user_id', on_delete=models.CASCADE, verbose_name='来自', related_name='来自哪个教师')
-    send_from_dpt = models.ForeignKey('Department', to_field='id', on_delete=models.CASCADE, verbose_name='来自哪个部门', related_name='发送教师对应部门')
-    send_to_dpt = models.ForeignKey('Department', to_field='id', on_delete=models.CASCADE, verbose_name='发送给哪个部门', related_name='接收教师对应部门')
-    send_to_tea = models.ForeignKey('Teacher', to_field='user_id', on_delete=models.CASCADE, verbose_name='发送给哪个教师', related_name='发送给哪个教师')
+    send_from_tea = models.ForeignKey('RegisterFirst', to_field='id', on_delete=models.CASCADE, verbose_name='来自', related_name='来自哪个教师')
+    send_to_tea = models.ForeignKey('RegisterFirst', to_field='id', on_delete=models.CASCADE, verbose_name='发送给哪个教师', related_name='发送给哪个教师')
     title = models.CharField(max_length=128)
     content = models.TextField()
     filed_name = models.CharField(max_length=128, unique=True, verbose_name='上传文件的文件名', null=True)

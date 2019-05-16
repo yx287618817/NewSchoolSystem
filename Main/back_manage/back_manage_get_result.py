@@ -27,7 +27,10 @@ def many_many_select(req, n1, n2, m, m1, m2, form, upt=True):
             table = form(req.POST, req.FILES)
             if table.is_valid():
                 data = table.cleaned_data
-                m.objects.create(**data)
+                try:
+                    m.objects.create(**data)
+                except:
+                    return HttpResponse('<script>alert("重复的输入");location.href=""</script>')
 
     table = form()
     obj = m.objects.all()

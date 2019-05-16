@@ -1,5 +1,7 @@
 .nav{
   background-color: #a9d2f9;
+    margin-bottom: 10px;
+    height: 130px;
 }
 .logo-one{
   width: 100%;
@@ -21,13 +23,18 @@
     text-align: center;
 }
 .user-show{
-  margin-top: 45px;
+  margin-top: 10px;
   font-size: 18px;
   color: blue;
-    text-align: center;
+  text-align: center;
 }
 .user-show a{
-    color: coral;
+    color: orangered;
+    text-align: center;
+}
+.user-show>div{
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .user-show>div>span{
   display: block;
@@ -44,14 +51,6 @@
     font-size: 25px;
     text-align: center;
 }
-.main-all a{
-    text-decoration: none;
-    font-size: 18px;
-    text-align: left;
-    padding: 20px;
-    color: fuchsia;
-    /*background: white;*/
-}
 .all_background{
     margin-top: 20px;
     border: 1px solid #999999;
@@ -59,4 +58,24 @@
     overflow-y: auto;
     overflow-x: hidden;
     background: rgba(255,203,212,0.11);
+    padding: 10px;
+}
+.a-one-index{
+    background: #00a8ff;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    width: 80%;
+    line-height: 25px;
+    margin-top: 10px;
+    text-align: center;
+}
+.a-one-index:hover{
+    background: #56c9ed;
+    color: white;
+    text-decoration: none;
+    box-shadow:1px 1px 15px #28779f;
 }

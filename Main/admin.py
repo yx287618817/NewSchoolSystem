@@ -33,13 +33,13 @@ class Dep(admin.ModelAdmin):
 
 
 
-@admin.register(models.Department)
-class Dep(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'dep_name',
-    ]
-    list_filter = ['dep_name']
+# @admin.register(models.Department)
+# class Dep(admin.ModelAdmin):
+#     list_display = [
+#         'id',
+#         'dep_name',
+#     ]
+#     list_filter = ['dep_name']
 
 
 @admin.register(models.Work_state)

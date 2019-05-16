@@ -1,0 +1,187 @@
+.background_centre{
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.top_text{
+    font-size: 20px;
+    color: #000000;
+    float: left;
+    line-height: 24px;
+}
+
+.Stick_headline{
+font-size: 14px;
+font-weight: bold;
+float: left;
+line-height: 24px;
+}
+
+.Stick_text{
+font-size: 14px;
+color: #999999;
+}
+
+.Stick_sign{
+    font-size: 12px;
+    color: #999999;
+    text-decoration: underline;
+    margin-left: 15px;
+}
+/*元素边框*/
+/**{*/
+/*border: 1px solid red;*/
+/*}*/
+
+.row-zero{
+    height:34px;
+    margin-left: 24px;
+    margin-top: 24px;
+}
+
+.row-one{
+    line-height: 30px;
+    margin-left: 40px;
+    margin-top: -5px;
+}
+
+.row-two{
+    line-height: 30px;
+    margin-left: 5px;
+    margin-top: -10px;
+}
+
+.row-three{
+    padding-top: 15px;
+    height: 99px;
+}
+
+/*单行输入框属性*/
+/*.row-three textarea{*/
+    /*width: 90%;*/
+    /*height: 85px;*/
+    /*border: 1px solid #999999;*/
+    /*font-size: 14px;*/
+    /*line-height: 10px;*/
+/*}*/
+
+/*多行输入框属性*/
+.row-three textarea{
+    width: 90%;
+    height: 85px;
+    border: 1px solid #999999;
+    font-size: 14px;
+    line-height: 10px;
+}
+
+.row-four{
+    width: 86.6%;
+    height: 30px;
+    border: 1px solid #999999;
+    margin-left: 55px;
+    line-height: 15px;
+}
+
+.icon img{
+    float: left;
+    margin-left: 10px;
+    margin-top: 6px;
+}
+
+/*.send{*/
+    /*width: 45%;*/
+    /*height: 30px;*/
+    /*background-color: #2aabd2;*/
+    /*float: right;*/
+/*}*/
+
+/*动态头像*/
+.send img{
+    float: right;
+    margin-right: -16.5px;
+    height: 29px;
+}
+
+.row-five{
+    margin-left: 24px;
+}
+
+
+/*动态文本*/
+.row-six #user-one{
+    font-size: 14px;
+    font-weight: bold;
+    height: 60px;
+}
+
+
+.row-six #text-one{
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.row-six span{
+    float: left;
+    margin-top: -10px;
+    text-align: left;
+}
+
+
+
+/*动态分割线*/
+.row-six{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.row-six img{
+    float: left;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+.row-five #five-img{
+    height: 40px;
+}
+
+.row-six #user-two{
+    font-size: 14px;
+    font-weight: bold;
+    height: 60px;
+    margin-left: 10px;
+}
+
+.row-six #text-two{
+    font-size: 14px;
+    margin-left: -3px;
+    line-height: 20px;
+}
+
+/*动态时间*/
+.text-time{
+    float: right;
+    font-size: 12px;
+    color: #999999;
+    display:block;
+    line-height: 1px;
+    margin-right: 43px;
+    margin-top: -10px;
+}
+
+.row-five1{
+    height: 10px;
+}
+
+.row-six #text-three{
+    font-size: 14px;
+    margin-left: -3px;
+    line-height: 10px;
+}
+
+/*.row-four .icon{*/
+    /*line-height: 15px;*/
+/*}*/
+/*.row-one span{*/
+    /*float: left;*/
+/*}*/

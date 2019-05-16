@@ -1,0 +1,141 @@
+{% extends 'main_student_templates.html' %}
+{% load staticfiles %}
+
+
+{% block style %}
+
+    <link rel="stylesheet" href="{% static 'student_course/css/student_course.css' %}">
+{#    <link rel="stylesheet" href="{% static 'student_course/css/simple-calendar.css' %}">#}
+    <link rel="stylesheet" href="{% static 'student_course/css/fullcalendar.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/jquery-ui.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'student_course/css/responsive.css'%}">
+    <link rel="stylesheet" href="{% static 'student_record/css/student_record.css' %}">
+
+{#    <script type="text/javascript" src={% static 'student_course/js/simple-calendar.js' %}></script>#}
+    <script type="text/javascript" src={% static 'student_course/js/jquery.min.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/jquery.slimscroll.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/jquery-ui.min.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/moment.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/fullcalendar.js' %}></script>
+    <script type="text/javascript" src={% static 'student_course/js/calendar-custom.js' %}></script>
+
+{% endblock %}
+
+
+
+{% block middle_message %}
+
+{#    顶部文本#}
+<div class="background_centre">
+
+  <div class="row">
+      <div class="col-md-3 row-zero">
+        <span class="top_text">考勤记录</span>
+      </div>
+  </div>
+
+  <div class="row" id='container'>
+{#      <div class="col-md-12" id='container'></div>#}
+{#              <div class="row">#}
+                <div class="calendar-layout clearfix">
+                  <div class="col-md-12">
+                      <div class="white-box">
+                         <div id='calendar'></div>
+                    </div>
+                  </div>
+                </div>
+{#            </div>#}
+  </div>
+
+
+
+
+</div>
+
+
+<script>
+    var myCalendar = new SimpleCalendar('#container');
+</script>
+{% endblock %}
+
+
+{% block right_message %}
+
+{#    考勤详情#}
+<div id="Record-particulars">
+    <div id="Record-particulars-in">
+      <div class="row">
+        <div class="col-md-10" id="picture-one">
+            <p class="picture-text1" >2019-05-18</p>
+            <img  id="row-picture" src="{% static 'student_record/image/2.jpg' %}">
+            <p class="picture-text2" >巡查老师：张丽</p>
+            <p class="picture-text2" >巡查地点：第二教学楼  B13</p>
+            <span id="state"><img src="{% static 'student_record/image/3.jpg' %}">正常</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10" id="picture-one">
+            <p class="picture-text1" >2019-05-17</p>
+            <img  id="row-picture" src="{% static 'student_record/image/2.jpg' %}">
+            <p class="picture-text2" >巡查老师：张丽</p>
+            <p class="picture-text2" >巡查地点：第二教学楼  B13</p>
+            <span id="state"><img src="{% static 'student_record/image/3.jpg' %}">正常</span>
+        </div>
+      </div>
+
+       <div class="row">
+        <div class="col-md-10" id="picture-one">
+            <p class="picture-text1" >2019-05-16</p>
+            <img  id="row-picture" src="{% static 'student_record/image/2.jpg' %}">
+            <p class="picture-text2" >巡查老师：张丽</p>
+            <p class="picture-text2" >巡查地点：第二教学楼  B13</p>
+            <span id="state"><img src="{% static 'student_record/image/3.jpg' %}">正常</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10" id="picture-one">
+            <p class="picture-text1" >2019-05-15</p>
+            <img  id="row-picture" src="{% static 'student_record/image/2.jpg' %}">
+            <p class="picture-text2" >巡查老师：张丽</p>
+            <p class="picture-text2" >巡查地点：第二教学楼  B13</p>
+            <span id="state"><img src="{% static 'student_record/image/3.jpg' %}">正常</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10" id="picture-one">
+            <p class="picture-text1" >2019-05-14</p>
+            <img  id="row-picture" src="{% static 'student_record/image/2.jpg' %}">
+            <p class="picture-text2" >巡查老师：张丽</p>
+            <p class="picture-text2" >巡查地点：第二教学楼  B13</p>
+            <span id="state"><img src="{% static 'student_record/image/3.jpg' %}">正常</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10" id="picture-one">
+            <p class="picture-text1" >2019-05-13</p>
+            <img  id="row-picture" src="{% static 'student_record/image/2.jpg' %}">
+            <p class="picture-text2" >巡查老师：张丽</p>
+            <p class="picture-text2" >巡查地点：第二教学楼  B13</p>
+            <span id="state"><img src="{% static 'student_record/image/3.jpg' %}">正常</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-10" id="picture-one">
+            <p class="picture-text1" >2019-05-12</p>
+            <img  id="row-picture" src="{% static 'student_record/image/2.jpg' %}">
+            <p class="picture-text2" >巡查老师：张丽</p>
+            <p class="picture-text2" >巡查地点：第二教学楼  B13</p>
+            <span id="state"><img src="{% static 'student_record/image/3.jpg' %}">正常</span>
+        </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

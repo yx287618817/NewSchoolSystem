@@ -12,60 +12,15 @@ from .back_manage_get_result import *
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from . import back_manage_forms as myforms
 from .. import models
+from ..get_result import is_login
+from ..teacher.views import locked
 
 
-def dep_to_tea(request):
-    return many_many_select(request, '教师分配系部', '已分配', models.DepToTea ,models.Major, models.RegisterFirst, myforms.DepToTea)
-
-
-def work_type(request):
-    return one_select(request, '工作类型管理' , '已设置工作类型', models.Work_type, myforms.Work_type)
-
-
-def work_state(request):
-    return one_select(request, '工作状态管理' , '已设置工作状态', models.Work_state, myforms.Work_state)
-
-# 生成权限
-def permission(request):
-    return many_many_select(request, '权限管理' , '已设置权限', models.Permission, models.TableName , models.TablePermission, myforms.Permission)
-
-
-# 子专业管理
-def major_child(request):
-    return one_many_select(request, '子专业管理' , '已设置子专业', models.MajorChild, myforms.MajorChild)
-
-
-# 生源类型管理
-def student_type(request):
-    return one_select(request, '生源类型管理' , '已设置生源类型', models.StudentType, myforms.StudentType)
-
-
-# 学生状态管理
-def student_status(request):
-    return one_select(request, '学生状态管理' , '已设置学生状态', models.StudentStatus, myforms.StudentStatus)
-
-
-# 性别管理
-def sex_manage(request):
-    return one_select(request, '性别管理' , '已设置性别', models.Sex, myforms.Sex)
-
-
-# 总专业管理.增加图片
-def major_manage(request):
-    return one_select(request, '总专业管理' , '已设置总专业', models.Major, myforms.Major, upt=False)
-
-
-# 操作表权限管理
-def table_permission(request,):
-    return one_select(request, '子权限管理' , '已设置子权限', models.TablePermission, myforms.TablePermission)
-
-
-# 操作表管理
-def table_manage(request):
-    return one_select(request, '主权限管理' , '已设置主权限', models.TableName, myforms.Table)
 
 
 # 用户组分配权限
+@is_login
+@locked
 def group_permission(request):
     if request.method == 'GET':
         groups = models.Group.objects.all()
@@ -95,7 +50,85 @@ def group_permission(request):
             return render(request, 'group_permission.html', locals())
 
 
+# 操作表权限管理
+@is_login
+@locked
+def table_permission(request,):
+    return one_select(request, '子权限管理' , '已设置子权限', models.TablePermission, myforms.TablePermission)
+
+
+# 操作表管理
+@is_login
+@locked
+def table_manage(request):
+    return one_select(request, '主权限管理' , '已设置主权限', models.TableName, myforms.Table)
+
+
+# 生成权限
+@is_login
+@locked
+def permission(request):
+    return many_many_select(request, '权限管理' , '已设置权限', models.Permission, models.TableName , models.TablePermission, myforms.Permission)
+
+
+
+
+@is_login
+@locked
+def dep_to_tea(request):
+    return many_many_select(request, '教师分配系部', '已分配', models.DepToTea ,models.Major, models.RegisterFirst, myforms.DepToTea)
+
+
+@is_login
+@locked
+def work_type(request):
+    return one_select(request, '工作类型管理' , '已设置工作类型', models.Work_type, myforms.Work_type)
+
+
+@is_login
+@locked
+def work_state(request):
+    return one_select(request, '工作状态管理' , '已设置工作状态', models.Work_state, myforms.Work_state)
+
+
+# 子专业管理
+@is_login
+@locked
+def major_child(request):
+    return one_many_select(request, '子专业管理' , '已设置子专业', models.MajorChild, myforms.MajorChild)
+
+
+# 生源类型管理
+@is_login
+@locked
+def student_type(request):
+    return one_select(request, '生源类型管理' , '已设置生源类型', models.StudentType, myforms.StudentType)
+
+
+# 学生状态管理
+@is_login
+@locked
+def student_status(request):
+    return one_select(request, '学生状态管理' , '已设置学生状态', models.StudentStatus, myforms.StudentStatus)
+
+
+# 性别管理
+@is_login
+@locked
+def sex_manage(request):
+    return one_select(request, '性别管理' , '已设置性别', models.Sex, myforms.Sex)
+
+
+# 总专业管理.增加图片
+@is_login
+@locked
+def major_manage(request):
+    return one_select(request, '总专业管理' , '已设置总专业', models.Major, myforms.Major, upt=False)
+
+
 # 用户管理用户分配用户组
+@is_login
+@locked
 def group_manage(request):
     if request.method == 'GET':
         name = request.GET.get('name', None)
@@ -133,17 +166,17 @@ def group_manage(request):
         return HttpResponseRedirect('/back_manage/group_manage/')
 
 
+# 用户管理
+@is_login
+@locked
 def user_manage(request):
-
     if request.method == 'GET':
         if request.GET.get('user', None):
             request.session['user_g'] = request.GET.get('user', None)
-
         username = request.session.get('user_g', None)
         if request.GET.get('query') == 'usergroup_delete':
             ug_id = request.GET.get('ug_id', None)
             models.UserGroup.objects.filter(id=ug_id).delete()
-
         if request.GET.get('query') == 'add_user':
             sid = request.GET.get('s_id', None)
             user_obj = models.RegisterFirst.objects.filter(username=username).first()
@@ -152,17 +185,18 @@ def user_manage(request):
             except:
                 return HttpResponse('<script>alert("请不要重复操作");'
                                         'location.href="/back_manage/user_manage/"</script>')
-
         if request.GET.get('query') == 'delete':
             models.RegisterFirst.objects.filter(username=username).delete()
 
-        users = list(models.RegisterFirst.objects.all().exclude(
-            usergroup__group__groupName__in=['学生', '管理员']).values_list('username'))
-
         # users = list(models.RegisterFirst.objects.all().exclude(
-        # usergroup__group__groupName__in=['管理员']).values_list('username'))
+        #     usergroup__group__groupName__in=['学生', '管理员']).values_list('username'))
 
+        users = list(models.RegisterFirst.objects.all().exclude(
+            usergroup__group__groupName__in=['意向教师', '意向学生', '学生', '管理员']).values_list('username'))
+        teac = list(models.UserGroup.objects.filter(group__groupName='意向教师').values_list('user__username'))
         users_lst = [i for j in users for i in j]
+        teac_lst = [i for j in teac for i in j]
+
         user_obj = models.RegisterFirst.objects.filter(username=username).first()
         if user_obj:
             user_mes = [user_obj.username, user_obj.tel, user_obj.number]
@@ -172,7 +206,8 @@ def user_manage(request):
 
 
 
-
+@is_login
+@locked
 def back_manage_index(request):
     if request.method == 'GET':
         return render(request, 'back_manage_index.html')

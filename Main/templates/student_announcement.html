@@ -1,0 +1,239 @@
+{% extends 'main_student__templates.html' %}
+{% load staticfiles %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'student_announcemeent/css/student_announcemeent.css' %}">
+{% endblock %}
+
+
+
+{% block middle_message %}
+
+{#    <div class="row">#}
+{##}
+{#        <div class="col-md-3"></div>#}
+{##}
+{#        <div class="col-md-3">#}
+{##}
+{#            <div class="row">#}
+{#                <div class="col-md-12"></div>#}
+{#            </div>#}
+{##}
+{#            <div class="row"></div>#}
+{##}
+{#            <div class="row"></div>#}
+{##}
+{#        </div>#}
+{##}
+{#        <div class="col-md-6"></div>#}
+{##}
+{#    </div>#}
+{##}
+{#    <div class="row"></div>#}
+{##}
+{#    <div class="row"></div>#}
+{##}
+{#    <div class="row"></div>#}
+{#    顶部文本#}
+<div class="background_centre">
+
+  <div class="row">
+      <div class="col-md-3 row-zero">
+        <span class="top_text">学校公告</span>
+      </div>
+
+{#      置顶标题#}
+      <div class="row">
+          <div class="col-md-12 row-one">
+              <span class="Stick_headline">校园施工公告</span>
+          </div>
+
+{#          置顶文本#}
+      <div class="row">
+          <div class="col-md-12 row-two">
+              <span class="Stick_text">为打造更加良好的校园环境，本校余4月21日~6月3日改造西大门第一操场，在此期间，请各位师生注意安全！</span><span class="Stick_sign">置顶</span>
+          </div>
+      </div>
+      </div>
+  </div>
+
+
+{#输入框#}
+  <div class="row">
+      <div class="row">
+        <div class="col-md-12 row-three">
+    {#        <input type="text" name="record" placeholder="记录你的校园生活....">#}
+            <textarea type="text" name="record" placeholder="记录你的校园生活...."></textarea>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12 row-four">
+              <div class="icon">
+                  <a href="#" ><img src="{% static 'student_announcemeent/image/1.jpg' %}"></a>
+                  <a href="#" ><img src="{% static 'student_announcemeent/image/2.jpg' %}"></a>
+                  <a href="#" ><img src="{% static 'student_announcemeent/image/3.jpg' %}"></a>
+              </div>
+              <div class="send">
+                  <a href="#"><img src="{% static 'student_announcemeent/image/5.jpg' %}"></a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+{#动态#}
+  <div class="row">
+{#      第一条#}
+    <div class="col-md-1 row-five">
+        <img src="{% static 'student_announcemeent/image/6.jpg' %}">
+    </div>
+    <div class="col-md-10  row-six">
+        <span id="user-one">王老师</span>
+        <span id="text-one">当我们的约会被忙成了一场捉迷藏，当我们的晚餐被视频所占据，当等待只剩下一张纸条，当家逐渐被我们演绎成一间中转站，当短暂相聚的纪念日变成又一场分离…还好，这次还来得及，停下来，给自己多一天假期，享受多一天的陪伴.</span>
+    </div>
+    <h10 class="text-time">2019-09-03 15:25</h10>
+  </div>
+
+
+  <div class="row">
+{#      第二条#}
+    <div class="col-md-1 row-five">
+        <img src="{% static 'student_announcemeent/image/7.jpg' %}">
+    </div>
+    <div class="col-md-10  row-six">
+        <span id="user-one">Maria</span>
+        <span id="text-one">极简优雅减龄韩尚的妆感，轻韩式发型 精致的妆容，如同少女般的天真烂漫跃然于脸上，透露着点点甜蜜感</span>
+     <img src="{% static 'student_announcemeent/image/8.jpg' %}"><img src="{% static 'student_announcemeent/image/9.jpg' %}">
+    </div>
+    <h10 class="text-time">2019-09-03 15:25</h10>
+  </div>
+
+
+  <div class="row">
+{#      第三条#}
+    <div class="col-md-1 row-five">
+        <img  id="five-img" src="{% static 'student_announcemeent/image/3.png' %}">
+    </div>
+    <div class="col-md-10  row-six">
+        <span id="user-one">校园公告</span>
+        <span id="text-one">为打造更加良好的校园环境，本校余4月21日~6月3日改造西大门第一操场，在此期间，请各位师生注意安全！</span>
+    </div>
+    <h10 class="text-time">2019-09-03 15:25</h10>
+  </div>
+
+
+
+  <div class="row">
+{#      第四条#}
+    <div class="col-md-1 row-five">
+        <img src="{% static 'student_announcemeent/image/10.jpg' %}">
+    </div>
+    <div class="col-md-10  row-six">
+        <div class="row">
+        <span id="user-two">John Doe</span>
+        </div>
+        <div class="row">
+            <div class="col-md-12 row-five1">
+                <span id="text-two">How can I change my annual reports for the better effect?</span>
+            </div>
+        </div>
+    </div>
+    <h10 class="text-time">2019-09-03 15:25</h10>
+  </div>
+
+
+  <div class="row">
+{#      第五条#}
+        <div class="col-md-1 row-five">
+            <img src="{% static 'student_announcemeent/image/11.jpg' %}">
+        </div>
+        <div class="col-md-10  row-six">
+            <div class="row">
+                <span id="user-two">张老师</span>
+            </div>
+            <div class="row">
+                <div class="col-md-12 row-five1">
+                    <span id="text-two">欢迎有颜有梦三十八位学员宝宝，在这里你们将开启一段筑梦的旅程，期待你们完美的蜕变</span>
+                </div>
+            </div>
+            <img src="{% static 'student_announcemeent/image/12.jpg' %}">
+        </div>
+      <h10 class="text-time">2019-09-03 15:25</h10>
+  </div>
+
+
+</div>
+
+
+
+{% endblock %}
+
+
+{% block right_message %}
+  <div class="row d6d1 center-block">
+                <span>今日课程</span>
+              </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第一节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第二节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第三节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第四节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第五节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+  <div class="row d6d2">
+    <div class="col-md-4">
+      <div  class="row"><span class="d6d2-span-one center-block">第六节课</span></div>
+    </div>
+    <div class="col-md-7">
+      <div class="row d6d2-span-two"><span>九零后空巢老人养生及应用</span></div>
+      <div class="row d6d2-span-three"><span>第二教学楼 B12</span></div>
+    </div>
+  </div>
+
+
+
+{% endblock %}
