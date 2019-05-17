@@ -1,8 +1,4 @@
-import base64
 import os
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from io import BytesIO
-
 from django.db import models
 
 
@@ -114,9 +110,6 @@ class Grades(models.Model):
     class Meta:
         verbose_name = '年级管理'
         verbose_name_plural = verbose_name
-
-
-
 
 
 # ------------------------------------------- 学生多选 ---------------------------------------------------
@@ -338,7 +331,6 @@ class UserGroup(models.Model):
 # *********************************************************************************
 
 
-
 # 年级表
 class Grade(models.Model):
     grade_name = models.CharField(max_length=128, unique=True, verbose_name='班级名称')
@@ -363,7 +355,6 @@ class Course(models.Model):
     class Meta:
         verbose_name = '课程表'
         verbose_name_plural = verbose_name
-
 
 
 class DepToTea(models.Model):
@@ -415,17 +406,17 @@ class ZhiCheng(models.Model):
 
 
 class Teacher(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    real_name = models.CharField(verbose_name='姓名',max_length=16)
-    gender = models.ForeignKey('Sex', on_delete=models.CASCADE, verbose_name='性别')
-    birth = models.DateField(verbose_name='出生日期')
-    acc_type = models.ForeignKey('Account_type', to_field='id', on_delete=models.CASCADE,verbose_name='账户类型', default='3')
-    education = models.ForeignKey('Education', to_field='id', on_delete=models.CASCADE, verbose_name='学历')
-    call = models.ForeignKey('ZhiCheng', to_field='id', on_delete=models.CASCADE, verbose_name='职称')
-    address = models.CharField(max_length=256, verbose_name='家庭地址')
+    first = models.ForeignKey('RegisterFirst', on_delete=models.CASCADE,verbose_name='教师姓名')
+    teacher_real_name = models.CharField(verbose_name='姓名',max_length=16)
+    teacher_gender = models.ForeignKey('Sex', on_delete=models.CASCADE, verbose_name='性别')
+    teacher_birth = models.DateField(verbose_name='出生日期')
+    teacher_acc_type = models.ForeignKey('Account_type', to_field='id', on_delete=models.CASCADE,verbose_name='账户类型', default='3')
+    teacher_education = models.ForeignKey('Education', to_field='id', on_delete=models.CASCADE, verbose_name='学历')
+    teacher_call = models.ForeignKey('ZhiCheng', to_field='id', on_delete=models.CASCADE, verbose_name='职称')
+    teacher_address = models.CharField(max_length=256, verbose_name='家庭地址')
 
     def __str__(self):
-        return '%s' % self.real_name
+        return '%s' % self.teacher_real_name
 
     class Meta:
         verbose_name = '教师用户'

@@ -175,7 +175,6 @@ class Register(object):
                     print(e)
                     request.session.clear()
                     return HttpResponse("<script>alert('遇到错误，请重新尝试或联系管理员');location.href='/';</script>")
-            # register_one = myforms.RegisterOne(request.POST)
             return render(request, 'register_one.html', locals())
 
     @staticmethod
@@ -222,6 +221,7 @@ class Register(object):
                         register_two_status=1
                     )
                 except Exception as e:
+                    print('************')
                     print(e)
                     return HttpResponse('update_error')
                 else:

@@ -75,7 +75,7 @@ def table_static(request):
         id = request.session.get('user_id')
         tea = RegisterFirst.objects.filter(id=id)[0]
     except IndexError:
-        return render(request, 'lg/login.html')
+        return render(request, 'login.html')
     except:
         return render(request, 'lg/error-404.html')
     work = Work_arrange.objects.filter(id=id)

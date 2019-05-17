@@ -68,7 +68,8 @@ def table_manage(request):
 @is_login
 @locked
 def permission(request):
-    return many_many_select(request, '权限管理' , '已设置权限', models.Permission, models.TableName , models.TablePermission, myforms.Permission)
+    return many_many_select(request, '权限管理', '已设置权限',
+            models.Permission, models.TableName , models.TablePermission, myforms.Permission)
 
 
 
@@ -188,10 +189,7 @@ def user_manage(request):
         if request.GET.get('query') == 'delete':
             models.RegisterFirst.objects.filter(username=username).delete()
 
-        # users = list(models.RegisterFirst.objects.all().exclude(
-        #     usergroup__group__groupName__in=['学生', '管理员']).values_list('username'))
-
-        users = list(models.RegisterFirst.objects.filter(number__istartswith='TC').exclude(usergroup__group__groupName='管理员')
+        users = list(models.RegisterFirst.objects.filter(number__istartswith='TC').exclude(usergroup__group__groupName__in=['管理员', '意向教师'])
                      .values_list('username'))
         teac = list(models.UserGroup.objects.filter(group__groupName='意向教师').values_list('user__username'))
         users_lst = [i for j in users for i in j]

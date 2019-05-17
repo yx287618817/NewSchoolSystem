@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^locked.html/$', views.lockeds),
     url(r'^user_info.html/$', views.user_info),
     url(r'^course_info.html/$', views.course_info),
+    url(r'^dashboard2.html/$', views.dashboard2),
     url(r'^test/$', views.test),
 ]

@@ -2,7 +2,6 @@ $.ajaxSetup({
          data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
      });
 function delete_select(self) {
-    console.log(self.value);
     $.ajax({
         url: '/register_two/',
         type: 'POST',
@@ -34,7 +33,6 @@ function majorSelect(self) {
                 alert('请勿重复添加');
             }else{
                 let a = eval(arg);
-                console.log(a);
                 let but = document.createElement('button');
                 let di = document.createElement('div');
                 di.setAttribute('class', 'col-md-12');
