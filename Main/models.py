@@ -489,12 +489,12 @@ class Work_arrange(models.Model):
 
 class Inform(models.Model):
     id = models.AutoField(primary_key=True)
-    send_from_tea = models.ForeignKey('RegisterFirst', to_field='id', on_delete=models.CASCADE, verbose_name='来自', related_name='来自哪个教师')
-    send_to_tea = models.ForeignKey('RegisterFirst', to_field='id', on_delete=models.CASCADE, verbose_name='发送给哪个教师', related_name='发送给哪个教师')
+    send_from_tea = models.ForeignKey('RegisterFirst', related_name='from_teacher', on_delete=models.CASCADE, verbose_name='来自')
+    send_to_tea = models.ForeignKey('RegisterFirst',related_name='to_teacher', on_delete=models.CASCADE, verbose_name='发送给哪个教师')
     title = models.CharField(max_length=128)
     content = models.TextField()
-    filed_name = models.CharField(max_length=128, unique=True, verbose_name='上传文件的文件名', null=True)
-    local_file = models.CharField(max_length=128, unique=True, verbose_name='保存到本地的文件名', null=True)
+    filed_name = models.CharField(max_length=128, verbose_name='上传文件的文件名', null=True, blank=True)
+    local_file = models.CharField(max_length=128, verbose_name='保存到本地的文件名', null=True, blank=True)
     times = models.DateField(auto_now_add=True, verbose_name='发布时间')
     isActive = models.BooleanField(default=True)
 

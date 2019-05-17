@@ -40,8 +40,6 @@ def student_record(request):
     return render(request, 'student_record.html')
 
 
-@is_login
-@locked
 def forget_passwd(request):
     if request.method == 'GET':
         request.session.clear()

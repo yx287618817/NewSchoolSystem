@@ -191,8 +191,8 @@ def user_manage(request):
         # users = list(models.RegisterFirst.objects.all().exclude(
         #     usergroup__group__groupName__in=['学生', '管理员']).values_list('username'))
 
-        users = list(models.RegisterFirst.objects.all().exclude(
-            usergroup__group__groupName__in=['意向教师', '意向学生', '学生', '管理员']).values_list('username'))
+        users = list(models.RegisterFirst.objects.filter(number__istartswith='TC').exclude(usergroup__group__groupName='管理员')
+                     .values_list('username'))
         teac = list(models.UserGroup.objects.filter(group__groupName='意向教师').values_list('user__username'))
         users_lst = [i for j in users for i in j]
         teac_lst = [i for j in teac for i in j]
