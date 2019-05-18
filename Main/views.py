@@ -84,11 +84,11 @@ def sms_verification(request):
         if code != request.session.get('code_vfi'):
             return HttpResponse('false')
         return HttpResponse('true')
-    request.session['code_vfi'] = '123456'
-    return HttpResponse('发送成功')
-    # if code_verification(request):
-    #     return HttpResponse('发送成功')
-    # return HttpResponse('发送失败')
+    # request.session['code_vfi'] = '123456'
+    # return HttpResponse('发送成功')
+    if code_verification(request):
+        return HttpResponse('发送成功')
+    return HttpResponse('发送失败')
 
 #
 # def leave(request):
