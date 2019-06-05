@@ -133,15 +133,15 @@ class RegisterThree(forms.Form):
                   r"|(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)"
         student_id_card = self.cleaned_data.get('student_id_card')
         if not student_id_card or not re.fullmatch(pattern, student_id_card):
-            self.add_error('id_card', '身份证不符合规范')
+            self.add_error('student_id_card', '身份证不符合规范')
             clean_d = True
 
         if len(student_id_card) > 18:
-            self.add_error('id_card', '身份证超过18位')
+            self.add_error('student_id_card', '身份证超过18位')
             clean_d = True
 
         if len(student_id_card) < 15:
-            self.add_error('id_card', '身份证低于15位')
+            self.add_error('student_id_card', '身份证低于15位')
             clean_d = True
 
         # 判断电话号码是否符合规范

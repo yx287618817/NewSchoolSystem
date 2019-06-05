@@ -16,8 +16,6 @@ from ..get_result import is_login
 from ..teacher.views import locked
 
 
-
-
 # 用户组分配权限
 @is_login
 @locked

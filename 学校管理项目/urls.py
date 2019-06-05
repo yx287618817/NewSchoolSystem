@@ -14,21 +14,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import render
 from django.urls import path
 from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
-
 from 学校管理项目.settings import STATIC_ROOT
+from templates.SQL即查即用 import MySqlControl
+
+
+def mytest(request):
+    db = MySqlControl()
+    sql = '''
+        SELECT username, number, email FROM Main_registerfirst
+    '''
+    res, fields = db.execute_sql_query(sql)
+    print(res)
+    map(lambda x: x, res)
+    return render(request, 'mytest.html')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('^back_manage/', include('Main.back_manage.back_manage_urls')),
     url('^teacher_manage/', include('Main.teacher.urls')),
+    url('^mytest/', mytest),
     url(r'', include('Main.urls')),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
-
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
