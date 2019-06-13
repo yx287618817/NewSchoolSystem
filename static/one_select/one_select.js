@@ -1,3 +1,5 @@
+var va = $('#id_tableName');
+
 function check_file_one() {
     let va = $('#id_tableUrl');
     let v = va.val();
@@ -10,9 +12,7 @@ function check_file_one() {
         va.val('/');
     }
 }
-
 function check_file() {
-    let va = $('#id_tableName');
     let v = va.val();
     if (v) {
         let re = new RegExp('^[a-z]*?[_|-]?[a-z]*?(.html)?$');
@@ -25,7 +25,6 @@ function check_file() {
         }
     }
 }
-
 function check_file_two(self) {
     let va = self.value;
     let re = new RegExp('^[a-z]*?[_|-]?[a-z]*?(.html)?$');
@@ -34,3 +33,17 @@ function check_file_two(self) {
         self.value = '/' + va;
     }
 }
+
+// va.change(function(){
+//     let v = $(this).children('option:selected').val();
+//     if (v){
+//         alert(v);
+//         $.ajax({
+//             url: '/back_manage/permission/?query=per_query&mid=' + v,
+//             type: 'GET',
+//             success:function(arg){
+//                 alert(arg)
+//             }
+//         })
+//     }
+// });

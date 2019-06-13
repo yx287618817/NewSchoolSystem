@@ -1,0 +1,87 @@
+.nav{
+  background-color: #a9d2f9;
+    margin-bottom: 10px;
+    /*height: 130px;*/
+}
+.logo-one{
+  width: 100%;
+  max-width: 300px;
+  height: 70px;
+  margin-top: 10px;
+}
+.title-one{
+  font-size: 24px;
+  text-align: center;
+    line-height: 66px;
+  font-weight: 600;
+    margin-top: 10px;
+}
+.title-two{
+    color: red;
+    font-size: 16px;
+    line-height: 30px;
+    text-align: center;
+}
+.user-show{
+  margin-top: 10px;
+  font-size: 18px;
+  color: blue;
+  text-align: center;
+}
+.user-show a{
+    color: orangered;
+    text-align: center;
+}
+.user-show>div{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.user-show>div>span{
+  display: block;
+  width: 100%;
+  line-height: 20px;
+  min-width: 150px;
+}
+.main-all{
+    margin-top: 50px;
+    line-height: 50px;
+}
+.main-all span{
+    display: block;
+    font-size: 25px;
+    text-align: center;
+}
+.stu_tea{
+    display: block;
+    font-size: 25px;
+    text-align: center;
+}
+.all_background{
+    margin-top: 20px;
+    border: 1px solid #999999;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: rgba(255,203,212,0.11);
+    padding: 10px;
+    min-width: 535px;
+}
+.a-one-index{
+    background: #00a8ff;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    width: 80%;
+    line-height: 25px;
+    margin-top: 10px;
+    text-align: center;
+}
+.a-one-index:hover{
+    background: #56c9ed;
+    color: white;
+    text-decoration: none;
+    box-shadow:1px 1px 15px #28779f;
+}

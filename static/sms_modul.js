@@ -1,9 +1,7 @@
 // 用户填写验证码后进行验证
   function verification_code() {
       let code = $('.sms_code').val(); //获取上传的文件
-      // console.log(code);
-      // console.log(code.length);
-      if (code) {
+      if (code.length >= 6) {
         let data = new FormData();
         data.append('code', code);
         $.ajax({
