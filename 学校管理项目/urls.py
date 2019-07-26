@@ -24,21 +24,11 @@ from 学校管理项目.settings import STATIC_ROOT
 from templates.SQL即查即用 import MySqlControl
 
 
-def mytest(request):
-    db = MySqlControl()
-    sql = '''
-        SELECT username, number, email FROM Main_registerfirst
-    '''
-    res, fields = db.execute_sql_query(sql)
-    print(res)
-    map(lambda x: x, res)
-    return render(request, 'mytest.html')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('^back_manage/', include('Main.back_manage.back_manage_urls')),
-    url('^teacher_manage/', include('Main.teacher.urls')),
-    url('^mytest/', mytest),
+    url(r'^back_manage/', include('Main.back_manage.back_manage_urls')),
+    url(r'^teacher_manage/', include('Main.teacher.urls')),
     url(r'', include('Main.urls')),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

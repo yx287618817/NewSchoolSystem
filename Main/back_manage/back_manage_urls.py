@@ -10,7 +10,7 @@ from . import back_manage_views as views
 urlpatterns = [
     url(r'^user_manage/$', views.user_manage, name='user_manage.html'),
     url(r'^group_manage/$', views.group_manage, name='group_manage.html'),
-    url(r'^group_permission/$', views.group_permission, name='group_permission.html'),
+    url(r'^group_permission/$', views.group_permission, name='group_permission.houduan guanli houduan d     html'),
     url(r'^table_manage/$', views.table_manage, name='one_select.html'),
     url(r'^table_permission/$', views.table_permission, name='one_select.html'),
     url(r'^sex_manage/$', views.sex_manage, name='one_select.html'),

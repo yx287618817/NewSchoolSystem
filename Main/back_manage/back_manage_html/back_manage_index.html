@@ -8,7 +8,7 @@
     <!-- width=device-width:宽度等于设备宽度 initial-scale=1: 初始缩放: 100% maximum-scale=1: 最大缩放: 100% 
   user-scalable=no:禁止用户缩放              -->
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>Document</title>
+    <title>后端管理界面</title>
     <!-- Bootstrap -->
     <link href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
@@ -58,6 +58,10 @@
     {% block do_something %}
         <div class="middle">
             <div class="container">
+                <div class="row">
+                    <span class="col-xs-6">权限管理相关</span>
+                    <span class="col-xs-6">其它管理相关</span>
+                </div>
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="col-xs-12 col-sm-6 col-md-4"><a class="btn btn-warning" href="/back_manage/group_manage/"><span>1.用户组管理</span></a></div>
