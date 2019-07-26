@@ -316,6 +316,7 @@ def is_login(function):
             return HttpResponse("<script>alert('登陆身份验证失败,请重新登陆');location.href='/';</script>")
         # 判断是否有权限,如果没有权限则不执行后面的操作,返回‘没有权限’
         permission_list = get_permission(username)
+        print(permission_list)
         if is_get_permission(permission_list, req.path):
             result = function(req, *args)
             try:

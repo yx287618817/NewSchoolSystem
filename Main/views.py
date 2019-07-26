@@ -1,11 +1,7 @@
-import hashlib
-import json
 from django.db import transaction
 from .get_result import *
 from . import models
-from functools import wraps
 from . import myforms
-import base64
 from django.views.decorators.csrf import csrf_exempt
 from .teacher.views import locked
 
@@ -84,16 +80,12 @@ def sms_verification(request):
         if code != request.session.get('code_vfi'):
             return HttpResponse('false')
         return HttpResponse('true')
-    # request.session['code_vfi'] = '123456'
-    # return HttpResponse('发送成功')
-    if code_verification(request):
-        return HttpResponse('发送成功')
-    return HttpResponse('发送失败')
+    request.session['code_vfi'] = '123456'
+    return HttpResponse('发送成功')
+    # if code_verification(request):
+    #     return HttpResponse('发送成功')
+    # return HttpResponse('发送失败')
 
-#
-# def leave(request):
-#     if request.method == 'GET':
-#         return render(request, 'leave.html')
 
 
 @csrf_exempt
@@ -320,18 +312,15 @@ def manage_add(request):
     """
     with transaction.atomic():
         cls = GetManage()
-        # cls.make_user()
-        cls.make_group()
-        # cls.make_user_group()
-        cls.make_table()
-        cls.make_table_permission()
-        cls.make_permission()
-        cls.make_group_permission()
-        cls.make_major()
-        cls.make_sex()
-        cls.make_type()
-        cls.make_status()
-        cls.make_no_permission()
+        # cls.make_group()
+        # cls.make_table()
+        # cls.make_table_permission()
+        # cls.make_permission()
+        # cls.make_group_permission()
+        # cls.make_major()
+        # cls.make_sex()
+        # cls.make_type()
+        # cls.make_status()
     return HttpResponse('success full')
 
 
