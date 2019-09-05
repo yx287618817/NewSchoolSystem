@@ -2,97 +2,149 @@
 <html lang="zh-en">
 {% load staticfiles %}
 <head>
-  <meta charset='utf-8'> <!-- 声明文档使用的字符编码 -->
-<!--  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/> &lt;!&ndash; 优先使用 IE 最新版本和 Chrome &ndash;&gt;-->
-  <meta name="description" content="不超过150个字符"/> <!-- 页面描述 -->
-  <meta name="keywords" content=""/> <!-- 页面关键词 -->
-  <meta name="author" content="Paul, 287618817@qq.com"/> <!-- 网页作者 -->
-  <meta name="robots" content="index,follow"/> <!-- 搜索引擎抓取 -->
-<!--  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">-->
-  <title>学生端</title>
-  <link rel="shortcut icon" href="{% static 'html_icon.ico' %}">
+    <meta charset='utf-8'> <!-- 声明文档使用的字符编码 -->
+    <!DOCTYPE html>
+    <html lang="zh-en">
+    {% load staticfiles %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- width=device-width:宽度等于设备宽度 initial-scale=1: 初始缩放: 100% maximum-scale=1: 最大缩放: 100%
+        user-scalable=no:禁止用户缩放              -->
+        <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+        <title>Document</title>
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+        <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+        <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+        <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+        <meta name="description" content="不超过150个字符"/> <!-- 页面描述 -->
+        <meta name="keywords" content=""/> <!-- 页面关键词 -->
+        <meta name="author" content="Paul, 287618817@qq.com"/> <!-- 网页作者 -->
+        <meta name="robots" content="index,follow"/> <!-- 搜索引擎抓取 -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+        <link rel="stylesheet" href="{% static 'css/baseBootStripStyle.css' %}">
+        <link rel="shortcut icon" href="{% static 'html_icon.ico' %}">
+        {#  <link rel="stylesheet" href="{% static 'register_one/css/register_one.css' %}">#}
+        <style>
+            body {
+                background-color: #eee;
+            }
 
-  <!--    核心文件-->
-  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-  <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}">
-  <!--  引入jquery文件-->
-  <script src="{% static 'jquery-3.3.1.js' %}"></script>
-  <!--    引入bootstrap js文件-->
-  <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-  <title>Title</title>
-  <link rel="stylesheet" href="{% static 'register_three/css/register_three.css' %}">
-  <style>
-    *{
-      {#border: 1px solid #febeff;#}
-    }
+            .container-fluid {
+                background-color: #e1e1e1;
+            }
 
-  </style>
-</head>
+            .container {
+                background-color: #ffffff;
+                padding: 30px 0;
+                border-radius: 10px;
+                margin-top: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+
 <body>
-<form class="" action="/register_three/" method="post">
+
+
 <div class="container-fluid">
-
-  <div class="row top">
-{#      <div class="col-md-2"><a class="return-one" href="/register_two/">&lt;返回</a></div>#}
-      <div class="col-md-offset-2 col-md-8 ">
-        <img class="img-responsive img-one" src="{% static 'register_three/image/17.png' %}" alt="加载中。。。">
-      </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-offset-2  col-md-8">
-    {#  图片#}
-      <div class="row">
-        <div class="col-md-offset-5 col-md-2 d1">
-          <img class="center-block img-two" src="{% static 'register_three/image/18.png' %}" alt="">
-        </div>
-      </div>
-    </div>
-
-    {#  填写详细信息描述#}
-      <div class="row">
-        <div class="col-md-offset-4 col-md-4">
-          <span class="span-one center-block">请填写您的详细信息</span>
-        </div>
-        <div class="col-md-offset-3 col-md-6">
-          <span class="span-two center-block">(为了避免延误您的报名进度，请确保填写内通真实有效)</span>
-        </div>
-      </div>
-    {#  填写详细信息#}
-      <div class="row full-message">
-        <div class="col-md-offset-2 col-md-8">
-          {% for foo in register_three %}
-            <div class="row">
-              <div class="col-md-offset-1 col-md-3 label-name">{{ foo.label }}</div>
-              <div class="col-md-8">{{ foo }}</div>
-            </div>
-            <div class="row">
-              <div class="col-md-offset-4 col-md-8" style="color: red;">{{ foo.errors }}</div>
-            </div>
-          {% endfor %}
-            <div class="row">
-              <div class="col-md-offset-1 col-md-3 label-name">选择您的主专业</div>
-              <div class="col-md-8">
-                <select class="" name="major_main_select" id="major_main_select">
-                  {% for foo in major_main_select %}
-                    <option value="{{ foo.0 }}">{{ foo.1 }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            </div>
-        </div>
-      </div>
-
-    {#提交上传后台#}
-    <div class="row">
-      <div class="col-md-offset-4 col-md-4">
-        <input class="btn btn-info result-btn center-block" type="submit" value="保存并提交">
-      </div>
-    </div>
-
-  </div>
+    <div class="row" style="margin: 50px 0;"><img class="img-responsive center-block"
+                                                  src="{% static 'register_three/image/17.png' %}"
+                                                  alt="加载中。。。"></div>
+    <img class="img-responsive center-block hidden-xs"
+         src="{% static 'register_three/image/18.png' %}" alt="加载中。。。">
+    <h3 class="row text-center text-warning">请填写您的详细信息</h3>
+    <h5 class="row text-center text-warning">(为了避免延误您的报名进度，请确保填写内通真实有效)</h5>
 </div>
-{% csrf_token %}
+
+<form class="container form-horizontal" role="form" action="/register_three/" method="post">
+
+    <div id="formControl" class="col-xs-12 col-md-7" style="padding-top: 25px">
+        {% for foo in register_three %}
+            <div>
+                <div class="text-muted pull-left col-xs-4">{{ foo.label }}</div>
+                <div class="text-info pull-right col-xs-8 form-group">{{ foo }}</div>
+                <div class="text-danger col-xs-12 form-group">{{ foo.errors }}</div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col-xs-12 col-md-5" id="formControlRight">
+        <div>
+            <div class="text-muted pull-left col-xs-4">主专业选择</div>
+
+            <div class="text-info pull-right col-xs-8 form-group">
+                <select name="major_main_select" id="major_main_select">
+                    {% for foo in major_main_select %}
+                        <option value="{{ foo.0 }}">{{ foo.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <input class="btn btn-primary btn-lg center-block" type="submit" value="保存提交">
+
+    </div>
+
+    {% csrf_token %}
 </form>
+
+
+<script>
+    $(function () {
+        $("#formControl input").attr({
+            "class": "form-control ",
+        }).css({});
+        for (var i = 0; i < 2; i++) {
+            $("#formControlRight").prepend($("#formControl>:last-child").remove());
+        }
+
+        $(".container [class^=text-muted]").css({
+            lineHeight: "2.4",
+        });
+
+        $("#formControlRight>div").attr("class", "clearfix");
+
+        ~~function widowresize() {
+            window.onresize = arguments.callee;
+            if (window.innerWidth <= 992) {
+                $("#formControl").css({
+                    borderRight: "none",
+                });
+                $("#formControlRight>div").css({
+                    paddingTop: "5px",
+                    paddingBottom: "5px",
+                });
+                $("#formControlRight>:nth-child(3)").css({
+                    marginBottom: "20px",
+                });
+            } else {
+                $("#formControl").css({
+                    borderRight: "1px solid #777777",
+                });
+                $("#formControlRight>div").css({
+                    paddingTop: "15px",
+                });
+                $("#formControlRight>:nth-child(3)").css({
+                    marginBottom: "100px",
+                });
+            }
+        }();
+        $("#formControlRight select").attr("class", "form-control");
+        $("#formControlRight>:last-child").css({
+            width: "80%",
+        });
+    })
+</script>
 </body>
 </html>

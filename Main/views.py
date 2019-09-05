@@ -6,31 +6,26 @@ from django.views.decorators.csrf import csrf_exempt
 from .teacher.views import locked
 
 
-@is_login
 @locked
 def student_announcement(request):
     return render(request, 'student_announcement.html')
 
 
-@is_login
 @locked
 def student_course(request):
     return render(request, 'student_course.html')
 
 
-@is_login
 @locked
 def student_leave(request):
     return render(request, 'student_leave.html')
 
 
-@is_login
 @locked
 def student_performance(request):
     return render(request, 'student_performance.html')
 
 
-@is_login
 @locked
 def student_record(request):
     return render(request, 'student_record.html')
@@ -243,6 +238,7 @@ class Register(object):
                 major_main_select = list(models.RegisterTwo.objects.filter(
                     first__username=username).values_list('id', 'major_child__caption'))
                 register_three = myforms.RegisterThree()
+                print(register_three)
                 return render(request, 'register_three.html', locals())
             else:
                 return HttpResponse("<script>alert('信息已经保存，如需更改请登陆后在首页更新！');"
@@ -286,7 +282,6 @@ class Register(object):
 
 
 # 管理页面首页
-@is_login
 @locked
 def student_menu(request):
     username = request.session.get('username', None)

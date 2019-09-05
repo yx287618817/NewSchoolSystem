@@ -2,67 +2,99 @@
 <html lang="en">
 {% load staticfiles %}
 <head>
-    <meta charset="UTF-8">
-    <title>登录页面</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- width=device-width:宽度等于设备宽度 initial-scale=1: 初始缩放: 100% maximum-scale=1: 最大缩放: 100%
+    user-scalable=no:禁止用户缩放              -->
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Document</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <meta name="description" content="不超过150个字符"/> <!-- 页面描述 -->
+    <meta name="keywords" content=""/> <!-- 页面关键词 -->
+    <meta name="author" content="Paul, 287618817@qq.com"/> <!-- 网页作者 -->
+    <meta name="robots" content="index,follow"/> <!-- 搜索引擎抓取 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <link rel="shortcut icon" href="{% static 'html_icon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/baseBootscripStyle.css' %}">
     <link rel="stylesheet" href="{% static 'login/css/login_css.css' %}">
-    <script src="{% static 'jquery-3.3.1.js' %}"></script>
     <style>
-        body{
-            background: url({% static 'login/image/2的副本.jpg' %}) no-repeat left top;
-            background-size:100% 100%;
+        body {
+            background: url({% static "login/image/2的副本.jpg" %}) no-repeat left top;
+            background-size: 100% 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
     </style>
 </head>
 <body>
-<div class="middle_main">
-    <div class="middle_image">
-        <img src="{% static 'login/image/1的副本.jpg' %}" alt="图片加载中。。。" style="width:650px;height: 650px;">
+<div id="loginIndex" class="container">
+    <div class="col-sm-7 hidden-xs col-md-offset-1 col-md-6">
+        <img class="img-responsive" src="{% static 'login/image/1的副本.jpg' %}" alt="图片加载中。。。">
     </div>
-    <div class="middle_input">
-        <p class="login_1"><img src="{% static 'login/image/logo的副本.png' %}" alt="图片加载中。。。"></p>
-        <p class="login_2"><span>WELCOME</span></p>
-        <p class="login_3"><span>欢迎来到AWESOME校务平台</span></p>
-        <p class="login_4"><span>在这里你可以 <a href="{% block register %}{% endblock %}">在线报名</a> 或则查看学习情况</span></p>
-        <p class="login_5"><span>如果您已是在校注册请直接登录</span></p>
-        <form action="{% block login_route %}{% endblock %}"  method="post">
-            <p class="login_6">
-                <input type="text" name="username" id="username"
-                                      placeholder="请输入您的账号"></p>
-            <p class="login_7">
-                <input type="password" name="password" id="password"
-                                      placeholder="请输入您的密码"></p>
-            <p class="login_8">
-                <img class="login_radio_img" src="{% static 'login/image/select.jpg' %}"
-                     style="width:20px;height: 20px;" alt="">
-                <label for="login_radio">记住密码</label>
-                <input name="login_radio" id="login_radio" type="radio" class="login_radio" value="1" style="display:none;">
-                <a href="/forget_passwd/">忘记密码？</a></p>
-
-            <p class="login_9">
-                <input class="result-btn" type="submit" value="登陆">
-                <a href="/register_one/">注册用户</a>
-            </p>
+    <div class="col-sm-5 col-xs-12 col-md-4">
+        <h3 class=""><img src="{% static 'login/image/logo的副本.png' %}" alt="图片加载中。。。"></h3>
+        <h4 class="text-muted">WELCOME</h4>
+        <h4 class="text-muted"><span>欢迎来到AWESOME校务平台</span></h4>
+        <h4 class="text-muted">在这里你可以 <a href="{% block register %}{% endblock %}">在线报名</a> 或则查看学习情况</h4>
+        <h4 class="text-muted">如果您已是在校注册请直接登录</h4>
+        <form action="{% block login_route %}{% endblock %}" method="post">
+            <input class="input-lg" type="text" name="username" id="username"
+                   placeholder="请输入您的账号">
+            <input class="input-lg" type="password" name="password" id="password"
+                   placeholder="请输入您的密码">
+            <h3 class="text-info row">
+                <div class="col-xs-12">
+                    <img class="login_radio_img" src="{% static 'login/image/select.jpg' %}"
+                         style="width:20px;height: 20px;" alt="">
+                    <label for="login_radio">记住密码</label>
+                    <input name="login_radio" id="login_radio" type="radio" class="login_radio" value="1"
+                           style="display:none;">
+                </div>
+            </h3>
+            <h3 class="row">
+                <input class="col-xs-12 btn result-btn  btn-primary" type="submit" value="登陆">
+            </h3>
+            <h3 class="row">
+                <a class="btn col-xs-6 btn-info" href="/register_one/">注册用户</a>
+                <a class="btn btn-default col-xs-6 pull-right" href="/forget_passwd/">忘记密码？</a>
+            </h3>
             {% csrf_token %}
         </form>
     </div>
 </div>
+
+
 <script>
     let wid = $(document).width();
     let hei = $(document).height();
-    $('body').css({'width':wid, 'height':hei});
+    $('body').css({'width': wid, 'height': hei});
 
     $('.login_radio').click(
-        function(){
+        function () {
             let old = this.value;
-            if (old == '0'){
+            if (old === '0') {
                 $('.login_radio_img').attr('src', "{% static 'login/image/未选择.jpg' %}");
                 this.value = '1';
-            }else{
+            } else {
                 $('.login_radio_img').attr('src', "{% static 'login/image/select.jpg' %}");
                 this.value = '0';
             }
         });
+
+    $("#loginIndex").css("marginTop", (window.innerHeight - 600) / 2 + "px");
 </script>
+
 </body>
 </html>

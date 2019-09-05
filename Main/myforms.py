@@ -17,7 +17,7 @@ class RegisterOne(forms.Form):
     account_number = forms.CharField(label='用户名', widget=widgets.Input(
         attrs={'placeholder': '登陆后显示名称，大小写字母中文组合4-12位'}))
     username = forms.CharField(label='账号', widget=widgets.Input(
-        attrs={'placeholder': '登陆验证账号，大小写字母开头，8-16位，不能包含除_之外特殊字符'}))
+        attrs={'placeholder': '8-16位,字母开头,不能包含除"_"外特殊字符'}))
     password = forms.CharField(label='密码', widget=widgets.Input(
         attrs={'type': 'password','placeholder': '8-24位，大小写字母开头,字母和数字'}))
     repeat_password = forms.CharField(label='密码', widget=widgets.Input(

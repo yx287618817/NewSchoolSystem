@@ -1,0 +1,166 @@
+@charset "utf-8";
+
+/* 超小设备（手机，小于 768px） */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 18px;
+    }
+
+    h2 {
+        font-size: 14px;
+    }
+
+    h3 {
+        font-size: 10px;
+    }
+
+    h4 {
+        font-size: 8px;
+    }
+
+    h5 {
+        font-size: 6px;
+    }
+
+    h6 {
+        font-size: 4px;
+    }
+}
+
+/* 小型设备（平板电脑，768px 起） */
+@media (min-width: 768px) {
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+
+    h4 {
+        font-size: 10px;
+    }
+
+    h5 {
+        font-size: 8px;
+    }
+
+    h6 {
+        font-size: 6px;
+    }
+}
+
+/* 中型设备（台式电脑，992px 起） */
+@media (min-width: 992px) {
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    h3 {
+        font-size: 22px;
+    }
+
+    h4 {
+        font-size: 14px;
+    }
+
+    h5 {
+        font-size: 12px;
+    }
+
+    h6 {
+        font-size: 10px;
+    }
+}
+
+/* 大型设备（大台式电脑，1200px 起） */
+@media (min-width: 1200px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    h3 {
+        font-size: 28px;
+    }
+
+    h4 {
+        font-size: 16px;
+    }
+
+    h5 {
+        font-size: 14px;
+    }
+
+    h6 {
+        font-size: 12px;
+    }
+}
+
+body, button, dd, dl, dt, fieldset, form, hr, input, legend, li, ol, p, pre, td, textarea, th, ul {
+    margin: 0;
+    padding: 0
+}
+
+
+address, cite, dfn, em, var {
+    font-style: normal
+}
+
+code, kbd, pre, samp {
+    font-family: courier new, courier, monospace
+}
+
+ol, ul {
+    list-style: none
+}
+
+a {
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: none
+}
+
+sup {
+    vertical-align: text-top
+}
+
+sub {
+    vertical-align: text-bottom
+}
+
+legend {
+    color: #000
+}
+
+fieldset, img {
+    border: 0
+}
+
+button, input, select, textarea {
+    font-size: 100%
+}
+
+button {
+    border-radius: 0
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
